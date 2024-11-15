@@ -4,59 +4,46 @@ import java.util.Scanner;
 
 import org.springframework.stereotype.Service;
 
+import com.group55.pokemon.dto.Pokemon;
+
 import lombok.RequiredArgsConstructor;
+import lombok.Setter;
 
 @Service
 @RequiredArgsConstructor
 public class CommandProcessor {
-    private static Integer SEED = 12345;
+    private final Battle battle;
+    private final PokemonFactory pokemonFactory;
+
+    @Setter
+    private Integer SEED = null;
 
     public void ProcessCommands(String[] args) {
-        var commandLineInput = new Scanner(System.in);  
+        var commandLineInput = new Scanner(System.in);
         var delimiter = ",";
 
         while (true) {
             try {
                 var wholeInputLine = commandLineInput.nextLine();
                 var tokens = wholeInputLine.split(delimiter);
-
                 System.out.println("> " + wholeInputLine);
 
-                if (tokens[0].startsWith("/t/")) {
-                    if (tokens.length > 1) {
-                        try {
-                            SEED = Integer.parseInt(tokens[1]);
-                            System.out.println("Seed set to " + SEED);
-                        } catch (NumberFormatException e) {
-                            System.out.println("Invalid seed value");
-                        }
-                    } else {
-                        System.out.println("No seed value provided");
+                if (tokens[0].startsWith("//")) {
+                    for (var i = 0; i < tokens.length; i++) {
+                        System.out.println("token " + i + " is " + tokens[i]);
                     }
                 } else if (tokens[0].equals("setseed")) {
-                    for (var i = 0; i < tokens.length; i++) {
-                        System.out.println("token " + i + " is " + tokens[i]);
-                    }
+                    processSetSeed(tokens);
                 } else if (tokens[0].equals("removeseed")) {
-                    for (var i = 0; i < tokens.length; i++) {
-                        System.out.println("token " + i + " is " + tokens[i]);
-                    }
+                    processRemoveSeed(tokens);
                 } else if (tokens[0].equals("battle")) {
-                    for (var i = 0; i < tokens.length; i++) {
-                        System.out.println("token " + i + " is " + tokens[i]);
-                    }
+                    processBattle(tokens);
                 } else if (tokens[0].equals("tournament")) {
-                    for (var i = 0; i < tokens.length; i++) {
-                        System.out.println("token " + i + " is " + tokens[i]);
-                    }
+                    processTournament(tokens);
                 } else if (tokens[0].equals("displayinfo")) {
-                    for (var i = 0; i < tokens.length; i++) {
-                        System.out.println("token " + i + " is " + tokens[i]);
-                    }
+                    processDisplayInfo(tokens);
                 } else if (tokens[0].equals("stop")) {
-                    for (var i = 0; i < tokens.length; i++) {
-                        System.out.println("token " + i + " is " + tokens[i]);
-                    }
+                    processStop(tokens);
                 } else {
                     System.out.println("command unknown");
                     break;
@@ -69,5 +56,75 @@ public class CommandProcessor {
 
         System.out.println("simulation terminated");
         commandLineInput.close();
+    }
+
+    private void processStop(String[] tokens) {
+        for (var i = 0; i < tokens.length; i++) {
+            System.out.println("token " + i + " is " + tokens[i]);
+        }
+    }
+
+    private void processDisplayInfo(String[] tokens) {
+        for (var i = 0; i < tokens.length; i++) {
+
+            System.out.println("token " + i + " is " + tokens[i]);
+        }
+    }
+
+    private void processTournament(String[] tokens) {
+        for (var i = 0; i < tokens.length; i++) {
+            System.out.println("token " + i + " is " + tokens[i]);
+        }
+    }
+
+    private void processBattle(String[] tokens) {
+        for (var i = 0; i < tokens.length; i++) {
+            if (i == 1) {
+                battle.setPokemonOne(getPokemon(tokens[i]));
+            } else if (i == 2) {
+                battle.setPokemonTwo(getPokemon(tokens[i]));
+            }
+        }
+
+    }
+
+    private Pokemon getPokemon(String pokemonName) {
+        try {
+            if (!doesClassExist(pokemonName)) {
+                System.out.println("Pokemon does not exist");
+                return pokemonFactory.createPokemon(pokemonName);
+            } else {
+                System.out.println("Pokemon already exists!");
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return null;
+    }
+
+    public static boolean doesClassExist(String className) {
+        try {
+            // Attempt to load the class with the given name
+            Class<?> clazz = Class.forName(className);
+            return true; // If the class is found, return true
+        } catch (ClassNotFoundException e) {
+            // If the class is not found, return false
+            return false;
+        }
+    }
+
+    private void processRemoveSeed(String[] tokens) {
+        setSEED(null);
+        battle.setSeed(null);
+    }
+
+    private void processSetSeed(String[] tokens) {
+        try {
+            System.out.println("Setting seed to " + tokens[1]);
+            setSEED(Integer.valueOf(tokens[1]));
+            battle.setSeed(Integer.valueOf(tokens[1]));
+        } catch (NumberFormatException e) {
+            System.out.println("Invalid seed value");
+        }
     }
 }

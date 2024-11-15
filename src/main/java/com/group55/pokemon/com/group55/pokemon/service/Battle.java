@@ -1,8 +1,14 @@
 package com.group55.pokemon.service;
 
+import org.springframework.stereotype.Service;
+
 import com.group55.pokemon.dto.Pokemon;
 import com.group55.pokemon.dto.Result;
 
+import lombok.Data;
+
+@Data
+@Service
 public class Battle {
     enum BattleStatus {
         NOT_STARTED,
@@ -10,16 +16,10 @@ public class Battle {
         FINISHED
     }
 
-    public Battle(Pokemon pokemonOne, Pokemon pokemonTwo, Integer seed) {
-        this.pokemonOne = pokemonOne;
-        this.pokemonTwo = pokemonTwo;
-        this.seed = seed;
-    }
-
-    private final Pokemon pokemonOne;
-    private final Pokemon pokemonTwo;
+    private Pokemon pokemonOne;
+    private Pokemon pokemonTwo;
     BattleStatus status;
-    private final Integer seed;
+    private Integer seed;
 
     public Result startBattle() {
         if (pokemonOne == null || pokemonTwo == null) {
