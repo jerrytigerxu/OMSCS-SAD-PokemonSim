@@ -5,6 +5,4 @@
 
 ### Use case diagrams
 
-### State machine diagrams
-
 ### Activity diagrams
