@@ -1,13 +1,24 @@
 # DAV (Design artifacts + video)
+## List of design artifacts
+- Class diagram
+- Deployment diagram
+- Component diagram
+- Sequence diagrams
+- Use case diagrams
+- Activity diagrams
+
+
+
+
 ## Tentative procedure for completion (F 11/15 - F 11/29)
 - [ ] Compilation phase (F 11/15 - M 11/18)
+  - [x] Solidify which diagrams we'll make and how many of each diagram we would need
   - [ ] Gather all of the core information
   - [ ] Describe all of the core information in plain English
-  - [ ] Solidify how many of each diagram we would need
 
 - [ ] Development phase (T 11/19 - F 11/22) (focus more on accuracy and less on aesthetics or fine-grained details)
   - [ ] Create "alpha" versions of the structural diagrams
-  - [ ] Create "alpha" versions of the behavioral diagarams
+  - [ ] Create "alpha" versions of the behavioral diagrams
 
 - [ ] Refinement phase (S 11/23 - F 11/29) (maximize RVF after various cycles of feedback and refinement - readability, validity, and fluidity)
   - [ ] Create "beta" versions of the structural diagrams
