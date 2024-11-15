@@ -10,7 +10,6 @@ import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit.jupiter.SpringExtension;
 
 import com.group55.pokemon.service.PokemonFactory;
-import com.group55.pokemon.dto.Pokemon;
 
 @ExtendWith(SpringExtension.class)
 @ContextConfiguration(classes = PokemonApplication.class)

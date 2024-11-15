@@ -4,7 +4,6 @@ import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 
 import com.group55.pokemon.service.CommandProcessor;
-import com.group55.pokemon.service.PokemonFactory;
 
 @SpringBootApplication(scanBasePackages = {"com.group55.pokemon.service", "com.group55.pokemon.dto"})
 public class PokemonApplication {

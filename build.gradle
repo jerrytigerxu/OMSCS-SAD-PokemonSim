@@ -5,7 +5,7 @@ plugins {
 	id 'io.freefair.lombok' version '6.4.3' // Add this line for the Lombok plugin
 }
 
-group = 'com.group55'
+group = 'com.group55.pokemon'
 version = '1.0-SNAPSHOT'
 
 java {
