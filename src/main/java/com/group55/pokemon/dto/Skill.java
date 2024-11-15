@@ -5,4 +5,6 @@ public class Skill {
         ATTACK,
         DEFENSE
     }
+    Integer skillPointsCost = 0;
+    SkillType skillType = SkillType.ATTACK;
 }
