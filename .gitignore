@@ -1,3 +1,5 @@
 .gradle
 .vscode
-./bin/*
+bin/
+build/
+docker_results/
