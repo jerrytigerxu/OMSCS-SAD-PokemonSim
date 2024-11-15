@@ -13,7 +13,7 @@ import com.group55.pokemon.service.PokemonFactory;
 
 @ExtendWith(SpringExtension.class)
 @ContextConfiguration(classes = PokemonApplication.class)
-public class PokemonImplTest {
+class PokemonImplTest {
 
     @Autowired
     private PokemonFactory pokemonFactory;
