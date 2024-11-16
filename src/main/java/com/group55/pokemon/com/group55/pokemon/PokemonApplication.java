@@ -5,7 +5,7 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 
 import com.group55.pokemon.service.CommandProcessor;
 
-@SpringBootApplication(scanBasePackages = {"com.group55.pokemon.service", "com.group55.pokemon.dto"})
+@SpringBootApplication(scanBasePackages = { "com.group55.pokemon.service", "com.group55.pokemon.dto" })
 public class PokemonApplication {
 
 	public static void main(String[] args) {
@@ -18,6 +18,5 @@ public class PokemonApplication {
 	static void printIntro() {
 		System.out.println("Welcome to the thunder dome!");
 	}
-
 
 }
