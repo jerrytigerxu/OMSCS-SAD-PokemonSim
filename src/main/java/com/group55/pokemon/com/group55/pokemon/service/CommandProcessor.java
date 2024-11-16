@@ -2,6 +2,7 @@ package com.group55.pokemon.service;
 
 import java.util.Scanner;
 
+import org.springframework.context.ApplicationContext;
 import org.springframework.stereotype.Service;
 
 import com.group55.pokemon.dto.Pokemon;
@@ -14,6 +15,7 @@ import lombok.Setter;
 public class CommandProcessor {
     private final Battle battle;
     private final PokemonFactory pokemonFactory;
+    private final ApplicationContext applicationContext;
 
     @Setter
     private Integer SEED = null;
@@ -78,17 +80,23 @@ public class CommandProcessor {
     public void processBattle(String[] tokens) {
         for (var i = 0; i < tokens.length; i++) {
             if (i == 1) {
-                battle.setPokemonOne(createPokemon(tokens[i]));
+                battle.setPokemonOne(getOrCreatePokemon(tokens[i]));
             } else if (i == 2) {
-                battle.setPokemonTwo(createPokemon(tokens[i]));
+                battle.setPokemonTwo(getOrCreatePokemon(tokens[i]));
             }
         }
 
     }
 
-    private Pokemon createPokemon(String pokemonName) {
+    private Pokemon getOrCreatePokemon(String pokemonName) {
         try {
-            return pokemonFactory.createPokemon(pokemonName);
+            if (!applicationContext.containsBean(pokemonName)) {
+                System.out.println("Pokemon does not exist");
+                return pokemonFactory.createPokemon(pokemonName);
+            } else {
+                System.out.println("Pokemon already exists!");
+                return applicationContext.getBean(pokemonName, Pokemon.class);
+            }
         } catch (Exception e) {
             e.printStackTrace();
         }
