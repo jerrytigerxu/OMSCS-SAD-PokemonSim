@@ -1,4 +1,4 @@
-package com.group55.exceptions;
+package cs6310.Pokemon.exceptions;
 
 public class BattleLostException extends Exception {
     private String losingPokemonName = null;
