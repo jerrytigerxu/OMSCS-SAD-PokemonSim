@@ -11,18 +11,18 @@
 
 
 ## Tentative procedure for completion (F 11/15 - F 11/29)
-- [ ] Compilation phase (F 11/15 - M 11/18)
+- [ ] Compilation phase (F 11/15 - T 11/19)
   - [x] Solidify which diagrams we'll make and how many of each diagram we would need
-  - [ ] Gather all of the core information
-  - [ ] Describe all of the core information in plain English
+  - [ ] Gather all of the core information for each diagram
+  - [ ] Describe all of the core information for each diagram in plain English
 
-- [ ] Development phase (T 11/19 - F 11/22) (focus more on accuracy and less on aesthetics or fine-grained details)
-  - [ ] Create "alpha" versions of the structural diagrams
-  - [ ] Create "alpha" versions of the behavioral diagrams
+- [ ] Development phase (W 11/20 - S 11/23) (focus more on accuracy and less on aesthetics or fine-grained details)
+  - [ ] Create "alpha" versions of the structural diagrams (deployment, component)
+  - [ ] Create "alpha" versions of the behavioral diagrams (sequence, use case, activity)
 
-- [ ] Refinement phase (S 11/23 - F 11/29) (maximize RVF after various cycles of feedback and refinement - readability, validity, and fluidity)
-  - [ ] Create "beta" versions of the structural diagrams
-  - [ ] Create "beta" versions of the behavioral diagrams
+- [ ] Refinement phase (M 11/25 - F 11/29) (maximize RVF after various cycles of feedback and refinement - readability, validity, and fluidity)
+  - [ ] Create "beta" versions of the structural diagrams (deployment, component)
+  - [ ] Create "beta" versions of the behavioral diagrams (sequence, use case, activity)
 
 ## Important points about the design artifacts
 - Clearly designate which version of UML is being (>v2.0 is recommended)
