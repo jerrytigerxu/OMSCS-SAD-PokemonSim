@@ -5,7 +5,10 @@ import java.util.Scanner;
 import org.springframework.context.ApplicationContext;
 import org.springframework.stereotype.Service;
 
+import com.google.common.annotations.VisibleForTesting;
+
 import cs6310.Pokemon.dto.Pokemon;
+import cs6310.Pokemon.dto.Result;
 import lombok.RequiredArgsConstructor;
 import lombok.Setter;
 
@@ -59,16 +62,20 @@ public class CommandService {
         commandLineInput.close();
     }
 
-    void doSetSeed(String seed) {
+    public void doSetSeed(String seed) {
         SEED = Integer.parseInt(seed);
     }
 
-    void doBattle(String pokemonOne, String pokemonTwo) {
+    public Result doBattle(String pokemonOne, String pokemonTwo) {
         battle.setSeed(SEED);
-        battle.startBattle(pokemonOne, pokemonTwo);
+        return battle.startBattle(pokemonOne, pokemonTwo);
     }
 
-    static void printIntro() {
+    public void doStop() {
+        System.exit(0);
+    }
+
+    public static void printIntro() {
 		System.out.println("Welcome to the thunder dome!");
 	}
 }

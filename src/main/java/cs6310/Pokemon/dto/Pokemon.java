@@ -26,10 +26,11 @@ public abstract class Pokemon {
         this.rand = new Random(seed);
     }
 
-    public void battle(Object opponent, int incomingDamage) throws BattleLostException {
-        this.currentHitPoints -= incomingDamage;
+    public void battle(Object opponent, int incomingDamage) {
+        this.currentHitPoints = Math.max(currentHitPoints-incomingDamage,0);
+        System.out.println(this.name+" has received "+incomingDamage+" dmg, remaining hp is "+this.currentHitPoints);
         if (this.currentHitPoints <= 0) {
-            throw new BattleLostException(this.name + " has lost");
+            return;
         }
 
         var hitPointsRatio = this.currentHitPoints / this.fullHitPoints;
@@ -39,16 +40,20 @@ public abstract class Pokemon {
         try {
             if (randNum < attackChance) {
                 var attackSkill = this.attackSkills.get(this.rand.nextInt(this.attackSkills.size()));
+                System.out.println(this.name + " is attacking with " + attackSkill.getName() + " for "
+                        + attackSkill.getStrength() + " damage to " + opponent.getClass().getSimpleName());
                 var opponentBattleMethod = opponent.getClass().getMethod("battle", Object.class, int.class);
-                opponentBattleMethod.invoke(opponent, (Object)this, attackSkill.getStrength());
+                opponentBattleMethod.invoke(opponent, (Object) this, attackSkill.getStrength());
             } else {
                 var defenseSkill = this.defenseSkills.get(this.rand.nextInt(this.defenseSkills.size()));
+                System.out.println(this.name + " is attempting to defend with " + defenseSkill.getName());
                 this.activeDefense = defenseSkill.getStrength();
 
                 var opponentBattleMethod = opponent.getClass().getMethod("battle", Object.class, int.class);
-                opponentBattleMethod.invoke(opponent, this, 0);
+                opponentBattleMethod.invoke(opponent, (Object) this, 0);
             }
-        } catch (InvocationTargetException | NoSuchMethodException | SecurityException | IllegalAccessException | IllegalArgumentException e) {
+        } catch (InvocationTargetException | NoSuchMethodException | SecurityException | IllegalAccessException
+                | IllegalArgumentException e) {
             e.printStackTrace();
         }
     }

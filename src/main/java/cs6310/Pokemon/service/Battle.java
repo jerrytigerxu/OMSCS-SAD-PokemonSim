@@ -29,7 +29,7 @@ public class Battle {
             e.printStackTrace();
         }
 
-        if(pokemon1 == null || pokemon2 == null) {
+        if (pokemon1 == null || pokemon2 == null) {
             return new Result();
         }
 
@@ -41,19 +41,16 @@ public class Battle {
             e.printStackTrace();
         }
 
-        try {
-            this.pokemonOne.battle(this.pokemonTwo, 0);
-
-        } catch (BattleLostException battleLostException) {
-            var loser = battleLostException.getLosingPokemonName();
-            if(this.pokemonOne.getName().equals(loser)) {
-                System.out.println(this.pokemonTwo.getName() + " has won");
-                return new Result(this.pokemonTwo,this.pokemonOne);
-            } else {
-                System.out.println(this.pokemonOne.getName() + " has won");
-                return new Result(this.pokemonOne,this.pokemonTwo);
-            }            
+        this.pokemonOne.battle(this.pokemonTwo, 0);
+        var loser = this.pokemonOne.getCurrentHitPoints() <= 0 ? this.pokemonOne.getName() : this.pokemonTwo.getName();
+        if (this.pokemonOne.getName().equals(loser)) {
+            System.out.println(this.pokemonOne.getName() + " has lost");
+            System.out.println(this.pokemonTwo.getName() + " has won the battle");
+            return new Result(this.pokemonTwo, this.pokemonOne);
+        } else {
+            System.out.println(this.pokemonTwo.getName() + " has lost");
+            System.out.println(this.pokemonOne.getName() + " has won the battle");
+            return new Result(this.pokemonOne, this.pokemonTwo);
         }
-        return new Result();
     }
 }
