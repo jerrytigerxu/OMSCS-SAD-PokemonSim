@@ -5,9 +5,6 @@ import java.util.Scanner;
 import org.springframework.context.ApplicationContext;
 import org.springframework.stereotype.Service;
 
-import com.google.common.annotations.VisibleForTesting;
-
-import cs6310.Pokemon.dto.Pokemon;
 import cs6310.Pokemon.dto.Result;
 import lombok.RequiredArgsConstructor;
 import lombok.Setter;
