@@ -44,7 +44,7 @@ public class CommandService {
                 } else if (tokens[0].equals("displayinfo")) {
                     // processDisplayInfo(tokens);
                 } else if (tokens[0].equals("stop")) {
-                    // processStop(tokens);
+                    doStop();
                 } else {
                     System.out.println("command unknown");
                     break;
