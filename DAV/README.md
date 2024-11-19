@@ -11,10 +11,10 @@
 
 
 ## Tentative procedure for completion (F 11/15 - F 11/29)
-- [ ] Compilation phase (F 11/15 - T 11/19)
+- [x] Compilation phase (F 11/15 - T 11/19)
   - [x] Solidify which diagrams we'll make and how many of each diagram we would need
-  - [ ] Gather all of the core information for each diagram
-  - [ ] Describe all of the core information for each diagram in plain English
+  - [x] Gather all of the core information for each diagram
+  - [x] Describe all of the core information for each diagram in plain English
 
 - [ ] Development phase (W 11/20 - S 11/23) (focus more on accuracy and less on aesthetics or fine-grained details)
   - [ ] Create "alpha" versions of the structural diagrams (deployment, component)
