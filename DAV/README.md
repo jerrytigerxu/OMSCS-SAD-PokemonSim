@@ -1,11 +1,11 @@
 # DAV (Design artifacts + video)
 ## List of design artifacts
 - Class diagram
-- Deployment diagram
-- Component diagram
-- Sequence diagrams
-- Use case diagrams
-- Activity diagrams
+- [Deployment diagram](https://github.gatech.edu/umilojkovic3/PokemonA3/tree/main/DAV/structuralDiagrams/deployment)
+- [Component diagram](https://github.gatech.edu/umilojkovic3/PokemonA3/tree/main/DAV/structuralDiagrams/component)
+- [Sequence diagrams](https://github.gatech.edu/umilojkovic3/PokemonA3/tree/main/DAV/behavioralDiagrams/sequence)
+- [Use case diagrams](https://github.gatech.edu/umilojkovic3/PokemonA3/tree/main/DAV/behavioralDiagrams/useCase)
+- [Activity diagrams](https://github.gatech.edu/umilojkovic3/PokemonA3/tree/main/DAV/behavioralDiagrams/activity)
 
 
 

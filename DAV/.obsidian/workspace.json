@@ -13,7 +13,7 @@
             "state": {
               "type": "markdown",
               "state": {
-                "file": "structuralDiagrams/deployment/README.md",
+                "file": "behavioralDiagrams/README.md",
                 "mode": "source",
                 "source": false
               },
@@ -93,7 +93,7 @@
             "state": {
               "type": "backlink",
               "state": {
-                "file": "structuralDiagrams/deployment/README.md",
+                "file": "behavioralDiagrams/README.md",
                 "collapseAll": false,
                 "extraContext": false,
                 "sortOrder": "alphabetical",
@@ -112,7 +112,7 @@
             "state": {
               "type": "outgoing-link",
               "state": {
-                "file": "structuralDiagrams/deployment/README.md",
+                "file": "behavioralDiagrams/README.md",
                 "linksCollapsed": false,
                 "unlinkedCollapsed": true
               },
@@ -139,7 +139,7 @@
             "state": {
               "type": "outline",
               "state": {
-                "file": "structuralDiagrams/deployment/README.md"
+                "file": "behavioralDiagrams/README.md"
               },
               "icon": "lucide-list",
               "title": "Outline of README"
@@ -164,8 +164,14 @@
   },
   "active": "d72251cba787d3c8",
   "lastOpenFiles": [
-    "structuralDiagrams/component/README.md",
+    "behavioralDiagrams/useCase/README.md",
+    "behavioralDiagrams/README.md",
+    "behavioralDiagrams/activity/README.md",
+    "behavioralDiagrams/sequence/README.md",
+    "README.md",
+    "structuralDiagrams/README.md",
     "structuralDiagrams/deployment/README.md",
+    "structuralDiagrams/component/README.md",
     "Pasted image 20241119105443.png",
     "Pasted image 20241119105007.png",
     "Pasted image 20241119104928.png",
