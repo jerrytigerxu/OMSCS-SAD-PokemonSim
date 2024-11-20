@@ -6,31 +6,28 @@ import cs6310.Pokemon.dto.Pokemon;
 import cs6310.Pokemon.dto.Skill;
 import cs6310.Pokemon.dto.Skill.SkillType;
 
-public class Charmander extends Pokemon {
+public class Ditto extends Pokemon {
 
-    public Charmander() {
+    public Ditto() {
         setStats();
     }
 
-    public Charmander(long seed) {
+    public Ditto(long seed) {
         super(seed);
         setStats();
     }
 
     private void setStats() {
-        super.setName("Charmander");
+        super.setName("Ditto");
         super.setActiveDefense(0);
-        super.setFullHitPoints(25);
-        super.setCurrentHitPoints(25);
+        super.setFullHitPoints(35);
+        super.setCurrentHitPoints(35);
         super.setFullSkillPoints(100);
         super.setCurrentSkillPoints(100);
 
-        var attack1 = new Skill("Attack", 0, 1, SkillType.ATTACK);
-        var attack2 = new Skill("Scratch", 0, 2, SkillType.ATTACK);
-        var attack3 = new Skill("Ember", 0, 3, SkillType.ATTACK);
-        var attack4 = new Skill("Flamethrower", 0, 6, SkillType.ATTACK);
+        var attack1 = new Skill("Transform", 0, 0, SkillType.ATTACK);
 
-        super.setAttackSkills(new ArrayList<>(Arrays.asList(attack1, attack2, attack3, attack4)));
+        super.setAttackSkills(new ArrayList<>(Arrays.asList(attack1)));
 
         var defense1 = new Skill("Block", 0, 2, SkillType.DEFENSE);
         var defense2 = new Skill("Endure", 0, 1, SkillType.DEFENSE);

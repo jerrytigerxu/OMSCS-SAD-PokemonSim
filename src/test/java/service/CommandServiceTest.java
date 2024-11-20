@@ -20,4 +20,12 @@ class CommandServiceTest {
             commandService.doBattle("Charmander","Squirtle");
             commandService.doStop();
         }
+
+        @Test
+        void commands_07() {
+            commandService.printIntro();
+            commandService.doSetSeed("54");
+            commandService.doBattle("Ditto","Bulbasaur");
+            commandService.doStop();
+        }
 }

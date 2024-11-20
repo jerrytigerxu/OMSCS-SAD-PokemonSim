@@ -16,7 +16,7 @@ public class CommandService {
     private final ApplicationContext applicationContext;
 
     @Setter
-    private Integer SEED = null;
+    private long SEED;
 
     public void ProcessCommands(String[] args) {
         printIntro();
@@ -30,9 +30,9 @@ public class CommandService {
                 System.out.println("> " + wholeInputLine);
 
                 if (tokens[0].startsWith("//")) {
-                    for (var i = 0; i < tokens.length; i++) {
-                        System.out.println("token " + i + " is " + tokens[i]);
-                    }
+                    // for (var i = 0; i < tokens.length; i++) {
+                    //     System.out.println("token " + i + " is " + tokens[i]);
+                    // }
                 } else if (tokens[0].equals("setseed")) {
                     doSetSeed(tokens[1]);
                 } else if (tokens[0].equals("removeseed")) {
@@ -45,6 +45,7 @@ public class CommandService {
                     // processDisplayInfo(tokens);
                 } else if (tokens[0].equals("stop")) {
                     doStop();
+                    break;
                 } else {
                     System.out.println("command unknown");
                     break;
@@ -60,7 +61,7 @@ public class CommandService {
     }
 
     public void doSetSeed(String seed) {
-        SEED = Integer.parseInt(seed);
+        SEED = Long.parseLong(seed);
     }
 
     public Result doBattle(String pokemonOne, String pokemonTwo) {
@@ -69,7 +70,7 @@ public class CommandService {
     }
 
     public void doStop() {
-        System.exit(0);
+        System.out.println("stop acknowledged");
     }
 
     public static void printIntro() {

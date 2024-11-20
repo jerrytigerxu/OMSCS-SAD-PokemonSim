@@ -1,10 +1,10 @@
 package cs6310.Pokemon.dto;
 
 import java.lang.reflect.InvocationTargetException;
+import java.math.BigDecimal;
 import java.util.List;
 import java.util.Random;
 
-import cs6310.Pokemon.exceptions.BattleLostException;
 import lombok.Data;
 
 @Data
@@ -17,40 +17,57 @@ public abstract class Pokemon {
     private List<Skill> attackSkills;
     private List<Skill> defenseSkills;
     private int activeDefense;
+    private Skill activeDefenseSkill;
     private Random rand;
 
     public Pokemon() {
     }
 
-    public Pokemon(int seed) {
+    public Pokemon(long seed) {
         this.rand = new Random(seed);
     }
 
-    public void battle(Object opponent, int incomingDamage) {
-        this.currentHitPoints = Math.max(currentHitPoints-incomingDamage,0);
-        System.out.println(this.name+" has received "+incomingDamage+" dmg, remaining hp is "+this.currentHitPoints);
+    public void battle(Object opponent, int incomingDamage, boolean isFirstAttack) {
+        boolean isAttack = incomingDamage > 0;
+        if (this.activeDefense > 0 && incomingDamage > 0) {
+            System.out.println(this.name + " successfully reduced " + opponent.getClass().getSimpleName()
+                    + "'s damage by " + this.activeDefense + " with " + activeDefenseSkill.getName());
+            incomingDamage = Math.max(0, incomingDamage - this.activeDefense);
+        }
+        this.currentHitPoints = Math.max(currentHitPoints - incomingDamage, 0);
+
+        if (!isFirstAttack && isAttack)
+            System.out.println(
+                    this.name + " has received " + incomingDamage + " dmg, remaining hp is " + this.currentHitPoints);
         if (this.currentHitPoints <= 0) {
             return;
         }
 
-        var hitPointsRatio = this.currentHitPoints / this.fullHitPoints;
+        this.activeDefense = 0;
+        this.activeDefenseSkill = null;
+
+        Double hitPointsRatio = (double) this.currentHitPoints / (double) this.fullHitPoints;
         var attackChance = getAttackChance(hitPointsRatio);
         var randNum = this.rand.nextInt(10);
 
         try {
-            if (randNum < attackChance) {
+            if (randNum > (9 - attackChance)) {
                 var attackSkill = this.attackSkills.get(this.rand.nextInt(this.attackSkills.size()));
                 System.out.println(this.name + " is attacking with " + attackSkill.getName() + " for "
                         + attackSkill.getStrength() + " damage to " + opponent.getClass().getSimpleName());
-                var opponentBattleMethod = opponent.getClass().getMethod("battle", Object.class, int.class);
-                opponentBattleMethod.invoke(opponent, (Object) this, attackSkill.getStrength());
+
+                var opponentBattleMethod = opponent.getClass().getMethod("battle", Object.class, int.class,
+                        boolean.class);
+                opponentBattleMethod.invoke(opponent, (Object) this, attackSkill.getStrength(), false);
             } else {
                 var defenseSkill = this.defenseSkills.get(this.rand.nextInt(this.defenseSkills.size()));
                 System.out.println(this.name + " is attempting to defend with " + defenseSkill.getName());
                 this.activeDefense = defenseSkill.getStrength();
+                this.activeDefenseSkill = defenseSkill;
 
-                var opponentBattleMethod = opponent.getClass().getMethod("battle", Object.class, int.class);
-                opponentBattleMethod.invoke(opponent, (Object) this, 0);
+                var opponentBattleMethod = opponent.getClass().getMethod("battle", Object.class, int.class,
+                        boolean.class);
+                opponentBattleMethod.invoke(opponent, (Object) this, 0, false);
             }
         } catch (InvocationTargetException | NoSuchMethodException | SecurityException | IllegalAccessException
                 | IllegalArgumentException e) {
@@ -58,9 +75,9 @@ public abstract class Pokemon {
         }
     }
 
-    private int getAttackChance(int hitPointsRatio) {
+    private int getAttackChance(double hitPointsRatio) {
         var attackChance = 0;
-        if (hitPointsRatio > 0.7) {
+        if (hitPointsRatio >= 0.7) {
             attackChance = 8;
         } else if (hitPointsRatio < 0.7 && hitPointsRatio >= 0.3) {
             attackChance = 5;

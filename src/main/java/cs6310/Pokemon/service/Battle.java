@@ -16,7 +16,7 @@ import lombok.Data;
 public class Battle {
     private Pokemon pokemonOne;
     private Pokemon pokemonTwo;
-    private Integer seed;
+    private long seed;
 
     public Result startBattle(String pokemonOne, String pokemonTwo) {
         Class<?> pokemon1 = null;
@@ -34,14 +34,14 @@ public class Battle {
         }
 
         try {
-            this.pokemonOne = (Pokemon) pokemon1.getDeclaredConstructor(int.class).newInstance(seed);
-            this.pokemonTwo = (Pokemon) pokemon2.getDeclaredConstructor(int.class).newInstance(seed);
+            this.pokemonOne = (Pokemon) pokemon1.getDeclaredConstructor(long.class).newInstance(seed);
+            this.pokemonTwo = (Pokemon) pokemon2.getDeclaredConstructor(long.class).newInstance(seed+1);
         } catch (InstantiationException | IllegalAccessException | IllegalArgumentException | InvocationTargetException
                 | NoSuchMethodException | SecurityException e) {
             e.printStackTrace();
         }
 
-        this.pokemonOne.battle(this.pokemonTwo, 0);
+        this.pokemonOne.battle(this.pokemonTwo, 0, true);
         var loser = this.pokemonOne.getCurrentHitPoints() <= 0 ? this.pokemonOne.getName() : this.pokemonTwo.getName();
         if (this.pokemonOne.getName().equals(loser)) {
             System.out.println(this.pokemonOne.getName() + " has lost");
