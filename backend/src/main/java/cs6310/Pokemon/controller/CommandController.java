@@ -8,6 +8,7 @@ import cs6310.Pokemon.service.CommandService;
 import java.util.Arrays;
 import java.util.List;
 
+@CrossOrigin(origins = "*", allowedHeaders = "*")
 @RestController
 @RequestMapping("/api/commands")
 public class CommandController {
