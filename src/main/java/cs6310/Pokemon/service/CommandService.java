@@ -1,5 +1,6 @@
 package cs6310.Pokemon.service;
 
+import java.util.List;
 import java.util.Scanner;
 
 import org.springframework.context.ApplicationContext;
@@ -31,18 +32,18 @@ public class CommandService {
 
                 if (tokens[0].startsWith("//")) {
                     // for (var i = 0; i < tokens.length; i++) {
-                    //     System.out.println("token " + i + " is " + tokens[i]);
+                    // System.out.println("token " + i + " is " + tokens[i]);
                     // }
                 } else if (tokens[0].equals("setseed")) {
                     doSetSeed(tokens[1]);
                 } else if (tokens[0].equals("removeseed")) {
                     // processRemoveSeed(tokens);
                 } else if (tokens[0].equals("battle")) {
-                    doBattle(tokens[1],tokens[2]);
+                    doBattle(tokens[1], tokens[2]);
                 } else if (tokens[0].equals("tournament")) {
                     // processTournament(tokens);
                 } else if (tokens[0].equals("displayinfo")) {
-                    // processDisplayInfo(tokens);
+                    doDisplayInfo(tokens[1]);
                 } else if (tokens[0].equals("stop")) {
                     doStop();
                     break;
@@ -60,23 +61,49 @@ public class CommandService {
         commandLineInput.close();
     }
 
-    public void doSetSeed(String seed) {
+    public String doSetSeed(String seed) {
         this.seed = Integer.parseInt(seed);
+        return "Seed set!";
+    }
+
+    public String doRemoveSeed() {
+        this.seed = -1;
+        return "Seed removed!";
     }
 
     public Result doBattle(String pokemonOne, String pokemonTwo) {
-        if(this.seed < 0 ) {
+        if (this.seed < 0) {
             throw new IllegalArgumentException("Seed not set");
         }
         battle.setSeed(this.seed);
         return battle.startBattle(pokemonOne, pokemonTwo);
     }
 
-    public void doStop() {
+    public Result doTournament(List<String> pokemonList) {
+        if (this.seed < 0) {
+            throw new IllegalArgumentException("Seed not set");
+        }
+        // TODO: implement this method
+        return new Result();
+    }
+
+    public String doDisplayInfo(String pokemon) {
+        try {
+            var pokemonClass = Class.forName("cs6310.Pokemon." + pokemon);
+            var pokemonInstance = pokemonClass.getDeclaredConstructor(int.class).newInstance(1);
+            System.out.println(pokemonInstance.toString());
+            return pokemonInstance.toString();
+        } catch (Exception e) {
+            return "Pokemon " + pokemon + " not found";
+        }
+    }
+
+    public String doStop() {
         System.out.println("stop acknowledged");
+        return "stop acknowledged";
     }
 
     public static void printIntro() {
-		System.out.println("Welcome to the thunder dome!");
-	}
+        System.out.println("Welcome to the thunder dome!");
+    }
 }

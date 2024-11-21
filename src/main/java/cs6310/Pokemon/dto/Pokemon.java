@@ -1,6 +1,7 @@
 package cs6310.Pokemon.dto;
 
 import java.lang.reflect.InvocationTargetException;
+import java.util.Comparator;
 import java.util.List;
 import java.util.Random;
 
@@ -107,23 +108,23 @@ public abstract class Pokemon {
         }
     }
 
-
     @Override
     public String toString() {
+        String attackSkillsFormatted = "";
+        String defenseSkillsFormatted = "";
+        for (var skill : this.attackSkills.stream().sorted(Comparator.comparingInt(Skill::getStrength))
+                .toList()) {
+            attackSkillsFormatted = attackSkillsFormatted
+                    .concat("\nName: " + skill.getName() + " Damage: " + skill.getStrength());
+        }
+        for (var skill : this.defenseSkills.stream().sorted(Comparator.comparingInt(Skill::getStrength))
+                .toList()) {
+            defenseSkillsFormatted = defenseSkillsFormatted
+                    .concat("\nName: " + skill.getName() + " Defense: " + skill.getStrength());
+        }
+
         return "Pokemon: " + this.name + " has " + this.currentHitPoints + " hp"
-                + "\nAttack Skills: " + this.attackSkills + "\nDefense Skills: " + this.defenseSkills;
-        // Example output:
-        // Pokemon: Butterfree has 40 hp
-        // Attack Skills:
-        // Name: Poison Damage: 0
-        // Damage Over Time: 2
-        // Damage Turn Count: 3
-        // Name: Gust Damage: 1
-        // Name: Whirlwind Damage: 2
-        // Name: Solar Beam Damage: 6
-        // Defense Skills:
-        // Name: Endure Defense: 1
-        // Name: Block Defense: 2
-        // Name: Protect Defense: 3
+                + "\nAttack Skills:" + attackSkillsFormatted.toString() + "\nDefense Skills:"
+                + defenseSkillsFormatted;
     }
 }
