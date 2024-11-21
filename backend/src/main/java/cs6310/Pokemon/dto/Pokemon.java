@@ -49,29 +49,33 @@ public abstract class Pokemon {
         this.activeDefense = 0;
         this.activeDefenseSkill = null;
 
+        // --- suspect issue below
+
         Double hitPointsRatio = (double) this.currentHitPoints / (double) this.fullHitPoints;
         int randNum = this.rand.nextInt(10);
         boolean isAttacking = false;
 
-        if (hitPointsRatio >= 0.7) {
+        if (hitPointsRatio >= 0.7) { // 80 %
             if (randNum >= 2) {
                 isAttacking = true;
             } else {
                 isAttacking = false;
             }
         } else if (hitPointsRatio >= 0.3) {
-            if (randNum >= 5) {
+            if (randNum >= 5) { // 50%
                 isAttacking = true;
             } else {
                 isAttacking = false;
             }
         } else {
-            if (randNum >= 7) {
+            if (randNum >= 7) { // 30%
                 isAttacking = true;
             } else {
                 isAttacking = false;
             }
         }
+
+        // --- issue above
 
         try {
             if (isAttacking) {
