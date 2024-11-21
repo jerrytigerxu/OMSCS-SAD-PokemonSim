@@ -1,0 +1,46 @@
+/* FILE: Battle.css */
+
+.battle {
+  text-align: center;
+  margin: 20px;
+}
+
+.pokemon-select {
+  width: 100%;
+  max-width: 400px;
+  height: 200px;
+  margin: 20px auto;
+  display: block;
+  padding: 10px;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  background-color: #fff;
+  color: #333;
+  overflow-y: auto; /* Ensure the select box can scroll if there are many options */
+}
+
+.pokemon-select option {
+  padding: 10px;
+  background-color: #fff;
+  color: #333;
+}
+
+.pokemon-select option:checked {
+  background-color: #3b4cca; /* Pokemon blue color */
+  color: #ffcb05; /* Pokemon yellow color */
+}
+
+.start-battle-button {
+  padding: 10px 20px;
+  background-color: #3b4cca; /* Pokemon blue color */
+  color: #ffcb05; /* Pokemon yellow color */
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  font-size: 16px;
+}
+
+.start-battle-button:hover {
+  background-color: #ffcb05; /* Pokemon yellow color */
+  color: #3b4cca; /* Pokemon blue color */
+}

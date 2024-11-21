@@ -3,15 +3,13 @@ import ReactDOM from 'react-dom/client';
 import './index.css';
 import App from './App';
 import reportWebVitals from './reportWebVitals';
-import DisplayInfo from './displayInfo/displayInfo';
-import GetAllPokemon from './displayInfo/getAllPokemon';
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
 
 root.render(
   <React.StrictMode>
-    <App />
     <h1>Pokemon!</h1>
+    <App />
   </React.StrictMode>
 );
 

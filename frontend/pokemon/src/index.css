@@ -1,3 +1,6 @@
+/* FILE: index.css */
+
+/* General styles */
 body {
   margin: 0;
   font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
@@ -5,9 +8,75 @@ body {
     sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
+  background-color: #121212; /* Dark background */
+  color: #e0e0e0; /* Light text color */
+  padding: 20px;
 }
 
-code {
-  font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
-    monospace;
+h1, h2, h3, h4 {
+  font-family: 'Pokemon Solid', sans-serif; /* Custom font for headers */
+  color: #ffcb05; /* Pokemon yellow color */
+  text-shadow: 2px 2px #3b4cca; /* Blue shadow for text */
+}
+
+h1 {
+  text-align: center;
+  margin-bottom: 20px;
+}
+
+.pokemon-info {
+  background-color: #1e1e1e; /* Darker background for info container */
+  border-radius: 10px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.5);
+  padding: 20px;
+  margin: 20px auto;
+  max-width: 600px;
+}
+
+.skills-table {
+  width: 100%;
+  border-collapse: collapse;
+  margin-bottom: 20px;
+}
+
+.skills-table th, .skills-table td {
+  border: 1px solid #333; /* Dark border */
+  padding: 8px;
+  text-align: left;
+}
+
+.skills-table th {
+  background-color: #3b4cca; /* Pokemon blue color */
+  color: #ffcb05; /* Pokemon yellow color */
+}
+
+.skills-table tr:nth-child(even) {
+  background-color: #2a2a2a; /* Darker row color */
+}
+
+.skills-table tr:hover {
+  background-color: #444; /* Darker hover color */
+}
+
+button, select {
+  background-color: #3b4cca; /* Pokemon blue color */
+  color: #ffcb05; /* Pokemon yellow color */
+  border: none;
+  padding: 10px 20px;
+  border-radius: 5px;
+  cursor: pointer;
+  font-size: 16px;
+  margin: 10px 0;
+}
+
+button:hover, select:hover {
+  background-color: #ffcb05; /* Pokemon yellow color */
+  color: #3b4cca; /* Pokemon blue color */
+}
+
+select {
+  width: 100%;
+  max-width: 300px;
+  margin: 0 auto;
+  display: block;
 }
