@@ -5,14 +5,20 @@ import java.util.Arrays;
 import cs6310.Pokemon.dto.Pokemon;
 import cs6310.Pokemon.dto.Skill;
 import cs6310.Pokemon.dto.Skill.SkillType;
+import lombok.Getter;
+import lombok.Setter;
 
 public class Ditto extends Pokemon {
+
+    @Getter
+    @Setter
+    private boolean transformEnabled = false;
 
     public Ditto() {
         setStats();
     }
 
-    public Ditto(long seed) {
+    public Ditto(int seed) {
         super(seed);
         setStats();
     }

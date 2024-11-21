@@ -12,7 +12,7 @@ public class Mew extends Pokemon {
         setStats();
     }
 
-    public Mew(long seed) {
+    public Mew(int seed) {
         super(seed);
         setStats();
     }

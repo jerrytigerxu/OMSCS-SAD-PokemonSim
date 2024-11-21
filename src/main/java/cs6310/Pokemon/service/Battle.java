@@ -1,11 +1,7 @@
 package cs6310.Pokemon.service;
 
 import java.lang.reflect.InvocationTargetException;
-import java.time.LocalDateTime;
-
 import org.springframework.stereotype.Service;
-import cs6310.Pokemon.dto.Skill;
-import cs6310.Pokemon.exceptions.BattleLostException;
 import cs6310.Pokemon.dto.Pokemon;
 import cs6310.Pokemon.dto.Result;
 
@@ -16,7 +12,7 @@ import lombok.Data;
 public class Battle {
     private Pokemon pokemonOne;
     private Pokemon pokemonTwo;
-    private long seed;
+    private int seed;
 
     public Result startBattle(String pokemonOne, String pokemonTwo) {
         Class<?> pokemon1 = null;
@@ -34,8 +30,8 @@ public class Battle {
         }
 
         try {
-            this.pokemonOne = (Pokemon) pokemon1.getDeclaredConstructor(long.class).newInstance(seed);
-            this.pokemonTwo = (Pokemon) pokemon2.getDeclaredConstructor(long.class).newInstance(seed+1);
+            this.pokemonOne = (Pokemon) pokemon1.getDeclaredConstructor(int.class).newInstance(seed);
+            this.pokemonTwo = (Pokemon) pokemon2.getDeclaredConstructor(int.class).newInstance(seed+1);
         } catch (InstantiationException | IllegalAccessException | IllegalArgumentException | InvocationTargetException
                 | NoSuchMethodException | SecurityException e) {
             e.printStackTrace();

@@ -1,10 +1,11 @@
 package cs6310.Pokemon.dto;
 
 import java.lang.reflect.InvocationTargetException;
-import java.math.BigDecimal;
 import java.util.List;
 import java.util.Random;
 
+import cs6310.Pokemon.Ditto;
+import cs6310.Pokemon.dto.Skill.SkillType;
 import lombok.Data;
 
 @Data
@@ -23,11 +24,12 @@ public abstract class Pokemon {
     public Pokemon() {
     }
 
-    public Pokemon(long seed) {
+    public Pokemon(int seed) {
         this.rand = new Random(seed);
     }
 
     public void battle(Object opponent, int incomingDamage, boolean isFirstAttack) {
+        var originalIncomingDamage = incomingDamage;
         boolean isAttack = incomingDamage > 0;
         if (this.activeDefense > 0 && incomingDamage > 0) {
             System.out.println(this.name + " successfully reduced " + opponent.getClass().getSimpleName()
@@ -47,12 +49,42 @@ public abstract class Pokemon {
         this.activeDefenseSkill = null;
 
         Double hitPointsRatio = (double) this.currentHitPoints / (double) this.fullHitPoints;
-        var attackChance = getAttackChance(hitPointsRatio);
-        var randNum = this.rand.nextInt(10);
+        int randNum = this.rand.nextInt(10);
+        boolean isAttacking = false;
+
+        if (hitPointsRatio >= 0.7) {
+            if (randNum >= 2) {
+                isAttacking = true;
+            } else {
+                isAttacking = false;
+            }
+        } else if (hitPointsRatio >= 0.3) {
+            if (randNum >= 5) {
+                isAttacking = true;
+            } else {
+                isAttacking = false;
+            }
+        } else {
+            if (randNum >= 7) {
+                isAttacking = true;
+            } else {
+                isAttacking = false;
+            }
+        }
 
         try {
-            if (randNum > (9 - attackChance)) {
+            if (isAttacking) {
                 var attackSkill = this.attackSkills.get(this.rand.nextInt(this.attackSkills.size()));
+
+                if (this.name.equals("Ditto")) {
+                    if (((Ditto) this).isTransformEnabled()) {
+                        attackSkill = new Skill("Attack", 0, originalIncomingDamage, SkillType.ATTACK);
+                        ((Ditto) this).setTransformEnabled(false);
+                    } else {
+                        ((Ditto) this).setTransformEnabled(true);
+                    }
+                }
+
                 System.out.println(this.name + " is attacking with " + attackSkill.getName() + " for "
                         + attackSkill.getStrength() + " damage to " + opponent.getClass().getSimpleName());
 
@@ -75,18 +107,6 @@ public abstract class Pokemon {
         }
     }
 
-    private int getAttackChance(double hitPointsRatio) {
-        var attackChance = 0;
-        if (hitPointsRatio >= 0.7) {
-            attackChance = 8;
-        } else if (hitPointsRatio < 0.7 && hitPointsRatio >= 0.3) {
-            attackChance = 5;
-        } else {
-            attackChance = 3;
-        }
-
-        return attackChance;
-    }
 
     @Override
     public String toString() {

@@ -16,7 +16,7 @@ public class CommandService {
     private final ApplicationContext applicationContext;
 
     @Setter
-    private long SEED;
+    private int seed = -1;
 
     public void ProcessCommands(String[] args) {
         printIntro();
@@ -61,11 +61,14 @@ public class CommandService {
     }
 
     public void doSetSeed(String seed) {
-        SEED = Long.parseLong(seed);
+        this.seed = Integer.parseInt(seed);
     }
 
     public Result doBattle(String pokemonOne, String pokemonTwo) {
-        battle.setSeed(SEED);
+        if(this.seed < 0 ) {
+            throw new IllegalArgumentException("Seed not set");
+        }
+        battle.setSeed(this.seed);
         return battle.startBattle(pokemonOne, pokemonTwo);
     }
 

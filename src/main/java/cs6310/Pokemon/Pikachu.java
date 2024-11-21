@@ -12,7 +12,7 @@ public class Pikachu extends Pokemon {
         setStats();
     }
 
-    public Pikachu(long seed) {
+    public Pikachu(int seed) {
         super(seed);
         setStats();
     }

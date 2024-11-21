@@ -12,7 +12,7 @@ public class Charmander extends Pokemon {
         setStats();
     }
 
-    public Charmander(long seed) {
+    public Charmander(int seed) {
         super(seed);
         setStats();
     }

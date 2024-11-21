@@ -11,7 +11,7 @@ public class Squirtle extends Pokemon {
         setStats();
     }
 
-    public Squirtle(long seed) {
+    public Squirtle(int seed) {
         super(seed);
         setStats();
     }

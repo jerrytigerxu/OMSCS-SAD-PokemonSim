@@ -12,7 +12,7 @@ public class Geodude extends Pokemon {
         setStats();
     }
 
-    public Geodude(long seed) {
+    public Geodude(int seed) {
         super(seed);
         setStats();
     }

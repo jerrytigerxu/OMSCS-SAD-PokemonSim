@@ -12,7 +12,7 @@ public class Bulbasaur extends Pokemon {
         setStats();
     }
 
-    public Bulbasaur(long seed) {
+    public Bulbasaur(int seed) {
         super(seed);
         setStats();
     }

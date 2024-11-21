@@ -12,7 +12,7 @@ public class Snorlax extends Pokemon {
         setStats();
     }
 
-    public Snorlax(long seed) {
+    public Snorlax(int seed) {
         super(seed);
         setStats();
     }
