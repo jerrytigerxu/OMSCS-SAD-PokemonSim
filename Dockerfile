@@ -23,5 +23,8 @@ COPY test_results ./
 # Copy the JAR file created in the builder stage (from the build/libs directory)
 COPY --from=builder /usr/src/cs6310/build/libs/pokemon-1.0-SNAPSHOT.jar ./pokemon.jar
 
+EXPOSE 8080
+
+
 # Set the default command to run the JAR file
-CMD ["java", "-jar", "pokemon.jar"]
+ENTRYPOINT ["java", "-jar", "pokemon.jar"]

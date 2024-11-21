@@ -20,7 +20,8 @@ repositories {
 
 dependencies {
    implementation 'org.springframework.boot:spring-boot-starter'
-    implementation 'org.projectlombok:lombok:1.18.24' // Add this line for the Lombok dependency
+	implementation 'org.springframework.boot:spring-boot-starter-web' // Add this line for Spring Web
+	implementation 'org.projectlombok:lombok:1.18.24' // Add this line for the Lombok dependency
     annotationProcessor 'org.projectlombok:lombok:1.18.24' // Add this line for the Lombok annotation processor
     testImplementation 'org.springframework.boot:spring-boot-starter-test'
     testImplementation 'org.junit.jupiter:junit-jupiter-api' // Add this line for JUnit Jupiter API

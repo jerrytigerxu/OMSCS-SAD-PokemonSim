@@ -24,4 +24,14 @@ public class Result {
         this.tournamentId = null;
         this.createdTimestamp = LocalDateTime.now();
     }
+
+    @Override
+    public String toString() {
+        return "Result{" +
+                "winnerPokemon=" + winnerPokemon +
+                ", loserPokemon=" + loserPokemon +
+                ", tournamentId=" + tournamentId +
+                ", createdTimestamp=" + createdTimestamp +
+                '}';
+    }
 }
