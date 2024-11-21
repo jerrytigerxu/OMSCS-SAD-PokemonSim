@@ -36,10 +36,7 @@ const DisplayInfo = ({ name }) => {
 
   return (
     <div>
-      <h1>{pokemonInfo.name}</h1>
-      <p>Type: {pokemonInfo.type}</p>
-      <p>Height: {pokemonInfo.height}</p>
-      <p>Weight: {pokemonInfo.weight}</p>
+      <h1>{pokemonInfo}</h1>
     </div>
   );
 };

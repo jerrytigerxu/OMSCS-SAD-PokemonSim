@@ -56,4 +56,10 @@ public class CommandController {
         String result = commandService.doStop();
         return ResponseEntity.ok(result);
     }
+
+    @GetMapping("/getAllPokemon")
+    public ResponseEntity<List<String>> getAllPokemon() {
+        List<String> allPokemon = commandService.getAllPokemon();
+        return ResponseEntity.ok(allPokemon);
+    }
 }

@@ -1,9 +1,7 @@
-package cs6310.Pokemon;
+package cs6310.Pokemon.service;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
-
-import cs6310.Pokemon.service.CommandService;
 
 @SpringBootApplication(scanBasePackages = { "cs6310.Pokemon.service", "cs6310.Pokemon.dto",
 		"cs6310.Pokemon.controller" })

@@ -1,7 +1,9 @@
 package cs6310.Pokemon.service;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
+import java.util.Set;
 
 import org.springframework.context.ApplicationContext;
 import org.springframework.stereotype.Service;
@@ -9,6 +11,7 @@ import org.springframework.stereotype.Service;
 import cs6310.Pokemon.dto.Result;
 import lombok.RequiredArgsConstructor;
 import lombok.Setter;
+import java.io.File;
 
 @Service
 @RequiredArgsConstructor
@@ -105,5 +108,9 @@ public class CommandService {
 
     public static void printIntro() {
         System.out.println("Welcome to the thunder dome!");
+    }
+
+    public static List<String> getAllPokemon() {
+        return List.of("Charmander","Pikachu","Squirtle","Bulbasaur");
     }
 }
