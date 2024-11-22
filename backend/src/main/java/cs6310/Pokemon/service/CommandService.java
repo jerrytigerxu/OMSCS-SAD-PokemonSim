@@ -26,29 +26,29 @@ public class CommandService {
         var delimiter = ",";
 
         var tokens = inputString.split(delimiter);
-                System.out.println("> " + inputString);
+        System.out.println("> " + inputString);
 
-                if (tokens[0].startsWith("//")) {
-                    // for (var i = 0; i < tokens.length; i++) {
-                    // System.out.println("token " + i + " is " + tokens[i]);
-                    // }
-                } else if (tokens[0].equals("setseed")) {
-                    doSetSeed(tokens[1]);
-                } else if (tokens[0].equals("removeseed")) {
-                    // processRemoveSeed(tokens);
-                } else if (tokens[0].equals("battle")) {
-                    doBattle(tokens[1], tokens[2]);
-                } else if (tokens[0].equals("tournament")) {
-                    // processTournament(tokens);
-                } else if (tokens[0].equals("displayinfo")) {
-                    doDisplayInfo(tokens[1]);
-                } else if (tokens[0].equals("stop")) {
-                    doStop();
-                    return;
-                } else {
-                    System.out.println("command unknown");
-                    return;
-                }
+        if (tokens[0].startsWith("//")) {
+            // for (var i = 0; i < tokens.length; i++) {
+            // System.out.println("token " + i + " is " + tokens[i]);
+            // }
+        } else if (tokens[0].equals("setseed")) {
+            doSetSeed(Integer.parseInt(tokens[1]));
+        } else if (tokens[0].equals("removeseed")) {
+            // processRemoveSeed(tokens);
+        } else if (tokens[0].equals("battle")) {
+            doBattle(tokens[1], tokens[2]);
+        } else if (tokens[0].equals("tournament")) {
+            // processTournament(tokens);
+        } else if (tokens[0].equals("displayinfo")) {
+            doDisplayInfo(tokens[1]);
+        } else if (tokens[0].equals("stop")) {
+            doStop();
+            return;
+        } else {
+            System.out.println("command unknown");
+            return;
+        }
     }
 
     public void ProcessCommands(String[] args) {
@@ -67,7 +67,7 @@ public class CommandService {
                     // System.out.println("token " + i + " is " + tokens[i]);
                     // }
                 } else if (tokens[0].equals("setseed")) {
-                    doSetSeed(tokens[1]);
+                    doSetSeed(Integer.parseInt(tokens[1]));
                 } else if (tokens[0].equals("removeseed")) {
                     // processRemoveSeed(tokens);
                 } else if (tokens[0].equals("battle")) {
@@ -93,8 +93,8 @@ public class CommandService {
         commandLineInput.close();
     }
 
-    public String doSetSeed(String seed) {
-        this.seed = Integer.parseInt(seed);
+    public String doSetSeed(Integer seed) {
+        this.seed = seed;
         return "Seed set!";
     }
 
@@ -140,6 +140,6 @@ public class CommandService {
     }
 
     public static List<String> getAllPokemon() {
-        return List.of("Charmander","Pikachu","Squirtle","Bulbasaur");
+        return List.of("Charmander", "Pikachu", "Squirtle", "Bulbasaur");
     }
 }

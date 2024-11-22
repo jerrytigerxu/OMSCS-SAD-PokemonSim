@@ -7,6 +7,7 @@ import cs6310.Pokemon.service.CommandService;
 
 import java.util.Arrays;
 import java.util.List;
+import java.util.Map;
 
 @CrossOrigin(origins = "*", allowedHeaders = "*")
 @RestController
@@ -21,6 +22,7 @@ public class CommandController {
 
     @GetMapping("/battle/{pokemon1}/{pokemon2}")
     public ResponseEntity<String> handleBattle(@PathVariable String pokemon1, @PathVariable String pokemon2) {
+        System.out.println("Starting battle between " + pokemon1 + " and " + pokemon2);
         String result = commandService.doBattle(pokemon1, pokemon2).toString();
         return ResponseEntity.ok(result);
     }
@@ -40,8 +42,9 @@ public class CommandController {
     }
 
     @PostMapping("/setSeed")
-    public ResponseEntity<String> handleSetSeed(@RequestBody String seed) {
-        String result = commandService.doSetSeed(seed);
+    public ResponseEntity<String> handleSetSeed(@RequestBody Map<String, Integer> setSeedRequest) {
+        System.out.println("Setting seed to: " + setSeedRequest.get("seed"));
+        String result = commandService.doSetSeed(setSeedRequest.get("seed"));
         return ResponseEntity.ok(result);
     }
 

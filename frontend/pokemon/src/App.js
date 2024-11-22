@@ -5,6 +5,7 @@ import DisplayInfo from './app/DisplayInfo/DisplayInfo';
 import Base from './app/Base/Base';
 import Battle from './app/Battle/Battle';
 import { useEffect } from 'react';
+import SetRemoveSeed from './app/SetSeed/SetRemoveSeed';
 
 function App() {
   const [selectedPokemon, setSelectedPokemon] = useState('');
@@ -51,7 +52,9 @@ function App() {
       case 'Tournament':
         return <div>Tournament Component</div>;
       case 'Set Seed':
-        return <div>Set Seed Component</div>;
+        return (
+          <SetRemoveSeed />
+        );
       case 'Remove Seed':
         return <div>Remove Seed Component</div>;
       default:

@@ -16,7 +16,7 @@ class CommandServiceTest {
         @Test
         void commands_00() {
             commandService.printIntro();
-            commandService.doSetSeed("1");
+            commandService.doSetSeed(1);
             commandService.doBattle("Charmander","Squirtle");
             commandService.doStop();
         }
@@ -24,7 +24,7 @@ class CommandServiceTest {
         @Test
         void commands_07() {
             commandService.printIntro();
-            commandService.doSetSeed("54");
+            commandService.doSetSeed(54);
             commandService.doBattle("Ditto","Bulbasaur");
             commandService.doStop();
         }
