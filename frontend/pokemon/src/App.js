@@ -55,12 +55,11 @@ function App() {
         return (
           <SetRemoveSeed />
         );
-      case 'Remove Seed':
-        return <div>Remove Seed Component</div>;
       default:
         return null;
     }
   };
+
 
   if (loading) {
     return <div>Loading...</div>;
@@ -76,8 +75,7 @@ function App() {
         <button onClick={() => handleOptionSelect('Display Pokemon')}>Display Pokemon</button>
         <button onClick={() => handleOptionSelect('Battle')}>Battle</button>
         <button onClick={() => handleOptionSelect('Tournament')}>Tournament</button>
-        <button onClick={() => handleOptionSelect('Set Seed')}>Set Seed</button>
-        <button onClick={() => handleOptionSelect('Remove Seed')}>Remove Seed</button>
+        <button onClick={() => handleOptionSelect('Set Seed')}>Set/Remove Seed</button>
       </div>
       <div className="component-container">
         {renderComponent()}

@@ -80,3 +80,14 @@ select {
   margin: 0 auto;
   display: block;
 }
+
+.base {
+  display: flex;
+  justify-content: space-around;
+  padding: 10px;
+  border-bottom: 1px solid #ccc;
+}
+
+.base button {
+  margin: 0 5px;
+}
