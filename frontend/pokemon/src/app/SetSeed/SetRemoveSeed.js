@@ -53,7 +53,7 @@ const SetRemoveSeed = ({ onSeedChange }) => {
       }
       //const data = await response.json();
       //console.log('Seed set successfully:', data);
-      setMessage("Setting seed to: " + seed + "");
+      setMessage("Seed set to: " + seed + "");
       setSeed("");
     } catch (error) {
       setError(error.message);
