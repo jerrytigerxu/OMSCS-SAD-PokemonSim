@@ -40,6 +40,12 @@ const SetRemoveSeed = ({ onSeedChange }) => {
 
   const handleSetSeed = async () => {
     setSeed(seed);
+
+    if (!seed) {  // Check if the seed input is empty
+      alert("Please enter a seed value.");
+      return;
+    }
+    
     try {
       const response = await fetch('http://localhost:8080/api/commands/setSeed', {
         method: 'POST',
