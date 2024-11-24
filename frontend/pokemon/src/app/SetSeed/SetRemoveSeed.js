@@ -15,7 +15,25 @@ const SetRemoveSeed = ({ onSeedChange }) => {
   };
 
   const handleRemoveSeed = async () => {
-    setSeed('');
+    try {
+      const response = await fetch('http://localhost:8080/api/commands/removeSeed', {
+        method: 'DELETE'
+      });
+
+      if (!response.ok) {
+        throw new Error('Network response was not ok');
+      }
+
+      const data = await response.json();
+      console.log('Seed removed successfully:', data);
+      console.log(seed)
+      setSeed(""); // Clear the seed input field
+      console.log(seed)
+
+    } catch (error) {
+      console.error(error.message);
+      setError(error.message);
+    }
   };
 
   const handleSetSeed = async () => {
@@ -33,6 +51,7 @@ const SetRemoveSeed = ({ onSeedChange }) => {
       }
       const data = await response.json();
       console.log('Seed set successfully:', data);
+      setSeed("");
     } catch (error) {
       setError(error.message);
     }
