@@ -5,6 +5,7 @@ import './SetRemoveSeed.css'; // Import the CSS file for styling
 
 const SetRemoveSeed = ({ onSeedChange }) => {
   const [seed, setSeed] = useState('');
+  const [message, setMessage] = useState(null);
   const [error, setError] = useState(null);
 
   const handleChange = (event) => {
@@ -24,9 +25,10 @@ const SetRemoveSeed = ({ onSeedChange }) => {
         throw new Error('Network response was not ok');
       }
 
-      const data = await response.json();
-      console.log('Seed removed successfully:', data);
-      console.log(seed)
+      //const data = await response.json();
+      //console.log('Seed removed successfully:', data);
+      //console.log(seed)
+      setMessage("Seed successfully removed");
       setSeed(""); // Clear the seed input field
       console.log(seed)
 
@@ -49,8 +51,9 @@ const SetRemoveSeed = ({ onSeedChange }) => {
       if (!response.ok) {
         throw new Error('Network response was not ok');
       }
-      const data = await response.json();
-      console.log('Seed set successfully:', data);
+      //const data = await response.json();
+      //console.log('Seed set successfully:', data);
+      setMessage("Setting seed to: " + seed + "");
       setSeed("");
     } catch (error) {
       setError(error.message);
@@ -69,6 +72,9 @@ const SetRemoveSeed = ({ onSeedChange }) => {
       />
       <button onClick={handleSetSeed} className="remove-seed-button">Set Seed</button>
       <button onClick={handleRemoveSeed} className="remove-seed-button">Remove Seed</button>
+
+      {message && <div className="success-message">{message}</div>}
+      {error && <div className="error-message">{error}</div>}
     </div>
   );
 };
