@@ -41,6 +41,12 @@ public class CommandController {
         return ResponseEntity.ok(result);
     }
 
+    @GetMapping("/isSeedSet")
+    public ResponseEntity<Boolean> isSeedSet() {
+        boolean isSet = commandService.isSeedSet();
+        return ResponseEntity.ok(isSet);
+    }
+
     @PostMapping("/setSeed")
     public ResponseEntity<String> handleSetSeed(@RequestBody Map<String, Integer> setSeedRequest) {
         System.out.println("Setting seed to: " + setSeedRequest.get("seed"));

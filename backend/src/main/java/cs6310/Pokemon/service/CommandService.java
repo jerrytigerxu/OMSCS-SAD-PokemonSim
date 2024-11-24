@@ -103,6 +103,10 @@ public class CommandService {
         return "Seed removed!";
     }
 
+    public boolean isSeedSet() {
+        return this.seed >= 0; 
+    }
+
     public Result doBattle(String pokemonOne, String pokemonTwo) {
         if (this.seed < 0) {
             throw new IllegalArgumentException("Seed not set");
