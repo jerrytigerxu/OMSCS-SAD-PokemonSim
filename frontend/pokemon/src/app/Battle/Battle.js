@@ -30,6 +30,8 @@ const Battle = () => {
     }
     console.log('Starting battle between ' + pokemon1 + ' and ' + pokemon2);
 
+    // TODO: Add a fetch call to check that the seed is set before allowing battle to run
+
     try {
       const response = await fetch(`http://localhost:8080/api/commands/battle/${pokemon1}/${pokemon2}`);
       if (!response.ok) {
