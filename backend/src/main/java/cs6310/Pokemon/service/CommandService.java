@@ -15,6 +15,7 @@ import cs6310.Pokemon.exceptions.InvalidSeedException;
 import lombok.RequiredArgsConstructor;
 import lombok.Setter;
 import java.io.File;
+import java.sql.SQLException;
 
 @Service
 @RequiredArgsConstructor
@@ -108,35 +109,24 @@ public class CommandService {
     public String doSetSeed(Integer seed) {
         this.seed = seed;
         return "Seed set to " + seed;
-        return "Seed set to " + seed;
     }
 
     public String doRemoveSeed() {
         this.seed = -1;
-        return "Seed removed.";
         return "Seed removed.";
     }
 
     public Result doBattle(String pokemonOne, String pokemonTwo) throws InvalidSeedException {
         if (this.seed < 0) {
             throw new InvalidSeedException();
-            throw new InvalidSeedException();
         }
         battle.setSeed(this.seed);
         return battle.startBattle(pokemonOne, pokemonTwo);
     }
 
-<<<<<<< HEAD
-<<<<<<< HEAD
     @Retryable(value = { SQLException.class }, maxAttempts = 3)
-=======
->>>>>>> 18478a7 (implement battle frontend and backend to show results.)
     public Result doTournament(List<String> pokemonList) throws InvalidSeedException {
-=======
-    public Result doTournament(List<String> pokemonList) throws InvalidSeedException throws InvalidSeedException {
->>>>>>> a82e8b3 (finished rebase.)
         if (this.seed < 0) {
-            throw new InvalidSeedException();
             throw new InvalidSeedException();
         }
         // TODO: implement this method

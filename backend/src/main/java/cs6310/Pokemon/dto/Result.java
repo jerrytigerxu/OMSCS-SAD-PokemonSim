@@ -1,6 +1,8 @@
 package cs6310.Pokemon.dto;
 
 import java.time.LocalDateTime;
+import java.util.ArrayList;
+import java.util.List;
 
 import lombok.Data;
 
