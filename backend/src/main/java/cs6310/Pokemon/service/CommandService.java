@@ -7,6 +7,7 @@ import java.util.Set;
 
 import org.springframework.context.ApplicationContext;
 import org.springframework.stereotype.Service;
+import org.springframework.retry.annotation.Retryable;
 
 import cs6310.Pokemon.dto.Result;
 import lombok.RequiredArgsConstructor;
@@ -107,6 +108,7 @@ public class CommandService {
         return this.seed >= 0; 
     }
 
+    @Retryable(value = { SQLException.class }, maxAttempts = 3)
     public Result doBattle(String pokemonOne, String pokemonTwo) {
         if (this.seed < 0) {
             throw new IllegalArgumentException("Seed not set");
@@ -115,6 +117,7 @@ public class CommandService {
         return battle.startBattle(pokemonOne, pokemonTwo);
     }
 
+    @Retryable(value = { SQLException.class }, maxAttempts = 3)
     public Result doTournament(List<String> pokemonList) {
         if (this.seed < 0) {
             throw new IllegalArgumentException("Seed not set");
@@ -123,6 +126,7 @@ public class CommandService {
         return new Result();
     }
 
+    @Retryable(value = { SQLException.class }, maxAttempts = 3)
     public String doDisplayInfo(String pokemon) {
         try {
             var pokemonClass = Class.forName("cs6310.Pokemon." + pokemon);
