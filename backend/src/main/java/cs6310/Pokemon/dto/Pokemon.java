@@ -9,6 +9,8 @@ import cs6310.Pokemon.Ditto;
 import cs6310.Pokemon.dto.Skill.SkillType;
 import lombok.Data;
 
+import cs6310.Pokemon.dto.Result;
+
 @Data
 public abstract class Pokemon {
     private String name;
@@ -29,12 +31,14 @@ public abstract class Pokemon {
         this.rand = new Random(seed);
     }
 
-    public void battle(Object opponent, int incomingDamage, boolean isFirstAttack) {
+    public void battle(Object opponent, int incomingDamage, boolean isFirstAttack, Result result) { // Added result parameter so the result can be automatically updated
         var originalIncomingDamage = incomingDamage;
         boolean isAttack = incomingDamage > 0;
         if (this.activeDefense > 0 && incomingDamage > 0) {
             System.out.println(this.name + " successfully reduced " + opponent.getClass().getSimpleName()
                     + "'s damage by " + this.activeDefense + " with " + activeDefenseSkill.getName());
+            result.getBattleHistory().add(this.name + " successfully reduced " + opponent.getClass().getSimpleName()
+            + "'s damage by " + this.activeDefense + " with " + activeDefenseSkill.getName());
             incomingDamage = Math.max(0, incomingDamage - this.activeDefense);
         }
         this.currentHitPoints = Math.max(currentHitPoints - incomingDamage, 0);
@@ -42,6 +46,7 @@ public abstract class Pokemon {
         if (!isFirstAttack && isAttack)
             System.out.println(
                     this.name + " has received " + incomingDamage + " dmg, remaining hp is " + this.currentHitPoints);
+            result.getBattleHistory().add(this.name + " has received " + incomingDamage + " dmg, remaining hp is " + this.currentHitPoints);
         if (this.currentHitPoints <= 0) {
             return;
         }
@@ -92,19 +97,23 @@ public abstract class Pokemon {
 
                 System.out.println(this.name + " is attacking with " + attackSkill.getName() + " for "
                         + attackSkill.getStrength() + " damage to " + opponent.getClass().getSimpleName());
+                result.getBattleHistory().add(this.name + " is attacking with " + attackSkill.getName() + " for "
+                + attackSkill.getStrength() + " damage to " + opponent.getClass().getSimpleName());
 
                 var opponentBattleMethod = opponent.getClass().getMethod("battle", Object.class, int.class,
-                        boolean.class);
-                opponentBattleMethod.invoke(opponent, (Object) this, attackSkill.getStrength(), false);
+                        boolean.class, Result.class);
+                opponentBattleMethod.invoke(opponent, (Object) this, attackSkill.getStrength(), false, result);
             } else {
                 var defenseSkill = this.defenseSkills.get(this.rand.nextInt(this.defenseSkills.size()));
                 System.out.println(this.name + " is attempting to defend with " + defenseSkill.getName());
+                
+                result.getBattleHistory().add(this.name + " is attempting to defend with " + defenseSkill.getName());
                 this.activeDefense = defenseSkill.getStrength();
                 this.activeDefenseSkill = defenseSkill;
 
                 var opponentBattleMethod = opponent.getClass().getMethod("battle", Object.class, int.class,
-                        boolean.class);
-                opponentBattleMethod.invoke(opponent, (Object) this, 0, false);
+                        boolean.class, Result.class);
+                opponentBattleMethod.invoke(opponent, (Object) this, 0, false, result);
             }
         } catch (InvocationTargetException | NoSuchMethodException | SecurityException | IllegalAccessException
                 | IllegalArgumentException e) {

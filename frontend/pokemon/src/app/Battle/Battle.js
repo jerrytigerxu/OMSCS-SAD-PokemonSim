@@ -106,6 +106,13 @@ const Battle = () => {
           <h3>Battle Results:</h3>
           <p>Winner: {battleResults.winnerPokemon}</p>
           <p>Loser: {battleResults.loserPokemon}</p>
+
+          <h4>Battle History:</h4>
+          <ul>
+            {battleResults.battleHistory.map((event, index) => (
+              <li key={index}>{event}</li>
+            ))}
+          </ul>
         </div>
       )}
       </>

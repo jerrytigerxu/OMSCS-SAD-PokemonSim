@@ -1,6 +1,7 @@
 package cs6310.Pokemon.service;
 
 import java.lang.reflect.InvocationTargetException;
+import java.util.ArrayList;
 import org.springframework.stereotype.Service;
 import cs6310.Pokemon.dto.Pokemon;
 import cs6310.Pokemon.dto.Result;
@@ -37,6 +38,31 @@ public class Battle {
             e.printStackTrace();
         }
 
+
+        Result result = new Result();
+        result.setBattleHistory(new ArrayList<>());
+
+        this.pokemonOne.battle(this.pokemonTwo, 0, true, result);
+
+        var loser = this.pokemonOne.getCurrentHitPoints() <= 0 ? this.pokemonOne.getName() : this.pokemonTwo.getName();
+
+        // Set the winner and loser in the result object
+        if (this.pokemonOne.getName().equals(loser)) {
+            System.out.println(this.pokemonOne.getName() + " has lost");
+            System.out.println(this.pokemonTwo.getName() + " has won the battle");
+            result.setWinnerPokemon(this.pokemonTwo);
+            result.setLoserPokemon(this.pokemonOne);
+        } else {
+            System.out.println(this.pokemonTwo.getName() + " has lost");
+            System.out.println(this.pokemonOne.getName() + " has won the battle");
+            result.setWinnerPokemon(this.pokemonOne);
+            result.setLoserPokemon(this.pokemonTwo);
+        }
+
+        return result; // Return the updated result object
+
+
+        /*
         this.pokemonOne.battle(this.pokemonTwo, 0, true);
         var loser = this.pokemonOne.getCurrentHitPoints() <= 0 ? this.pokemonOne.getName() : this.pokemonTwo.getName();
         if (this.pokemonOne.getName().equals(loser)) {
@@ -48,5 +74,8 @@ public class Battle {
             System.out.println(this.pokemonOne.getName() + " has won the battle");
             return new Result(this.pokemonOne, this.pokemonTwo);
         }
+        */
+
     }
+
 }

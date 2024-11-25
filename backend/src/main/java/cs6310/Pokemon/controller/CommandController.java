@@ -25,6 +25,7 @@ public class CommandController {
     public ResponseEntity<String> handleBattle(@PathVariable String pokemon1, @PathVariable String pokemon2) {
         System.out.println("Starting battle between " + pokemon1 + " and " + pokemon2);
         //String result = "\"Testing!!!!!!!!!!!!!\"";
+        // String history = commandService -> service for showing the battle history
         String result = commandService.doBattle(pokemon1, pokemon2).toString();
         System.out.println("Testing: " + result);
         
