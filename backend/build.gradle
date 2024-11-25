@@ -19,7 +19,9 @@ repositories {
 }
 
 dependencies {
-   implementation 'org.springframework.boot:spring-boot-starter'
+	implementation 'org.springframework.retry:spring-retry:1.3.4'
+    implementation 'org.springframework.boot:spring-boot-starter-aop'
+   	implementation 'org.springframework.boot:spring-boot-starter'
 	implementation 'org.springframework.boot:spring-boot-starter-web' // Add this line for Spring Web
 	implementation 'org.projectlombok:lombok:1.18.24' // Add this line for the Lombok dependency
 	implementation 'org.springframework.retry:spring-retry' // Add this line for Spring Retry

@@ -12,7 +12,7 @@ const Battle = () => {
   const [error, setError] = useState('');
   const [result, setResult] = useState('');
   const [orderOfBattle, setOrderOfBattle] = useState('');
-<<<<<<< HEAD
+
   const [battleResults, setBattleResults] = useState(null);
 
   // state variables for displaying battle history items in "real time"
@@ -20,8 +20,6 @@ const Battle = () => {
   const [isPlaying, setIsPlaying] = useState(false);
   const [isStopped, setIsStopped] = useState(true);
   const historyEndRef = useRef(null);
-=======
->>>>>>> 18478a7 (implement battle frontend and backend to show results.)
 
   const handleSelect1 = (event) => {
     const selectedOptions = Array.from(event.target.selectedOptions, option => option.value);
