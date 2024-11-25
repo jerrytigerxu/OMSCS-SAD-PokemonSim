@@ -12,6 +12,7 @@ const Battle = () => {
   const [error, setError] = useState('');
   const [result, setResult] = useState('');
   const [orderOfBattle, setOrderOfBattle] = useState('');
+<<<<<<< HEAD
   const [battleResults, setBattleResults] = useState(null);
 
   // state variables for displaying battle history items in "real time"
@@ -19,6 +20,8 @@ const Battle = () => {
   const [isPlaying, setIsPlaying] = useState(false);
   const [isStopped, setIsStopped] = useState(true);
   const historyEndRef = useRef(null);
+=======
+>>>>>>> 18478a7 (implement battle frontend and backend to show results.)
 
   const handleSelect1 = (event) => {
     const selectedOptions = Array.from(event.target.selectedOptions, option => option.value);
@@ -35,7 +38,9 @@ const Battle = () => {
       alert('Please select exactly two Pokemon to start the battle.');
       return;
     }
-    console.log('Starting battle between ' + pokemon1 + ' and ' + pokemon2);
+
+    setError(null);
+    setResult('');
 
     try {
       const response = await fetch(`http://localhost:8080/api/commands/battle/${pokemon1}/${pokemon2}`);
@@ -46,7 +51,9 @@ const Battle = () => {
         }
       }
       const data = await response.json();
-      console.log('Battle data:', data);
+      const lineDelimitedString = data.orderOfBattle.replace(/,/g, '\n');
+      setOrderOfBattle(lineDelimitedString);
+      setResult(`Winner: ${data.winnerPokemon}, Loser: ${data.loserPokemon}`);
     } catch (error) {
       console.log(error.message);
       setError(error.message);
@@ -153,6 +160,9 @@ const Battle = () => {
           ))}
         </select>
         <button onClick={startBattle} className="start-battle-button">Start Battle</button>
+        {error && <div className="error-message">{error}</div>}
+        {result && <div className="result-message">{result}</div>}
+        {orderOfBattle && <div className="order-of-battle">{orderOfBattle}</div>}
       </div></>
   );
 };

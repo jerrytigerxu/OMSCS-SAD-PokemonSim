@@ -109,7 +109,7 @@ public class CommandService {
         return "Seed removed.";
     }
 
-    public Result doBattle(String pokemonOne, String pokemonTwo) {
+    public Result doBattle(String pokemonOne, String pokemonTwo) throws InvalidSeedException {
         if (this.seed < 0) {
             throw new InvalidSeedException();
         }
@@ -117,7 +117,10 @@ public class CommandService {
         return battle.startBattle(pokemonOne, pokemonTwo);
     }
 
+<<<<<<< HEAD
     @Retryable(value = { SQLException.class }, maxAttempts = 3)
+=======
+>>>>>>> 18478a7 (implement battle frontend and backend to show results.)
     public Result doTournament(List<String> pokemonList) throws InvalidSeedException {
         if (this.seed < 0) {
             throw new InvalidSeedException();
