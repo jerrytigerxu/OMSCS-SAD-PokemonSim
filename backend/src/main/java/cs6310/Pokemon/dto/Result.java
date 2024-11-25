@@ -1,13 +1,14 @@
 package cs6310.Pokemon.dto;
 
 import java.time.LocalDateTime;
-import java.util.List;
-import java.util.ArrayList;
-import java.util.stream.Collectors;
 
+import lombok.Data;
+
+@Data
 public class Result {
     Pokemon winnerPokemon;
     Pokemon loserPokemon;
+    String orderOfBattle = "";
     Long tournamentId;
     LocalDateTime createdTimestamp;
 
@@ -34,47 +35,8 @@ public class Result {
 
     @Override
     public String toString() {
-
-        // Needed to get the names of the Pokemon and not the entire object
-        // This fixes the JSON issue
-
-        String battleHistoryJson = battleHistory.stream()
-                    .map(entry -> "\"" + entry + "\"")
-                    .collect(Collectors.joining(", ", "[", "]"));
-
-        return "{ \"winnerPokemon\": \"" + (winnerPokemon != null ? winnerPokemon.getName() : "") + "\", " +
-           "\"loserPokemon\": \"" + (loserPokemon != null ? loserPokemon.getName() : "") + "\", " +
-           "\"tournamentId\": " + tournamentId + ", " +
-           "\"createdTimestamp\": \"" + createdTimestamp + "\", " +
-           "\"battleHistory\": " + battleHistoryJson + " }";
-
-        /* 
-        return "Result{" +
-                "winnerPokemon=" + winnerPokemon +
-                ", loserPokemon=" + loserPokemon +
-                ", tournamentId=" + tournamentId +
-                ", createdTimestamp=" + createdTimestamp +
-                '}';
-
-        */
+        return "{\"winnerPokemon\":\"" + winnerPokemon.getName() +
+                "\",\"loserPokemon\":\"" + loserPokemon.getName() +
+                "\",\"orderOfBattle\":\"" + orderOfBattle + "\"}";
     }
-
-    // Getter and setter for battleHistory
-    public List<String> getBattleHistory() {
-        return battleHistory;
-    }
-
-    public void setBattleHistory(List<String> battleHistory) {
-        this.battleHistory = battleHistory;
-    }
-
-    // Setters for winnerPokemon and loserPokemon
-    public void setWinnerPokemon(Pokemon winnerPokemon) {
-        this.winnerPokemon = winnerPokemon;
-    }
-
-    public void setLoserPokemon(Pokemon loserPokemon) {
-        this.loserPokemon = loserPokemon;
-    }
-
 }

@@ -10,6 +10,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.retry.annotation.Retryable;
 
 import cs6310.Pokemon.dto.Result;
+import cs6310.Pokemon.exceptions.InvalidSeedException;
 import lombok.RequiredArgsConstructor;
 import lombok.Setter;
 import java.io.File;
@@ -38,7 +39,11 @@ public class CommandService {
         } else if (tokens[0].equals("removeseed")) {
             // processRemoveSeed(tokens);
         } else if (tokens[0].equals("battle")) {
-            doBattle(tokens[1], tokens[2]);
+            try {
+                doBattle(tokens[1], tokens[2]);
+            } catch (InvalidSeedException e) {
+                e.printStackTrace();
+            }
         } else if (tokens[0].equals("tournament")) {
             // processTournament(tokens);
         } else if (tokens[0].equals("displayinfo")) {
@@ -96,31 +101,26 @@ public class CommandService {
 
     public String doSetSeed(Integer seed) {
         this.seed = seed;
-        return "Seed set!";
+        return "Seed set to " + seed;
     }
 
     public String doRemoveSeed() {
         this.seed = -1;
-        return "Seed removed!";
+        return "Seed removed.";
     }
 
-    public boolean isSeedSet() {
-        return this.seed >= 0; 
-    }
-
-    @Retryable(value = { SQLException.class }, maxAttempts = 3)
     public Result doBattle(String pokemonOne, String pokemonTwo) {
         if (this.seed < 0) {
-            throw new IllegalArgumentException("Seed not set");
+            throw new InvalidSeedException();
         }
         battle.setSeed(this.seed);
         return battle.startBattle(pokemonOne, pokemonTwo);
     }
 
     @Retryable(value = { SQLException.class }, maxAttempts = 3)
-    public Result doTournament(List<String> pokemonList) {
+    public Result doTournament(List<String> pokemonList) throws InvalidSeedException {
         if (this.seed < 0) {
-            throw new IllegalArgumentException("Seed not set");
+            throw new InvalidSeedException();
         }
         // TODO: implement this method
         return new Result();

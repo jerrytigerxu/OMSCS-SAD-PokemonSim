@@ -9,7 +9,9 @@ const Battle = () => {
   const [pokemon2, setPokemon2] = useState('');
   const [pokemonList, setPokemonList] = useState([]);
   const [loading, setLoading] = useState(true);
-  const [error, setError] = useState(null);
+  const [error, setError] = useState('');
+  const [result, setResult] = useState('');
+  const [orderOfBattle, setOrderOfBattle] = useState('');
   const [battleResults, setBattleResults] = useState(null);
 
   // state variables for displaying battle history items in "real time"
@@ -29,33 +31,22 @@ const Battle = () => {
   };
 
   const startBattle = async () => {
-    console.log('pokeon1: ' + pokemon1);
-    console.log('pokemon2: ' + pokemon2);
     if (pokemon1.length !== 1 || pokemon2.length !== 1) {
       alert('Please select exactly two Pokemon to start the battle.');
       return;
     }
     console.log('Starting battle between ' + pokemon1 + ' and ' + pokemon2);
 
-    // Added a fetch call to check that the seed is set before allowing battle to run
-    const seedResponse = await fetch(`http://localhost:8080/api/commands/isSeedSet`);
-    const seedData = await seedResponse.json();
-    if (!seedData) {
-      alert('Please set a seed before starting the battle.');
-      return;
-    }
-
     try {
       const response = await fetch(`http://localhost:8080/api/commands/battle/${pokemon1}/${pokemon2}`);
       if (!response.ok) {
-        throw new Error('Network response was not ok');
+        if (response.status === 400) {
+          const errorData = JSON.stringify(await response.text());
+          throw new Error(errorData || 'Bad Request');
+        }
       }
       const data = await response.json();
       console.log('Battle data:', data);
-      setBattleResults(data);
-      setDisplayedHistory([]);
-      setIsStopped(false); // Start in a running state
-      setIsPlaying(true);
     } catch (error) {
       console.log(error.message);
       setError(error.message);
@@ -73,7 +64,7 @@ const Battle = () => {
         console.log('data: ' + JSON.stringify(data));
         setPokemonList(data);
       } catch (error) {
-        setError(error);
+        setError(error.message);
       } finally {
         setLoading(false);
       }
@@ -140,7 +131,7 @@ const Battle = () => {
   }
 
   if (error) {
-    return <div>Error: {error.message}</div>;
+    return <div>Error: {error}</div>;
   }
 
   return (
@@ -162,29 +153,7 @@ const Battle = () => {
           ))}
         </select>
         <button onClick={startBattle} className="start-battle-button">Start Battle</button>
-      </div>
-      
-      {battleResults && (
-        <div className="battle-results"> 
-          <h3>Battle Results:</h3>
-          <p>Winner: {battleResults.winnerPokemon}</p>
-          <p>Loser: {battleResults.loserPokemon}</p>
-
-          <h4>Battle History:</h4>
-          <div className="battle-history-scroll">
-            {displayedHistory.map((event, index) => (
-              <pre key={index} className="battle-event">
-                {event}
-                <hr className="separator" />
-              </pre>
-            ))}
-            <div ref={historyEndRef} />
-          </div>
-          <button onClick={handlePausePlay}>{isPlaying ? 'Pause' : 'Play'}</button>
-          <button onClick={handleStopRestart}>{isStopped ? 'Restart' : 'Stop'}</button>
-        </div>
-      )}
-      </>
+      </div></>
   );
 };
 Battle.propTypes = {

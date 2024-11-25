@@ -3,7 +3,7 @@ package cs6310.Pokemon.controller;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
-
+import cs6310.Pokemon.exceptions.InvalidSeedException;
 import cs6310.Pokemon.service.CommandService;
 
 import java.util.Arrays;
@@ -24,13 +24,13 @@ public class CommandController {
     @GetMapping("/battle/{pokemon1}/{pokemon2}")
     public ResponseEntity<String> handleBattle(@PathVariable String pokemon1, @PathVariable String pokemon2) {
         System.out.println("Starting battle between " + pokemon1 + " and " + pokemon2);
-        //String result = "\"Testing!!!!!!!!!!!!!\"";
-        // String history = commandService -> service for showing the battle history
-        String result = commandService.doBattle(pokemon1, pokemon2).toString();
-        System.out.println("Testing: " + result);
         
-
-
+        String result;
+        try {
+            result = commandService.doBattle(pokemon1, pokemon2).toString();
+        } catch (InvalidSeedException e) {
+            return ResponseEntity.badRequest().body(e.getMessage());
+        }
 
         return ResponseEntity.ok(result);
     }
@@ -39,7 +39,13 @@ public class CommandController {
     public ResponseEntity<String> handleTournament(@PathVariable String pokemonList) {
         // Split the comma-delimited list into a list of strings
         List<String> pokemonListParsed = Arrays.asList(pokemonList.split(","));
-        String result = commandService.doTournament(pokemonListParsed).toString();
+        String result;
+        try {
+            result = commandService.doTournament(pokemonListParsed).toString();
+            System.out.println("result: "+result);
+        } catch (InvalidSeedException e) {
+            return ResponseEntity.badRequest().body(e.getMessage());
+        }
         return ResponseEntity.ok(result);
     }
 
@@ -49,16 +55,17 @@ public class CommandController {
         return ResponseEntity.ok(result);
     }
 
-    @GetMapping("/isSeedSet")
-    public ResponseEntity<Boolean> isSeedSet() {
-        boolean isSet = commandService.isSeedSet();
-        return ResponseEntity.ok(isSet);
-    }
-
     @PostMapping("/setSeed")
     public ResponseEntity<String> handleSetSeed(@RequestBody Map<String, Integer> setSeedRequest) {
-        System.out.println("Setting seed to: " + setSeedRequest.get("seed"));
-        String result = commandService.doSetSeed(setSeedRequest.get("seed"));
+        System.out.println("Trying to set seed to: " + setSeedRequest.get("seed"));
+
+        String result;
+        try {
+            result = commandService.doSetSeed(setSeedRequest.get("seed"));
+        } catch(Exception e) {
+            return ResponseEntity.badRequest().body(e.getMessage());
+        }
+
         return ResponseEntity.ok(result);
     }
 

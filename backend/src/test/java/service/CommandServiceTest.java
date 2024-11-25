@@ -4,6 +4,7 @@ import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 
+import cs6310.Pokemon.exceptions.InvalidSeedException;
 import cs6310.Pokemon.service.CommandService;
 import cs6310.Pokemon.service.PokemonApplication;
 
@@ -14,7 +15,7 @@ class CommandServiceTest {
         private CommandService commandService;
 
         @Test
-        void commands_00() {
+        void commands_00() throws InvalidSeedException {
             commandService.printIntro();
             commandService.doSetSeed(1);
             commandService.doBattle("Charmander","Squirtle");
@@ -22,7 +23,7 @@ class CommandServiceTest {
         }
 
         @Test
-        void commands_07() {
+        void commands_07() throws InvalidSeedException {
             commandService.printIntro();
             commandService.doSetSeed(54);
             commandService.doBattle("Ditto","Bulbasaur");
