@@ -78,33 +78,27 @@ const Battle = () => {
   // Interval function for displaying the battleHistory in "real time"
   useEffect(() => {
     let intervalId;
-    if (isPlaying && !isStopped && battleResults && battleResults.battleHistory.length > 0) {
+    if (isPlaying && !isStopped && displayedHistory.length > 0) {
       let currentIndex = 0;
       intervalId = setInterval(() => {
 
-        console.log("Current event:", battleResults.battleHistory[currentIndex]);
+        console.log("Current event:", displayedHistory[currentIndex]);
         console.log("Displayed history before update:", displayedHistory);
         console.log(currentIndex);
 
-        setDisplayedHistory(prevHistory => {
-          if (currentIndex < battleResults.battleHistory.length) {
-            const newHistory = [...prevHistory, battleResults.battleHistory[currentIndex]];
-            console.log("Displayed history after update:", newHistory);
-            return newHistory;
-          } else {
-            return prevHistory;
-          } 
-        });
+        const newHistory = displayedHistory.slice(0, currentIndex + 1);
+        console.log("Displayed history after update:", newHistory);
+        setDisplayedHistory(newHistory);
 
         currentIndex++;
-        if (currentIndex >= battleResults.battleHistory.length) {
+        if (currentIndex >= displayedHistory.length) {
           clearInterval(intervalId);
           setIsPlaying(false); // Pause when all events are displayed
         }
       }, 500); // Interval is currently set to 500 milliseconds
     }
     return () => clearInterval(intervalId);
-  }, [isPlaying, isStopped, battleResults]);
+  }, [isPlaying, isStopped, displayedHistory]);
 
   useEffect(() => {
     if (historyEndRef.current) {
