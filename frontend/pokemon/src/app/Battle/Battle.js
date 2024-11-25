@@ -13,8 +13,6 @@ const Battle = () => {
   const [result, setResult] = useState('');
   const [orderOfBattle, setOrderOfBattle] = useState('');
 
-  const [battleResults, setBattleResults] = useState(null);
-
   // state variables for displaying battle history items in "real time"
   const [displayedHistory, setDisplayedHistory] = useState([]);
   const [isPlaying, setIsPlaying] = useState(false);
