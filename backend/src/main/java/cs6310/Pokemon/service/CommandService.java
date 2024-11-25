@@ -11,6 +11,7 @@ import org.springframework.retry.annotation.Retryable;
 
 import cs6310.Pokemon.dto.Result;
 import cs6310.Pokemon.exceptions.InvalidSeedException;
+import cs6310.Pokemon.exceptions.InvalidSeedException;
 import lombok.RequiredArgsConstructor;
 import lombok.Setter;
 import java.io.File;
@@ -39,6 +40,11 @@ public class CommandService {
         } else if (tokens[0].equals("removeseed")) {
             // processRemoveSeed(tokens);
         } else if (tokens[0].equals("battle")) {
+            try {
+                doBattle(tokens[1], tokens[2]);
+            } catch (InvalidSeedException e) {
+                e.printStackTrace();
+            }
             try {
                 doBattle(tokens[1], tokens[2]);
             } catch (InvalidSeedException e) {
@@ -102,15 +108,18 @@ public class CommandService {
     public String doSetSeed(Integer seed) {
         this.seed = seed;
         return "Seed set to " + seed;
+        return "Seed set to " + seed;
     }
 
     public String doRemoveSeed() {
         this.seed = -1;
         return "Seed removed.";
+        return "Seed removed.";
     }
 
     public Result doBattle(String pokemonOne, String pokemonTwo) throws InvalidSeedException {
         if (this.seed < 0) {
+            throw new InvalidSeedException();
             throw new InvalidSeedException();
         }
         battle.setSeed(this.seed);
@@ -118,11 +127,16 @@ public class CommandService {
     }
 
 <<<<<<< HEAD
+<<<<<<< HEAD
     @Retryable(value = { SQLException.class }, maxAttempts = 3)
 =======
 >>>>>>> 18478a7 (implement battle frontend and backend to show results.)
     public Result doTournament(List<String> pokemonList) throws InvalidSeedException {
+=======
+    public Result doTournament(List<String> pokemonList) throws InvalidSeedException throws InvalidSeedException {
+>>>>>>> a82e8b3 (finished rebase.)
         if (this.seed < 0) {
+            throw new InvalidSeedException();
             throw new InvalidSeedException();
         }
         // TODO: implement this method
