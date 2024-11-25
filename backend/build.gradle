@@ -25,6 +25,7 @@ dependencies {
 	implementation 'org.springframework.boot:spring-boot-starter-web' // Add this line for Spring Web
 	implementation 'org.projectlombok:lombok:1.18.24' // Add this line for the Lombok dependency
 	implementation 'org.springframework.retry:spring-retry' // Add this line for Spring Retry
+	runtimeOnly 'org.springframework.boot:spring-boot-starter-aop' // This is necessary for Spring Retry to work properly
     annotationProcessor 'org.projectlombok:lombok:1.18.24' // Add this line for the Lombok annotation processor
     testImplementation 'org.springframework.boot:spring-boot-starter-test'
     testImplementation 'org.junit.jupiter:junit-jupiter-api' // Add this line for JUnit Jupiter API
