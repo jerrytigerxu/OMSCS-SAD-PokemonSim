@@ -67,3 +67,8 @@ button:hover {
   background-color: #ffcb05; /* Pokemon yellow color */
   color: #3b4cca; /* Pokemon blue color */
 }
+
+.battle-history-scroll {
+  max-height: 150px;
+  overflow-y: auto;
+}

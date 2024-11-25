@@ -1,7 +1,7 @@
 // FILE: Battle.js
 import React, { useState } from 'react';
 import PropTypes from 'prop-types';
-import { useEffect } from 'react';
+import { useEffect, useRef } from 'react';
 import './Battle.css';
 
 const Battle = () => {
@@ -11,6 +11,12 @@ const Battle = () => {
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
   const [battleResults, setBattleResults] = useState(null);
+
+  // state variables for displaying battle history items in "real time"
+  const [displayedHistory, setDisplayedHistory] = useState([]);
+  const [isPlaying, setIsPlaying] = useState(false);
+  const [isStopped, setIsStopped] = useState(true);
+  const historyEndRef = useRef(null);
 
   const handleSelect1 = (event) => {
     const selectedOptions = Array.from(event.target.selectedOptions, option => option.value);
@@ -31,7 +37,7 @@ const Battle = () => {
     }
     console.log('Starting battle between ' + pokemon1 + ' and ' + pokemon2);
 
-    // TODO: Add a fetch call to check that the seed is set before allowing battle to run
+    // Added a fetch call to check that the seed is set before allowing battle to run
     const seedResponse = await fetch(`http://localhost:8080/api/commands/isSeedSet`);
     const seedData = await seedResponse.json();
     if (!seedData) {
@@ -47,6 +53,9 @@ const Battle = () => {
       const data = await response.json();
       console.log('Battle data:', data);
       setBattleResults(data);
+      setDisplayedHistory([]);
+      setIsStopped(false); // Start in a running state
+      setIsPlaying(true);
     } catch (error) {
       console.log(error.message);
       setError(error.message);
@@ -71,6 +80,60 @@ const Battle = () => {
     };
     fetchPokemonInfo();
   }, []);
+
+  // Interval function for displaying the battleHistory in "real time"
+  useEffect(() => {
+    let intervalId;
+    if (isPlaying && !isStopped && battleResults && battleResults.battleHistory.length > 0) {
+      let currentIndex = 0;
+      intervalId = setInterval(() => {
+
+        console.log("Current event:", battleResults.battleHistory[currentIndex]);
+        console.log("Displayed history before update:", displayedHistory);
+        console.log(currentIndex);
+
+        setDisplayedHistory(prevHistory => {
+          if (currentIndex < battleResults.battleHistory.length) {
+            const newHistory = [...prevHistory, battleResults.battleHistory[currentIndex]];
+            console.log("Displayed history after update:", newHistory);
+            return newHistory;
+          } else {
+            return prevHistory;
+          } 
+        });
+
+        currentIndex++;
+        if (currentIndex >= battleResults.battleHistory.length) {
+          clearInterval(intervalId);
+          setIsPlaying(false); // Pause when all events are displayed
+        }
+      }, 500); // Interval is currently set to 500 milliseconds
+    }
+    return () => clearInterval(intervalId);
+  }, [isPlaying, isStopped, battleResults]);
+
+  useEffect(() => {
+    if (historyEndRef.current) {
+      historyEndRef.current.scrollIntoView({ behavior: 'smooth' });
+    }
+  }, [displayedHistory]);
+
+  const handlePausePlay = () => { // For pause/play button
+    setIsPlaying(prevIsPlaying => !prevIsPlaying);
+  };
+
+  const handleStopRestart = () => { // For stop/restart button
+    setIsStopped(prevIsStopped => {
+      if (prevIsStopped) {
+        setDisplayedHistory([]); // Clear history on restart
+        setIsPlaying(true); // Start playing on restart
+      } else {
+        setIsPlaying(false); // Pause before stopping
+      }
+      return !prevIsStopped;
+    });
+  };
+
 
   if (loading) {
     return <div>Loading...</div>;
@@ -108,11 +171,17 @@ const Battle = () => {
           <p>Loser: {battleResults.loserPokemon}</p>
 
           <h4>Battle History:</h4>
-          <ul>
-            {battleResults.battleHistory.map((event, index) => (
-              <li key={index}>{event}</li>
+          <div className="battle-history-scroll">
+            {displayedHistory.map((event, index) => (
+              <pre key={index} className="battle-event">
+                {event}
+                <hr className="separator" />
+              </pre>
             ))}
-          </ul>
+            <div ref={historyEndRef} />
+          </div>
+          <button onClick={handlePausePlay}>{isPlaying ? 'Pause' : 'Play'}</button>
+          <button onClick={handleStopRestart}>{isStopped ? 'Restart' : 'Stop'}</button>
         </div>
       )}
       </>
