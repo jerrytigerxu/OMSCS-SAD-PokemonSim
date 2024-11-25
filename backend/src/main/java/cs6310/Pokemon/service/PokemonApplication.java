@@ -2,9 +2,11 @@ package cs6310.Pokemon.service;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
+import org.springframework.retry.annotation.EnableRetry;
 
 @SpringBootApplication(scanBasePackages = { "cs6310.Pokemon.service", "cs6310.Pokemon.dto",
 		"cs6310.Pokemon.controller" })
+@EnableRetry
 public class PokemonApplication {
 
 	public static void main(String[] args) {
