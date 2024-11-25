@@ -3,6 +3,7 @@ package cs6310.Pokemon.controller;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+
 import cs6310.Pokemon.service.CommandService;
 
 import java.util.Arrays;
@@ -23,7 +24,13 @@ public class CommandController {
     @GetMapping("/battle/{pokemon1}/{pokemon2}")
     public ResponseEntity<String> handleBattle(@PathVariable String pokemon1, @PathVariable String pokemon2) {
         System.out.println("Starting battle between " + pokemon1 + " and " + pokemon2);
+        //String result = "\"Testing!!!!!!!!!!!!!\"";
         String result = commandService.doBattle(pokemon1, pokemon2).toString();
+        System.out.println("Testing: " + result);
+        
+
+
+
         return ResponseEntity.ok(result);
     }
 

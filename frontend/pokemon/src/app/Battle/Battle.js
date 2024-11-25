@@ -10,6 +10,7 @@ const Battle = () => {
   const [pokemonList, setPokemonList] = useState([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
+  const [battleResults, setBattleResults] = useState(null);
 
   const handleSelect1 = (event) => {
     const selectedOptions = Array.from(event.target.selectedOptions, option => option.value);
@@ -45,7 +46,9 @@ const Battle = () => {
       }
       const data = await response.json();
       console.log('Battle data:', data);
+      setBattleResults(data);
     } catch (error) {
+      console.log(error.message);
       setError(error.message);
     }
   };
@@ -96,7 +99,16 @@ const Battle = () => {
           ))}
         </select>
         <button onClick={startBattle} className="start-battle-button">Start Battle</button>
-      </div></>
+      </div>
+      
+      {battleResults && (
+        <div className="battle-results"> 
+          <h3>Battle Results:</h3>
+          <p>Winner: {battleResults.winnerPokemon}</p>
+          <p>Loser: {battleResults.loserPokemon}</p>
+        </div>
+      )}
+      </>
   );
 };
 Battle.propTypes = {

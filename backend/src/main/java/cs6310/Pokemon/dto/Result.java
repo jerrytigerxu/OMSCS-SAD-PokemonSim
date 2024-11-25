@@ -27,11 +27,23 @@ public class Result {
 
     @Override
     public String toString() {
+
+        // Needed to get the names of the Pokemon and not the entire object
+        // This fixes the JSON issue
+
+        return "{ \"winnerPokemon\": \"" + (winnerPokemon != null ? winnerPokemon.getName() : "") + "\", " +
+           "\"loserPokemon\": \"" + (loserPokemon != null ? loserPokemon.getName() : "") + "\", " +
+           "\"tournamentId\": " + tournamentId + ", " +
+           "\"createdTimestamp\": \"" + createdTimestamp + "\" }";
+
+        /* 
         return "Result{" +
                 "winnerPokemon=" + winnerPokemon +
                 ", loserPokemon=" + loserPokemon +
                 ", tournamentId=" + tournamentId +
                 ", createdTimestamp=" + createdTimestamp +
                 '}';
+
+        */
     }
 }
