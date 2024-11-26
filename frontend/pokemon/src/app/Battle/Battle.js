@@ -162,9 +162,9 @@ const Battle = () => {
 
         {/* Display orderOfBattle as a list */}
         {orderOfBattle.length > 0 && (
-          <div className="order-of-battle">
+          <div className="battle-history-scroll">
             {orderOfBattle.map((event, index) => (
-              <p key={index}>{event}</p>
+              <pre key={index}>{event}<hr className="separator" /></pre>
             ))}
           </div>
         )}

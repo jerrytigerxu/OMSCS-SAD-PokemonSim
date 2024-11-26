@@ -70,3 +70,8 @@
   color: green;
   margin-top: 10px;
 }
+
+.battle-history-scroll {
+  max-height: 200px; /* Set a maximum height for the container */
+  overflow-y: auto; /* Add a vertical scrollbar if content overflows */
+}
