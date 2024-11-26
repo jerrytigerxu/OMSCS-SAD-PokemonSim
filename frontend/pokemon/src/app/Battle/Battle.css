@@ -45,15 +45,12 @@
   color: #3b4cca; /* Pokemon blue color */
 }
 
-<<<<<<< HEAD
 .separator {
   border: none;
   border-top: 1px solid #ccc;
   margin: 1rem 0;
 }
 
-=======
->>>>>>> 18478a7 (implement battle frontend and backend to show results.)
 .error-message {
   color: red;
   margin-top: 10px;

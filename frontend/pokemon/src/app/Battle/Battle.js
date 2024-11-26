@@ -47,8 +47,14 @@ const Battle = () => {
         }
       }
       const data = await response.json();
-      const lineDelimitedString = data.orderOfBattle.replace(/,/g, '\n');
-      setOrderOfBattle(lineDelimitedString);
+      //const lineDelimitedString = data.orderOfBattle.replace(/,/g, '\n');
+      const orderOfBattleArray = data.orderOfBattle;
+      setOrderOfBattle(orderOfBattleArray);
+
+      setDisplayedHistory([]);
+      setIsStopped(false);
+      setIsPlaying(true);
+
       setResult(`Winner: ${data.winnerPokemon}, Loser: ${data.loserPokemon}`);
     } catch (error) {
       console.log(error.message);
@@ -152,9 +158,24 @@ const Battle = () => {
         <button onClick={startBattle} className="start-battle-button">Start Battle</button>
         {error && <div className="error-message">{error}</div>}
         {result && <div className="result-message">{result}</div>}
-        {orderOfBattle && <div className="order-of-battle">{orderOfBattle}</div>}
+
+
+        {/* Display orderOfBattle as a list */}
+        {orderOfBattle.length > 0 && (
+          <div className="order-of-battle">
+            {orderOfBattle.map((event, index) => (
+              <p key={index}>{event}</p>
+            ))}
+          </div>
+        )}
+        
+        {/*{orderOfBattle && <div className="order-of-battle">{orderOfBattle}</div>}*/}
       </div></>
   );
+
+
+
+
 };
 Battle.propTypes = {
   pokemonList: PropTypes.arrayOf(
