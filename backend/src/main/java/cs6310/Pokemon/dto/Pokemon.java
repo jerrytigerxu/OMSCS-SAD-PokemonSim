@@ -37,7 +37,8 @@ public abstract class Pokemon {
         if (this.activeDefense > 0 && incomingDamage > 0) {
             var string = this.name + " successfully reduced " + opponent.getClass().getSimpleName()
                     + "'s damage by " + this.activeDefense + " with " + activeDefenseSkill.getName();
-            result.orderOfBattle += string + ",";
+            //result.orderOfBattle += string + ",";
+            result.getOrderOfBattle().add(string);
             System.out.println(string);
             incomingDamage = Math.max(0, incomingDamage - this.activeDefense);
         }
@@ -47,7 +48,8 @@ public abstract class Pokemon {
             var string = this.name + " has received " + incomingDamage + " dmg, remaining hp is "
                     + this.currentHitPoints;
             System.out.println(string);
-            result.orderOfBattle += string + ",";
+            //result.orderOfBattle += string + ",";
+            result.getOrderOfBattle().add(string);
         }
 
         if (this.currentHitPoints <= 0) {
@@ -101,7 +103,8 @@ public abstract class Pokemon {
                 var string = this.name + " is attacking with " + attackSkill.getName() + " for "
                         + attackSkill.getStrength() + " damage to " + opponent.getClass().getSimpleName();
                 System.out.println(string);
-                result.orderOfBattle += string + ",";
+                //result.orderOfBattle += string + ",";
+                result.getOrderOfBattle().add(string);
 
                 var opponentBattleMethod = opponent.getClass().getMethod("battle", Object.class, int.class,
                         boolean.class,Result.class);
@@ -111,7 +114,8 @@ public abstract class Pokemon {
                 
                 var string = this.name + " is attempting to defend with " + defenseSkill.getName();
                 System.out.println(string);
-                result.orderOfBattle += string + ",";
+                //result.orderOfBattle += string + ",";
+                result.getOrderOfBattle().add(string);
 
                 this.activeDefense = defenseSkill.getStrength();
                 this.activeDefenseSkill = defenseSkill;
