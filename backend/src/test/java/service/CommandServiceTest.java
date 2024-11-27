@@ -4,7 +4,7 @@ import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 
-import cs6310.Pokemon.exceptions.InvalidSeedException;
+import cs6310.Pokemon.exception.InvalidSeedException;
 import cs6310.Pokemon.service.CommandService;
 import cs6310.Pokemon.service.PokemonApplication;
 
