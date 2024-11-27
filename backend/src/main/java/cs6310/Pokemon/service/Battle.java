@@ -1,10 +1,9 @@
 package cs6310.Pokemon.service;
 
 import java.lang.reflect.InvocationTargetException;
-import java.util.ArrayList;
 import org.springframework.stereotype.Service;
 import cs6310.Pokemon.dto.Pokemon;
-import cs6310.Pokemon.dto.Result;
+import cs6310.Pokemon.dto.BattleResult;
 
 import lombok.Data;
 
@@ -15,7 +14,7 @@ public class Battle {
     private Pokemon pokemonTwo;
     private int seed;
 
-    public Result startBattle(String pokemonOne, String pokemonTwo) {
+    public BattleResult startBattle(String pokemonOne, String pokemonTwo) {
         Class<?> pokemon1 = null;
         Class<?> pokemon2 = null;
 
@@ -27,7 +26,7 @@ public class Battle {
         }
 
         if (pokemon1 == null || pokemon2 == null) {
-            return new Result();
+            return new BattleResult();
         }
 
         try {
@@ -38,19 +37,19 @@ public class Battle {
             e.printStackTrace();
         }
 
-        var result = new Result();
-        this.pokemonOne.battle(this.pokemonTwo, 0, true,result);
+        var result = new BattleResult();
+        this.pokemonOne.battle(this.pokemonTwo, 0, true, result);
         var loser = this.pokemonOne.getCurrentHitPoints() <= 0 ? this.pokemonOne.getName() : this.pokemonTwo.getName();
         if (this.pokemonOne.getName().equals(loser)) {
             System.out.println(this.pokemonOne.getName() + " has lost");
             System.out.println(this.pokemonTwo.getName() + " has won the battle");
-            result.setWinnerPokemon(this.pokemonTwo);
-            result.setLoserPokemon(this.pokemonOne);
+            result.setWinnerPokemon(pokemonTwo);
+            result.setLoserPokemon(pokemonOne);
         } else {
             System.out.println(this.pokemonTwo.getName() + " has lost");
             System.out.println(this.pokemonOne.getName() + " has won the battle");
-            result.setWinnerPokemon(this.pokemonOne);
-            result.setLoserPokemon(this.pokemonTwo);
+            result.setWinnerPokemon(pokemonOne);
+            result.setLoserPokemon(pokemonTwo);
         }
 
         return result;
