@@ -1,11 +1,11 @@
 ## Skill Point System
-- Objects: Pokemon, Move, Battle
+- Objects: Pokemon1, Pokemon2, Move, Battle
 - Sequence:
-	- Battle checks Pokemon's currentSP
-	- Pokemon filters available Moves based on SPCost
-	- Pokemon selects a Move (randomly from those with sufficient SP)
-	- Battle executes the Move
-	- Pokemon's currentSP is reduced by Move's SP Cost
+	- Battle checks Pokemon's currentSP of the active Pokemon
+	- Pokemon filters available Moves based on SPCost and its current SP
+	- Pokemon selects a Move from the list of affordable moves (randomly from those with sufficient SP)
+	- Battle executes the Move, applying its effects (damage, damage, etc.) to the inactive Pokemon
+	- The active Pokemon's currentSP is reduced by Move's SP Cost
 	- (At the end of the turn) Pokemon restores SP (similar to restoration of HP)
 ## System Robustness with Retries
 - Objects: PokemonService, PokemonRepository, Database
