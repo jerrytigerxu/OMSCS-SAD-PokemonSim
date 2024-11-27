@@ -9,8 +9,10 @@ import jakarta.persistence.ManyToOne;
 import jakarta.persistence.Table;
 import lombok.Data;
 import org.hibernate.annotations.CreationTimestamp;
+import lombok.Setter;
 
 @Data
+@Setter
 @Entity
 @Table(name = "BattleResult")
 public class BattleResultEntity {
