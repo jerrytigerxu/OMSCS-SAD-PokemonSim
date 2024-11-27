@@ -2,8 +2,8 @@ package cs6310.Pokemon.service;
 
 import java.lang.reflect.InvocationTargetException;
 import org.springframework.stereotype.Service;
-import cs6310.Pokemon.dto.Pokemon;
-import cs6310.Pokemon.dto.BattleResult;
+import cs6310.Pokemon.model.domain.Pokemon;
+import cs6310.Pokemon.model.dto.BattleResult;
 
 import lombok.Data;
 

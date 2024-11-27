@@ -3,7 +3,7 @@ package cs6310.Pokemon.controller;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
-import cs6310.Pokemon.dto.BattleResult;
+import cs6310.Pokemon.model.dto.BattleResult;
 import cs6310.Pokemon.exception.InvalidSeedException;
 import cs6310.Pokemon.service.CommandService;
 import com.fasterxml.jackson.databind.ObjectMapper;
