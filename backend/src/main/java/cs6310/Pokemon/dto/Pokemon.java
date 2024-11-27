@@ -9,7 +9,7 @@ import cs6310.Pokemon.Ditto;
 import cs6310.Pokemon.dto.Skill.SkillType;
 import lombok.Data;
 
-import cs6310.Pokemon.dto.Result;
+import cs6310.Pokemon.dto.BattleResult;
 
 @Data
 public abstract class Pokemon {
@@ -31,7 +31,7 @@ public abstract class Pokemon {
         this.rand = new Random(seed);
     }
 
-    public void battle(Object opponent, int incomingDamage, boolean isFirstAttack, Result result) {
+    public void battle(Object opponent, int incomingDamage, boolean isFirstAttack, BattleResult result) {
         var originalIncomingDamage = incomingDamage;
         boolean isAttack = incomingDamage > 0;
         if (this.activeDefense > 0 && incomingDamage > 0) {
@@ -107,7 +107,7 @@ public abstract class Pokemon {
                 result.getOrderOfBattle().add(string);
 
                 var opponentBattleMethod = opponent.getClass().getMethod("battle", Object.class, int.class,
-                        boolean.class,Result.class);
+                        boolean.class,BattleResult.class);
                 opponentBattleMethod.invoke(opponent, (Object) this, attackSkill.getStrength(), false,result);
             } else {
                 var defenseSkill = this.defenseSkills.get(this.rand.nextInt(this.defenseSkills.size()));
@@ -121,7 +121,7 @@ public abstract class Pokemon {
                 this.activeDefenseSkill = defenseSkill;
 
                 var opponentBattleMethod = opponent.getClass().getMethod("battle", Object.class, int.class,
-                        boolean.class,Result.class);
+                        boolean.class,BattleResult.class);
                 opponentBattleMethod.invoke(opponent, (Object) this, 0, false,result);
             }
         } catch (InvocationTargetException | NoSuchMethodException | SecurityException | IllegalAccessException
