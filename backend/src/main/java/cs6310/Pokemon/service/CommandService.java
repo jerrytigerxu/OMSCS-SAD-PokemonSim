@@ -6,10 +6,9 @@ import java.util.Set;
 import org.springframework.stereotype.Service;
 import org.springframework.retry.annotation.Retryable;
 
-
-import cs6310.Pokemon.dto.Pokemon;
-import cs6310.Pokemon.dto.BattleResult;
-import cs6310.Pokemon.dto.TournamentResult;
+import cs6310.Pokemon.model.domain.Pokemon;
+import cs6310.Pokemon.model.dto.BattleResult;
+import cs6310.Pokemon.model.dto.TournamentResult;
 
 import cs6310.Pokemon.exception.InvalidSeedException;
 import lombok.RequiredArgsConstructor;
@@ -51,7 +50,7 @@ public class CommandService {
         try {
             System.out.println("Starting tournament in CommandService with seed: " + this.seed);
             Tournament tournament = new Tournament(this.seed, pokemonList);
-            TournamentResult result =  tournament.startTournament();
+            TournamentResult result = tournament.startTournament();
             System.out.println("Tournament completed successfully.");
             return result;
         } catch (Exception e) {
@@ -87,9 +86,9 @@ public class CommandService {
     public List<String> getAllPokemon() {
         Reflections reflections = new Reflections("cs6310.Pokemon");
         Set<Class<? extends Pokemon>> allClasses = reflections.getSubTypesOf(Pokemon.class);
-        //Set<Class<?>> allClasses = reflections.getSubTypesOf(Object.class);
+        // Set<Class<?>> allClasses = reflections.getSubTypesOf(Object.class);
         return allClasses.stream()
-                //.filter(cls -> cls.getPackage().getName().equals("cs6310.Pokemon"))
+                // .filter(cls -> cls.getPackage().getName().equals("cs6310.Pokemon"))
                 .map(Class::getSimpleName)
                 .collect(Collectors.toList());
     }
