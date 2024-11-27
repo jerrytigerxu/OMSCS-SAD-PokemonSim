@@ -38,6 +38,7 @@ public class Tournament {
             pokemonQueue.add(battleResult.getWinnerPokemon());
         }
         tournamentResult.setWinnerPokemon(pokemonQueue.poll());
+        System.out.println("The winner is: " + tournamentResult.getWinnerPokemon());
         System.out.println("Tournament simulation completed");
         return tournamentResult;
     }
