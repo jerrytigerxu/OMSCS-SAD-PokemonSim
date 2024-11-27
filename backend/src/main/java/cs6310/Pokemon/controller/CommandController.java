@@ -50,7 +50,7 @@ public class CommandController {
         // Split the comma-delimited list into a list of strings
         List<String> pokemonListParsed = Arrays.asList(pokemonList.split(","));
         String result;
-
+        
         try {
             TournamentResult tournamentResult = commandService.doTournament(pokemonListParsed);
             result = objectMapper.writeValueAsString(tournamentResult);
@@ -62,6 +62,7 @@ public class CommandController {
         } catch (Exception e) {
             return ResponseEntity.status(500).body("Error processing tournament");
         }
+    
         
         return ResponseEntity.ok(result);
     }

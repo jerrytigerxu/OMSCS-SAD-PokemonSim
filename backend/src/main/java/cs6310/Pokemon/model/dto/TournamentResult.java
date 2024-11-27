@@ -2,6 +2,7 @@
 package cs6310.Pokemon.model.dto;
 
 import java.util.List;
+import java.util.ArrayList;
 import lombok.Data;
 import lombok.Setter;
 
@@ -17,5 +18,5 @@ public class TournamentResult {
     private String winnerPokemon;
 
     @JsonProperty("battleResultList")
-    private List<BattleResult> battleResultList;
+    private List<BattleResult> battleResultList = new ArrayList<>();
 }
