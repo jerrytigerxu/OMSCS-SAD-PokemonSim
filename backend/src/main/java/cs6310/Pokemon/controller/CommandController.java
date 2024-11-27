@@ -3,23 +3,28 @@ package cs6310.Pokemon.controller;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import cs6310.Pokemon.dto.BattleResult;
 import cs6310.Pokemon.exceptions.InvalidSeedException;
 import cs6310.Pokemon.service.CommandService;
-
+import com.fasterxml.jackson.databind.ObjectMapper;
+import org.springframework.beans.factory.annotation.Autowired;
+import com.fasterxml.jackson.core.JsonProcessingException;
 import java.util.Arrays;
 import java.util.List;
 import java.util.Map;
+import java.util.Set;
+import java.util.stream.Collectors;
 
 @CrossOrigin(origins = "*", allowedHeaders = "*")
 @RestController
 @RequestMapping("/api/commands")
 public class CommandController {
 
-    private final CommandService commandService;
+    @Autowired
+    private CommandService commandService;
 
-    public CommandController(CommandService commandService) {
-        this.commandService = commandService;
-    }
+    @Autowired
+    private ObjectMapper objectMapper;
 
     @GetMapping("/battle/{pokemon1}/{pokemon2}")
     public ResponseEntity<String> handleBattle(@PathVariable String pokemon1, @PathVariable String pokemon2) {
@@ -27,9 +32,14 @@ public class CommandController {
         
         String result;
         try {
-            result = commandService.doBattle(pokemon1, pokemon2).toString();
+            BattleResult battleResult = commandService.doBattle(pokemon1, pokemon2);
+            result = objectMapper.writeValueAsString(battleResult);
         } catch (InvalidSeedException e) {
             return ResponseEntity.badRequest().body(e.getMessage());
+        } catch (JsonProcessingException e) {
+            return ResponseEntity.status(500).body("Error processing JSON");
+        } catch (Exception e) {
+            return ResponseEntity.status(500).body("Error processing battle");
         }
 
         return ResponseEntity.ok(result);
@@ -83,7 +93,11 @@ public class CommandController {
 
     @GetMapping("/getAllPokemon")
     public ResponseEntity<List<String>> getAllPokemon() {
-        List<String> allPokemon = commandService.getAllPokemon();
+        Reflections reflections = new Reflections("cs6310.Pokemon.model");
+        Set<Class<? extends Pokemon>> pokemonClasses = reflections.getSubTypesOf(Pokemon.class);
+        List<String> allPokemon = pokemonClasses.stream()
+                .map(Class::getSimpleName)
+                .collect(Collectors.toList());
         return ResponseEntity.ok(allPokemon);
     }
 }
