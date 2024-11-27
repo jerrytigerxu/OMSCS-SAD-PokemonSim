@@ -1,6 +1,7 @@
 package cs6310.Pokemon.service;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 import java.util.Scanner;
 import java.util.Set;
@@ -28,84 +29,6 @@ public class CommandService {
 
     @Setter
     private int seed = -1;
-
-    public void processCommand(String inputString) {
-        var delimiter = ",";
-
-        var tokens = inputString.split(delimiter);
-        System.out.println("> " + inputString);
-
-        if (tokens[0].startsWith("//")) {
-            // do nothing
-        } else if (tokens[0].equals("setseed")) {
-            doSetSeed(Integer.parseInt(tokens[1]));
-        } else if (tokens[0].equals("removeseed")) {
-            // processRemoveSeed(tokens);
-        } else if (tokens[0].equals("battle")) {
-            try {
-                doBattle(tokens[1], tokens[2]);
-            } catch (InvalidSeedException e) {
-                e.printStackTrace();
-            }
-            try {
-                doBattle(tokens[1], tokens[2]);
-            } catch (InvalidSeedException e) {
-                e.printStackTrace();
-            }
-        } else if (tokens[0].equals("tournament")) {
-            // processTournament(tokens);
-        } else if (tokens[0].equals("displayinfo")) {
-            doDisplayInfo(tokens[1]);
-        } else if (tokens[0].equals("stop")) {
-            doStop();
-            return;
-        } else {
-            System.out.println("command unknown");
-            return;
-        }
-    }
-
-    public void ProcessCommands(String[] args) {
-        printIntro();
-        var commandLineInput = new Scanner(System.in);
-        var delimiter = ",";
-
-        while (true) {
-            try {
-                var wholeInputLine = commandLineInput.nextLine();
-                var tokens = wholeInputLine.split(delimiter);
-                System.out.println("> " + wholeInputLine);
-
-                if (tokens[0].startsWith("//")) {
-                    // for (var i = 0; i < tokens.length; i++) {
-                    // System.out.println("token " + i + " is " + tokens[i]);
-                    // }
-                } else if (tokens[0].equals("setseed")) {
-                    doSetSeed(Integer.parseInt(tokens[1]));
-                } else if (tokens[0].equals("removeseed")) {
-                    // processRemoveSeed(tokens);
-                } else if (tokens[0].equals("battle")) {
-                    doBattle(tokens[1], tokens[2]);
-                } else if (tokens[0].equals("tournament")) {
-                    // processTournament(tokens);
-                } else if (tokens[0].equals("displayinfo")) {
-                    doDisplayInfo(tokens[1]);
-                } else if (tokens[0].equals("stop")) {
-                    doStop();
-                    break;
-                } else {
-                    System.out.println("command unknown");
-                    break;
-                }
-            } catch (Exception e) {
-                e.printStackTrace();
-                System.out.println();
-            }
-        }
-
-        System.out.println("simulation terminated");
-        commandLineInput.close();
-    }
 
     public String doSetSeed(Integer seed) {
         this.seed = seed;
