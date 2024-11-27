@@ -26,6 +26,7 @@ public class Tournament {
     public TournamentResult startTournament() {
         TournamentResult tournamentResult = new TournamentResult();
         while (pokemonQueue.size() > 1) {
+            System.out.println("Starting tournament simulation...");
             String pokemonOne = pokemonQueue.poll();
             String pokemonTwo = pokemonQueue.poll();
             Battle battle = new Battle();
@@ -37,6 +38,7 @@ public class Tournament {
             pokemonQueue.add(battleResult.getWinnerPokemon());
         }
         tournamentResult.setWinnerPokemon(pokemonQueue.poll());
+        System.out.println("Tournament simulation completed");
         return tournamentResult;
     }
 
