@@ -1,4 +1,3 @@
-
 package cs6310.Pokemon.model.dto;
 
 
@@ -6,11 +5,14 @@ import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 import lombok.Data;
+import lombok.Setter;
+
 import com.fasterxml.jackson.annotation.JsonFormat;
 import com.fasterxml.jackson.annotation.JsonProperty;
 
 
 @Data
+@Setter
 public class BattleResult {
     @JsonProperty("winnerPokemon")
     private String winnerPokemon;

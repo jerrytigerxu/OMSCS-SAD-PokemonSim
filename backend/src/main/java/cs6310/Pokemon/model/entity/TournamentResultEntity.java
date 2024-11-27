@@ -1,4 +1,3 @@
-
 package cs6310.Pokemon.model.entity;
 
 import java.util.List;
@@ -8,9 +7,11 @@ import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.OneToMany;
 import lombok.Data;
+import lombok.Setter;
 
 @Data
 @Entity
+@Setter
 public class TournamentResultEntity {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)

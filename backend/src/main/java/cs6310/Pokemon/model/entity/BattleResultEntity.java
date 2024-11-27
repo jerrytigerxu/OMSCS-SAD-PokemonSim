@@ -11,9 +11,11 @@ import jakarta.persistence.Id;
 import jakarta.persistence.ManyToOne;
 import jakarta.persistence.Transient;
 import lombok.Data;
+import lombok.Setter;
 
 @Data
 @Entity
+@Setter
 public class BattleResultEntity {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
