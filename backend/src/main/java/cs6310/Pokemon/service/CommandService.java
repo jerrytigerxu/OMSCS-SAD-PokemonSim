@@ -9,7 +9,7 @@ import org.springframework.context.ApplicationContext;
 import org.springframework.stereotype.Service;
 import org.springframework.retry.annotation.Retryable;
 
-import cs6310.Pokemon.dto.Result;
+import cs6310.Pokemon.dto.BattleResult;
 import cs6310.Pokemon.exceptions.InvalidSeedException;
 import cs6310.Pokemon.exceptions.InvalidSeedException;
 import lombok.RequiredArgsConstructor;
@@ -116,7 +116,7 @@ public class CommandService {
         return "Seed removed.";
     }
 
-    public Result doBattle(String pokemonOne, String pokemonTwo) throws InvalidSeedException {
+    public BattleResult doBattle(String pokemonOne, String pokemonTwo) throws InvalidSeedException {
         if (this.seed < 0) {
             throw new InvalidSeedException();
         }
@@ -125,12 +125,12 @@ public class CommandService {
     }
 
     @Retryable(value = { SQLException.class }, maxAttempts = 3)
-    public Result doTournament(List<String> pokemonList) throws InvalidSeedException {
+    public BattleResult doTournament(List<String> pokemonList) throws InvalidSeedException {
         if (this.seed < 0) {
             throw new InvalidSeedException();
         }
         // TODO: implement this method
-        return new Result();
+        return new BattleResult();
     }
 
     @Retryable(value = { SQLException.class }, maxAttempts = 3)
