@@ -4,16 +4,15 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import cs6310.Pokemon.dto.BattleResult;
-import cs6310.Pokemon.exceptions.InvalidSeedException;
+import cs6310.Pokemon.exception.InvalidSeedException;
 import cs6310.Pokemon.service.CommandService;
 import com.fasterxml.jackson.databind.ObjectMapper;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import java.util.Arrays;
 import java.util.List;
 import java.util.Map;
-import java.util.Set;
-import java.util.stream.Collectors;
 
 @CrossOrigin(origins = "*", allowedHeaders = "*")
 @RestController
@@ -93,11 +92,7 @@ public class CommandController {
 
     @GetMapping("/getAllPokemon")
     public ResponseEntity<List<String>> getAllPokemon() {
-        Reflections reflections = new Reflections("cs6310.Pokemon.model");
-        Set<Class<? extends Pokemon>> pokemonClasses = reflections.getSubTypesOf(Pokemon.class);
-        List<String> allPokemon = pokemonClasses.stream()
-                .map(Class::getSimpleName)
-                .collect(Collectors.toList());
+        List<String> allPokemon = commandService.getAllPokemon();
         return ResponseEntity.ok(allPokemon);
     }
 }
