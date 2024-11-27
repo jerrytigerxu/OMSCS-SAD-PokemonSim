@@ -63,15 +63,6 @@ public class CommandController {
             return ResponseEntity.status(500).body("Error processing tournament");
         }
         
-        /* 
-        try {
-            result = commandService.doTournament(pokemonListParsed).toString();
-            System.out.println("result: "+result);
-        } catch (InvalidSeedException e) {
-            return ResponseEntity.badRequest().body(e.getMessage());
-        }
-            */
-        
         return ResponseEntity.ok(result);
     }
 
