@@ -6,6 +6,7 @@ import java.util.Set;
 import org.springframework.stereotype.Service;
 import org.springframework.retry.annotation.Retryable;
 
+import cs6310.Pokemon.dto.Pokemon;
 import cs6310.Pokemon.dto.BattleResult;
 import cs6310.Pokemon.dto.TournamentResult;
 import cs6310.Pokemon.exception.InvalidSeedException;
@@ -83,9 +84,10 @@ public class CommandService {
 
     public List<String> getAllPokemon() {
         Reflections reflections = new Reflections("cs6310.Pokemon");
-        Set<Class<?>> allClasses = reflections.getSubTypesOf(Object.class);
+        Set<Class<? extends Pokemon>> allClasses = reflections.getSubTypesOf(Pokemon.class);
+        //Set<Class<?>> allClasses = reflections.getSubTypesOf(Object.class);
         return allClasses.stream()
-                .filter(cls -> cls.getPackage().getName().equals("cs6310.Pokemon"))
+                //.filter(cls -> cls.getPackage().getName().equals("cs6310.Pokemon"))
                 .map(Class::getSimpleName)
                 .collect(Collectors.toList());
     }

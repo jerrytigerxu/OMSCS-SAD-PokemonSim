@@ -4,6 +4,7 @@ import GetAllPokemon from './app/DisplayInfo/GetAllPokemon';
 import DisplayInfo from './app/DisplayInfo/DisplayInfo';
 import Base from './app/Base/Base';
 import Battle from './app/Battle/Battle';
+import Tournament from './app/Tournament/Tournament';
 import { useEffect } from 'react';
 import SetRemoveSeed from './app/SetSeed/SetRemoveSeed';
 
@@ -29,7 +30,7 @@ function App() {
       case 'Battle':
         return <Battle />;
       case 'Tournament':
-        return <div>Tournament Component</div>;
+        return <Tournament />;
       case 'Set Seed':
         return (
           <SetRemoveSeed />
