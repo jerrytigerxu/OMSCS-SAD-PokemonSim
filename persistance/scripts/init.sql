@@ -1,4 +1,3 @@
-
 -- Create the database 'game' if it doesn't exist
 DO
 $$
@@ -14,25 +13,24 @@ $$;
 -- Connect to the 'game' database
 \c game;
 
--- Create the 'TournamentHistory' table
-CREATE TABLE IF NOT EXISTS TournamentHistory (
+-- Create the 'TournamentResult' table
+CREATE TABLE IF NOT EXISTS TournamentResult (
     id SERIAL PRIMARY KEY,
-    num_pokemons INT NOT NULL,
-    name_pokemons TEXT NOT NULL,
-    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
+    winnerPokemon TEXT,
+    createdTimestamp TIMESTAMP DEFAULT CURRENT_TIMESTAMP
 );
 
--- Create the 'BattleHistory' table
-CREATE TABLE IF NOT EXISTS BattleHistory (
+-- Create the 'BattleResult' table
+CREATE TABLE IF NOT EXISTS BattleResult (
     id SERIAL PRIMARY KEY,
-    pokemonA TEXT NOT NULL,
-    pokemonB TEXT NOT NULL,
-    winner BOOLEAN,
+    winnerPokemon TEXT,
+    loserPokemon TEXT,
+    orderOfBattle TEXT,
+    createdTimestamp TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
     tournament_id INT,
-    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
     CONSTRAINT fk_tournament
         FOREIGN KEY (tournament_id)
-        REFERENCES TournamentHistory(id)
+        REFERENCES TournamentResult(id)
         ON DELETE CASCADE
 );
 
