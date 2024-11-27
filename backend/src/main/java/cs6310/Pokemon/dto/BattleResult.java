@@ -25,9 +25,9 @@ public class BattleResult {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @JsonProperty("winnerPokemon")
-    private Pokemon winnerPokemon;
+    private String winnerPokemon;
     @JsonProperty("loserPokemon")
-    private Pokemon loserPokemon;
+    private String loserPokemon;
     @JsonFormat(pattern = "yyyy-MM-dd'T'HH:mm:ss")
     private LocalDateTime createdTimestamp;
 
@@ -41,7 +41,7 @@ public class BattleResult {
     public BattleResult() {
     }
 
-    public BattleResult(Pokemon winnerPokemon, Pokemon loserPokemon, TournamentResult tournamentResult, LocalDateTime createdTimestamp, List<String> orderOfBattle) {
+    public BattleResult(String winnerPokemon, String loserPokemon, TournamentResult tournamentResult, LocalDateTime createdTimestamp, List<String> orderOfBattle) {
         this.winnerPokemon = winnerPokemon;
         this.loserPokemon = loserPokemon;
         this.tournamentResult = tournamentResult;
@@ -49,7 +49,7 @@ public class BattleResult {
         this.orderOfBattle = orderOfBattle;
     }
 
-    public BattleResult(Pokemon winnerPokemon, Pokemon loserPokemon) {
+    public BattleResult(String winnerPokemon, String loserPokemon) {
         this.winnerPokemon = winnerPokemon;
         this.loserPokemon = loserPokemon;
         this.tournamentResult = null;
@@ -68,8 +68,8 @@ public class BattleResult {
     @Override
     public String toString() {
         return "BattleResult{" +
-                "winnerPokemon=" + (winnerPokemon != null ? winnerPokemon.getName() : "") +
-                ", loserPokemon=" + (loserPokemon != null ? loserPokemon.getName() : "") +
+                "winnerPokemon='" + winnerPokemon + '\'' +
+                ", loserPokemon='" + loserPokemon + '\'' +
                 ", createdTimestamp=" + createdTimestamp +
                 ", orderOfBattle=" + orderOfBattle +
                 '}';
