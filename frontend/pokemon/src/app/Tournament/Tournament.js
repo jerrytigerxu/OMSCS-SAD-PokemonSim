@@ -26,10 +26,8 @@ const Tournament = () => {
                 `http://localhost:8080/api/commands/tournament/${selectedPokemon.join(",")}`,
               );
             if (!response.ok) {
-                if (response.status === 400) {
-                  const errorData = JSON.stringify(await response.text());
-                  throw new Error(errorData || 'Bad Request');
-                }
+                const errorData = await response.text();
+                throw new Error(`HTTP error! status: ${response.status}, message: ${errorData}`);
             }
             const data = await response.json();
             console.log("Tournament data:", data);
@@ -39,7 +37,7 @@ const Tournament = () => {
 
             setTournamentData({ ...data, winnerPokemon: tournamentWinner });
         } catch (error) {
-            console.log(error.message);
+            console.log("Error starting tournament:", error);
             setError(error.message);
         }
     }
