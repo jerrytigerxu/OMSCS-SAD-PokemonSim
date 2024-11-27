@@ -1,0 +1,55 @@
+
+# Java
+*.class
+*.jar
+*.war
+*.ear
+
+# Logs
+*.log
+
+# Temporary files
+*.tmp
+*.bak
+*.swp
+
+# Directories
+/bin/
+/target/
+/out/
+
+# IDEs
+/.idea/
+/*.iml
+/.vscode/
+/*.sublime-workspace
+
+# OS-specific
+.DS_Store
+Thumbs.db
+
+# Maven
+/logs/
+/*.log
+/reports/
+/*.tmp
+/.mvn/
+/target/
+/dependency-reduced-pom.xml
+/buildNumber.properties
+/.idea/
+/*.iml
+/*.ipr
+/*.iws
+/*.bak
+/*.swp
+/target/
+/out/
+/bin/
+/build/
+/dist/
+/nbproject/private/
+/nbbuild/
+/dist/
+/nbdist/
+/.nb-gradle/

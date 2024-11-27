@@ -1,31 +1,19 @@
-package cs6310.Pokemon.dto;
+package cs6310.Pokemon.model.dto;
 
 
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
-
-
-import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
-import jakarta.persistence.Id;
-import jakarta.persistence.Transient;
-import jakarta.persistence.ManyToOne;
-
-
 import lombok.Data;
+import lombok.Setter;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
-import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonProperty;
 
 
 @Data
-@Entity
+@Setter
 public class BattleResult {
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
     @JsonProperty("winnerPokemon")
     private String winnerPokemon;
     @JsonProperty("loserPokemon")
@@ -33,20 +21,15 @@ public class BattleResult {
     @JsonFormat(pattern = "yyyy-MM-dd'T'HH:mm:ss")
     private LocalDateTime createdTimestamp;
 
-    @ManyToOne
-    @JsonIgnore
-    private TournamentResult tournamentResult;
-
-    @Transient
+    @JsonProperty("orderOfBattle")
     private List<String> orderOfBattle = new ArrayList<>();
 
     public BattleResult() {
     }
 
-    public BattleResult(String winnerPokemon, String loserPokemon, TournamentResult tournamentResult, LocalDateTime createdTimestamp, List<String> orderOfBattle) {
+    public BattleResult(String winnerPokemon, String loserPokemon, LocalDateTime createdTimestamp, List<String> orderOfBattle) {
         this.winnerPokemon = winnerPokemon;
         this.loserPokemon = loserPokemon;
-        this.tournamentResult = tournamentResult;
         this.createdTimestamp = createdTimestamp;
         this.orderOfBattle = orderOfBattle;
     }
@@ -54,7 +37,6 @@ public class BattleResult {
     public BattleResult(String winnerPokemon, String loserPokemon) {
         this.winnerPokemon = winnerPokemon;
         this.loserPokemon = loserPokemon;
-        this.tournamentResult = null;
         this.createdTimestamp = LocalDateTime.now();
         this.orderOfBattle = new ArrayList<>();
     }
@@ -65,21 +47,5 @@ public class BattleResult {
 
     public void setOrderOfBattle(List<String> orderOfBattle) {
         this.orderOfBattle = orderOfBattle;
-    }
-
-    public void setWinnerPokemon(String winnerPokemon) {
-        this.winnerPokemon = winnerPokemon;
-    }
-
-    public void setLoserPokemon(String loserPokemon) {
-        this.loserPokemon = loserPokemon;
-    }
-
-    public String getWinnerPokemon() {
-        return winnerPokemon;
-    }
-
-    public String getLoserPokemon() {
-        return loserPokemon;
     }
 }
