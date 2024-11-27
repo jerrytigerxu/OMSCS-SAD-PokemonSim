@@ -1,4 +1,3 @@
-
 package cs6310.Pokemon.model.dto;
 
 import java.time.LocalDateTime;

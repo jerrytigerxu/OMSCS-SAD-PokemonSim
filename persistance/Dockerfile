@@ -8,6 +8,6 @@ ENV POSTGRES_PASSWORD=wizardOfOZ
 # Expose PostgreSQL default port
 EXPOSE 5432
 
-# initialization scripts
+# Copy initialization scripts
 COPY ./scripts/init.sql /docker-entrypoint-initdb.d/
 
