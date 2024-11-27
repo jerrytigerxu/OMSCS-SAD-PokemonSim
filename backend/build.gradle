@@ -32,6 +32,7 @@ dependencies {
     implementation 'org.reflections:reflections:0.9.12' // Reflections library
     testImplementation 'org.springframework.boot:spring-boot-starter-test'
     testImplementation 'org.junit.jupiter:junit-jupiter-api' // JUnit Jupiter API
+    testImplementation 'com.h2database:h2'
     testRuntimeOnly 'org.junit.jupiter:junit-jupiter-engine'
     testRuntimeOnly 'org.junit.platform:junit-platform-launcher'
 }

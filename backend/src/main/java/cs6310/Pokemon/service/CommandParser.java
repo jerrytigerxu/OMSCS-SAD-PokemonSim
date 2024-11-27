@@ -53,7 +53,7 @@ public class CommandParser {
         CommandService.printIntro();
         var commandLineInput = new Scanner(System.in);
 
-        while (true) {
+        while (commandLineInput.hasNextLine()) {
             try {
                 var wholeInputLine = commandLineInput.nextLine();
                 if (wholeInputLine.startsWith("stop")) {

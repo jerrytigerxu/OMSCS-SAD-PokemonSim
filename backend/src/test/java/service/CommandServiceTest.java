@@ -3,6 +3,7 @@ package service;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.test.context.ActiveProfiles;
 
 import cs6310.Pokemon.exception.InvalidSeedException;
 import cs6310.Pokemon.service.CommandParser;
@@ -10,6 +11,7 @@ import cs6310.Pokemon.service.CommandService;
 import cs6310.Pokemon.service.PokemonApplication;
 
 @SpringBootTest(classes = PokemonApplication.class)
+@ActiveProfiles("test")
 class CommandServiceTest {
         
         @Autowired

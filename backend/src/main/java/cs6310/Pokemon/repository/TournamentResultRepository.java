@@ -1,7 +1,7 @@
 package cs6310.Pokemon.repository;
 
 import org.springframework.data.jpa.repository.JpaRepository;
-import cs6310.Pokemon.model.dto.TournamentResult;
+import cs6310.Pokemon.model.entity.TournamentResultEntity;
 
-public interface TournamentResultRepository extends JpaRepository<TournamentResult, Long> {
+public interface TournamentResultRepository extends JpaRepository<TournamentResultEntity, Long> {
 }
