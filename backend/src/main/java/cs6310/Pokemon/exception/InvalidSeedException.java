@@ -1,4 +1,4 @@
-package cs6310.Pokemon.exceptions;
+package cs6310.Pokemon.exception;
 
 public class InvalidSeedException extends Exception {
     public InvalidSeedException() {

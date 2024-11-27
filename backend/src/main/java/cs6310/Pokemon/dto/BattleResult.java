@@ -3,13 +3,10 @@ package cs6310.Pokemon.dto;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.stream.Collectors;
-
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
-import jakarta.persistence.ElementCollection;
 import jakarta.persistence.Transient;
 import jakarta.persistence.ManyToOne;
 
@@ -25,9 +22,9 @@ public class BattleResult {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @JsonProperty("winnerPokemon")
-    private Pokemon winnerPokemon;
+    private String winnerPokemon;
     @JsonProperty("loserPokemon")
-    private Pokemon loserPokemon;
+    private String loserPokemon;
     @JsonFormat(pattern = "yyyy-MM-dd'T'HH:mm:ss")
     private LocalDateTime createdTimestamp;
 
@@ -41,7 +38,7 @@ public class BattleResult {
     public BattleResult() {
     }
 
-    public BattleResult(Pokemon winnerPokemon, Pokemon loserPokemon, TournamentResult tournamentResult, LocalDateTime createdTimestamp, List<String> orderOfBattle) {
+    public BattleResult(String winnerPokemon, String loserPokemon, TournamentResult tournamentResult, LocalDateTime createdTimestamp, List<String> orderOfBattle) {
         this.winnerPokemon = winnerPokemon;
         this.loserPokemon = loserPokemon;
         this.tournamentResult = tournamentResult;
@@ -49,7 +46,7 @@ public class BattleResult {
         this.orderOfBattle = orderOfBattle;
     }
 
-    public BattleResult(Pokemon winnerPokemon, Pokemon loserPokemon) {
+    public BattleResult(String winnerPokemon, String loserPokemon) {
         this.winnerPokemon = winnerPokemon;
         this.loserPokemon = loserPokemon;
         this.tournamentResult = null;
@@ -63,15 +60,5 @@ public class BattleResult {
 
     public void setOrderOfBattle(List<String> orderOfBattle) {
         this.orderOfBattle = orderOfBattle;
-    }
-
-    @Override
-    public String toString() {
-        return "BattleResult{" +
-                "winnerPokemon=" + (winnerPokemon != null ? winnerPokemon.getName() : "") +
-                ", loserPokemon=" + (loserPokemon != null ? loserPokemon.getName() : "") +
-                ", createdTimestamp=" + createdTimestamp +
-                ", orderOfBattle=" + orderOfBattle +
-                '}';
     }
 }

@@ -7,7 +7,8 @@ import cs6310.Pokemon.dto.BattleResult;
 import cs6310.Pokemon.dto.TournamentResult;
 
 public class Tournament {
-    private List<String> pokemonList;
+    @SuppressWarnings("unused")
+    private List<String> pokemonList; // TODO: May not need this field
     private Queue<String> pokemonQueue;
     private Integer seed;
 
@@ -28,6 +29,9 @@ public class Tournament {
             String pokemonOne = pokemonQueue.poll();
             String pokemonTwo = pokemonQueue.poll();
             Battle battle = new Battle();
+            if (seed != null) {
+                battle.setSeed(seed);
+            }
             BattleResult battleResult = battle.startBattle(pokemonOne, pokemonTwo);
             tournamentResult.getBattleResultList().add(battleResult);
             pokemonQueue.add(battleResult.getWinnerPokemon());

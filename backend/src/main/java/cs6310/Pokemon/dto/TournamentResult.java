@@ -10,14 +10,20 @@ import jakarta.persistence.OneToMany;
 
 import lombok.Data;
 
+import com.fasterxml.jackson.annotation.JsonProperty;
+
 @Data
 @Entity
 public class TournamentResult {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @JsonProperty("id")
     private Long id;
+    
+    @JsonProperty("winnerPokemon")
     private String winnerPokemon;
 
     @OneToMany
+    @JsonProperty("battleResultList")
     private List<BattleResult> battleResultList;
 }
