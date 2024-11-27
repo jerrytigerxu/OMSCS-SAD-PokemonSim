@@ -45,8 +45,17 @@ public class CommandService {
         if (this.seed < 0) {
             throw new InvalidSeedException();
         }
-        Tournament tournament = new Tournament(this.seed, pokemonList);
-        return tournament.startTournament();
+        try {
+            System.out.println("Starting tournament in CommandService with seed: " + this.seed);
+            Tournament tournament = new Tournament(this.seed, pokemonList);
+            TournamentResult result =  tournament.startTournament();
+            System.out.println("Tournament completed successfully.");
+            return result;
+        } catch (Exception e) {
+            System.err.println("Error in doTournament: " + e.getMessage());
+            e.printStackTrace();
+            throw e;
+        }
     }
 
     @Retryable(value = { SQLException.class }, maxAttempts = 3)

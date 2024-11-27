@@ -1,12 +1,14 @@
 
 package cs6310.Pokemon.model.dto;
 
+
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 import lombok.Data;
 import com.fasterxml.jackson.annotation.JsonFormat;
 import com.fasterxml.jackson.annotation.JsonProperty;
+
 
 @Data
 public class BattleResult {

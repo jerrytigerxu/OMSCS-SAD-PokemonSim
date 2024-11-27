@@ -4,6 +4,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import cs6310.Pokemon.model.dto.BattleResult;
+import cs6310.Pokemon.model.dto.TournamentResult;
 import cs6310.Pokemon.exception.InvalidSeedException;
 import cs6310.Pokemon.service.CommandService;
 import com.fasterxml.jackson.databind.ObjectMapper;
@@ -49,12 +50,28 @@ public class CommandController {
         // Split the comma-delimited list into a list of strings
         List<String> pokemonListParsed = Arrays.asList(pokemonList.split(","));
         String result;
+
+        try {
+            TournamentResult tournamentResult = commandService.doTournament(pokemonListParsed);
+            result = objectMapper.writeValueAsString(tournamentResult);
+            //System.out.println("result: " + result);
+        } catch (InvalidSeedException e) {
+            return ResponseEntity.badRequest().body(e.getMessage());
+        } catch (JsonProcessingException e) {
+            return ResponseEntity.status(500).body("Error processing JSON");
+        } catch (Exception e) {
+            return ResponseEntity.status(500).body("Error processing tournament");
+        }
+        
+        /* 
         try {
             result = commandService.doTournament(pokemonListParsed).toString();
             System.out.println("result: "+result);
         } catch (InvalidSeedException e) {
             return ResponseEntity.badRequest().body(e.getMessage());
         }
+            */
+        
         return ResponseEntity.ok(result);
     }
 
