@@ -1,4 +1,5 @@
-package cs6310.Pokemon.dto;
+
+package cs6310.Pokemon.model.domain;
 
 import lombok.Data;
 

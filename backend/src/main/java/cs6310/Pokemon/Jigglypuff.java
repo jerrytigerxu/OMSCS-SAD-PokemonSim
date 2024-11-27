@@ -2,9 +2,9 @@ package cs6310.Pokemon;
 
 import java.util.ArrayList;
 import java.util.Arrays;
-import cs6310.Pokemon.dto.Pokemon;
-import cs6310.Pokemon.dto.Skill;
-import cs6310.Pokemon.dto.Skill.SkillType;
+import cs6310.Pokemon.model.domain.Pokemon;
+import cs6310.Pokemon.model.domain.Skill;
+import cs6310.Pokemon.model.domain.Skill.SkillType;
 
 public class Jigglypuff extends Pokemon {
     public Jigglypuff() {

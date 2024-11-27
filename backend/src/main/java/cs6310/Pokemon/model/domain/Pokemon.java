@@ -1,4 +1,5 @@
-package cs6310.Pokemon.dto;
+
+package cs6310.Pokemon.model.domain;
 
 import java.lang.reflect.InvocationTargetException;
 import java.util.Comparator;
@@ -6,7 +7,8 @@ import java.util.List;
 import java.util.Random;
 
 import cs6310.Pokemon.Ditto;
-import cs6310.Pokemon.dto.Skill.SkillType;
+import cs6310.Pokemon.model.domain.Skill.SkillType;
+import cs6310.Pokemon.model.dto.BattleResult;
 import lombok.Data;
 
 @Data
