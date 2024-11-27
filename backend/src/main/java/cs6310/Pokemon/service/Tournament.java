@@ -7,6 +7,7 @@ import cs6310.Pokemon.dto.BattleResult;
 import cs6310.Pokemon.dto.TournamentResult;
 
 public class Tournament {
+    @SuppressWarnings("unused")
     private List<String> pokemonList; // TODO: May not need this field
     private Queue<String> pokemonQueue;
     private Integer seed;

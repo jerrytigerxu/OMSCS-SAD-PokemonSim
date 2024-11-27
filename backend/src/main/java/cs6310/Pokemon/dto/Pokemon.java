@@ -9,8 +9,6 @@ import cs6310.Pokemon.Ditto;
 import cs6310.Pokemon.dto.Skill.SkillType;
 import lombok.Data;
 
-import cs6310.Pokemon.dto.BattleResult;
-
 @Data
 public abstract class Pokemon {
     private String name;
@@ -130,8 +128,7 @@ public abstract class Pokemon {
         }
     }
 
-    @Override
-    public String toString() {
+    public String displayInfo() {
         String attackSkillsFormatted = "";
         String defenseSkillsFormatted = "";
         for (var skill : this.attackSkills.stream().sorted(Comparator.comparingInt(Skill::getStrength))
@@ -146,7 +143,7 @@ public abstract class Pokemon {
         }
 
         return "Pokemon: " + this.name + " has " + this.currentHitPoints + " hp"
-                + "\nAttack Skills:" + attackSkillsFormatted.toString() + "\nDefense Skills:"
+                + "\nAttack Skills:" + attackSkillsFormatted + "\nDefense Skills:"
                 + defenseSkillsFormatted;
     }
 }

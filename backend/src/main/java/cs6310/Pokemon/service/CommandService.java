@@ -1,12 +1,8 @@
 package cs6310.Pokemon.service;
 
-import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.List;
-import java.util.Scanner;
 import java.util.Set;
 
-import org.springframework.context.ApplicationContext;
 import org.springframework.stereotype.Service;
 import org.springframework.retry.annotation.Retryable;
 
@@ -15,18 +11,14 @@ import cs6310.Pokemon.dto.TournamentResult;
 import cs6310.Pokemon.exception.InvalidSeedException;
 import lombok.RequiredArgsConstructor;
 import lombok.Setter;
-import java.io.File;
 import java.sql.SQLException;
 import org.reflections.Reflections;
-import cs6310.Pokemon.dto.Pokemon;
 import java.util.stream.Collectors;
 
 @Service
 @RequiredArgsConstructor
 public class CommandService {
     private final Battle battle;
-    private final ApplicationContext applicationContext;
-
     @Setter
     private int seed = -1;
 
@@ -62,8 +54,10 @@ public class CommandService {
         try {
             var pokemonClass = Class.forName("cs6310.Pokemon." + pokemon);
             var pokemonInstance = pokemonClass.getDeclaredConstructor(int.class).newInstance(1);
-            System.out.println(pokemonInstance.toString());
-            return pokemonInstance.toString();
+            var displayInfoMethod = pokemonClass.getMethod("displayInfo");
+            var info = (String) displayInfoMethod.invoke(pokemonInstance);
+            System.out.println(info);
+            return info;
         } catch (Exception e) {
             return "Pokemon " + pokemon + " not found";
         }

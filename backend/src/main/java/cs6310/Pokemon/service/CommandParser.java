@@ -3,14 +3,16 @@ package cs6310.Pokemon.service;
 import java.util.Arrays;
 import java.util.Scanner;
 
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Component;
+
 import cs6310.Pokemon.exception.InvalidSeedException;
 
+@Component
 public class CommandParser {
-    private final CommandService commandService;
 
-    public CommandParser(CommandService commandService) {
-        this.commandService = commandService;
-    }
+    @Autowired
+    private CommandService commandService;
 
     public void processCommand(String inputString) {
         var delimiter = ",";
@@ -54,10 +56,10 @@ public class CommandParser {
         while (true) {
             try {
                 var wholeInputLine = commandLineInput.nextLine();
-                processCommand(wholeInputLine);
                 if (wholeInputLine.startsWith("stop")) {
                     break;
                 }
+                processCommand(wholeInputLine);
             } catch (Exception e) {
                 e.printStackTrace();
                 System.out.println();

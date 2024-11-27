@@ -3,13 +3,10 @@ package cs6310.Pokemon.dto;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.stream.Collectors;
-
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
-import jakarta.persistence.ElementCollection;
 import jakarta.persistence.Transient;
 import jakarta.persistence.ManyToOne;
 
@@ -63,15 +60,5 @@ public class BattleResult {
 
     public void setOrderOfBattle(List<String> orderOfBattle) {
         this.orderOfBattle = orderOfBattle;
-    }
-
-    @Override
-    public String toString() {
-        return "BattleResult{" +
-                "winnerPokemon='" + winnerPokemon + '\'' +
-                ", loserPokemon='" + loserPokemon + '\'' +
-                ", createdTimestamp=" + createdTimestamp +
-                ", orderOfBattle=" + orderOfBattle +
-                '}';
     }
 }

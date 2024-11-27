@@ -5,6 +5,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 
 import cs6310.Pokemon.exception.InvalidSeedException;
+import cs6310.Pokemon.service.CommandParser;
 import cs6310.Pokemon.service.CommandService;
 import cs6310.Pokemon.service.PokemonApplication;
 
@@ -14,123 +15,125 @@ class CommandServiceTest {
         @Autowired
         private CommandService commandService;
 
+        @Autowired
+        private CommandParser commandParser;
+
         @Test
         void commands_00() throws InvalidSeedException {
-            commandService.printIntro();
+            CommandService.printIntro();
             commandService.doSetSeed(1);
-            commandService.doBattle("Charmander","Squirtle");
+            commandService.doBattle("Charmander", "Squirtle");
             commandService.doStop();
         }
 
         @Test
         void commands_07() throws InvalidSeedException {
-            commandService.printIntro();
+            CommandService.printIntro();
             commandService.doSetSeed(54);
-            commandService.doBattle("Ditto","Bulbasaur");
+            commandService.doBattle("Ditto", "Bulbasaur");
             commandService.doStop();
         }
 
         @Test
         void commands_custom_1() {
-            commandService.processCommand("setseed,1");
-            commandService.processCommand("battle,Charmander,Squirtle");
+            commandParser.processCommand("setseed,1");
+            commandParser.processCommand("battle,Charmander,Squirtle");
         }
 
         @Test
         void commands_custom_2() {
-            commandService.processCommand("setseed,5");
-            commandService.processCommand("battle,Charmander,Squirtle");
+            commandParser.processCommand("setseed,5");
+            commandParser.processCommand("battle,Charmander,Squirtle");
         }
 
         @Test
         void commands_custom_3() {
-            commandService.processCommand("setseed,1");
-            commandService.processCommand("removeseed");
-            commandService.processCommand("setseed,10");
-            commandService.processCommand("battle,Bulbasaur,Pikachu");
+            commandParser.processCommand("setseed,1");
+            commandParser.processCommand("removeseed");
+            commandParser.processCommand("setseed,10");
+            commandParser.processCommand("battle,Bulbasaur,Pikachu");
         }
 
         @Test
         void commands_custom_4() {
-            commandService.processCommand("setseed,20");
-            commandService.processCommand("battle,Pikachu,Charmander");
+            commandParser.processCommand("setseed,20");
+            commandParser.processCommand("battle,Pikachu,Charmander");
         }
 
         @Test
         void commands_custom_5() {
-            commandService.processCommand("setseed,30");
-            commandService.processCommand("battle,Bulbasaur,Squirtle");
-
+            commandParser.processCommand("setseed,30");
+            commandParser.processCommand("battle,Bulbasaur,Squirtle");
         }
 
         @Test
         void commands_custom_6() {
-            commandService.processCommand("setseed,5");
-            commandService.processCommand("battle,Pikachu,Snorlax");
-            commandService.processCommand("battle,Bulbasaur,Pikachu");
+            commandParser.processCommand("setseed,5");
+            commandParser.processCommand("battle,Pikachu,Snorlax");
+            commandParser.processCommand("battle,Bulbasaur,Pikachu");
 
-            commandService.processCommand("setseed,47");
-            commandService.processCommand("battle,Snorlax,Pikachu");
+            commandParser.processCommand("setseed,47");
+            commandParser.processCommand("battle,Snorlax,Pikachu");
 
-            commandService.processCommand("removeseed");
-            commandService.processCommand("setseed,287");
-            commandService.processCommand("battle,Snorlax,Squirtle");
+            commandParser.processCommand("removeseed");
+            commandParser.processCommand("setseed,287");
+            commandParser.processCommand("battle,Snorlax,Squirtle");
         }
 
         @Test
         void commands_custom_7() {
-            commandService.processCommand("setseed,10");
-            commandService.processCommand("battle,Mew,Snorlax");
+            commandParser.processCommand("setseed,10");
+            commandParser.processCommand("battle,Mew,Snorlax");
 
-            commandService.processCommand("setseed,67");
-            commandService.processCommand("battle,Mew,Snorlax");
+            commandParser.processCommand("setseed,67");
+            commandParser.processCommand("battle,Mew,Snorlax");
 
-            commandService.processCommand("removeseed");
+            commandParser.processCommand("removeseed");
 
-            commandService.processCommand("setseed,77");
-            commandService.processCommand("battle,Geodude,Charmander");
+            commandParser.processCommand("setseed,77");
+            commandParser.processCommand("battle,Geodude,Charmander");
         }
 
         @Test
         void commands_custom_8() {
-            commandService.processCommand("setseed,54");
-            commandService.processCommand("battle,Ditto,Bulbasaur");
-            commandService.processCommand("removeseed");
-            commandService.processCommand("setseed,67");
-            commandService.processCommand("battle,Ditto,Bulbasaur");
+            commandParser.processCommand("setseed,54");
+            commandParser.processCommand("battle,Ditto,Bulbasaur");
+            commandParser.processCommand("removeseed");
+            commandParser.processCommand("setseed,67");
+            commandParser.processCommand("battle,Ditto,Bulbasaur");
         }
 
         @Test
         void commands_custom_9() {
-            commandService.processCommand("setseed,1");
-            commandService.processCommand("battle,Ditto,Bulbasaur");
+            commandParser.processCommand("setseed,1");
+            commandParser.processCommand("battle,Ditto,Bulbasaur");
             
-            commandService.processCommand("setseed,2");
-            commandService.processCommand("battle,Ditto,Bulbasaur");
+            commandParser.processCommand("setseed,2");
+            commandParser.processCommand("battle,Ditto,Bulbasaur");
             
-            commandService.processCommand("setseed,3");
-            commandService.processCommand("battle,Ditto,Bulbasaur");
+            commandParser.processCommand("setseed,3");
+            commandParser.processCommand("battle,Ditto,Bulbasaur");
             
-            commandService.processCommand("setseed,4");
-            commandService.processCommand("battle,Ditto,Bulbasaur");
+            commandParser.processCommand("setseed,4");
+            commandParser.processCommand("battle,Ditto,Bulbasaur");
             
-            commandService.processCommand("setseed,5");
-            commandService.processCommand("battle,Ditto,Bulbasaur");
+            commandParser.processCommand("setseed,5");
+            commandParser.processCommand("battle,Ditto,Bulbasaur");
         }
 
         @Test
         void commands_custom_10() {
-            commandService.processCommand("setseed,1");
-        commandService.processCommand("battle,Ditto,Bulbasaur");
-        commandService.processCommand("battle,Bulbasaur,Ditto");
-        commandService.processCommand("battle,Pikachu,Charmander");
-        commandService.processCommand("battle,Charmander,Pikachu");
-        commandService.processCommand("battle,Mew,Squirtle");
-        commandService.processCommand("battle,Squirtle,Mew");
-        commandService.processCommand("battle,Geodude,Squirtle");
-        commandService.processCommand("battle,Squirtle,Geodude");
-        commandService.processCommand("battle,Snorlax,Charmander");
-        commandService.processCommand("battle,Charmander,Snorlax");
-        commandService.processCommand("battle,Snorlax,Slowpoke");
+            commandParser.processCommand("setseed,1");
+            commandParser.processCommand("battle,Ditto,Bulbasaur");
+            commandParser.processCommand("battle,Bulbasaur,Ditto");
+            commandParser.processCommand("battle,Pikachu,Charmander");
+            commandParser.processCommand("battle,Charmander,Pikachu");
+            commandParser.processCommand("battle,Mew,Squirtle");
+            commandParser.processCommand("battle,Squirtle,Mew");
+            commandParser.processCommand("battle,Geodude,Squirtle");
+            commandParser.processCommand("battle,Squirtle,Geodude");
+            commandParser.processCommand("battle,Snorlax,Charmander");
+            commandParser.processCommand("battle,Charmander,Snorlax");
+            commandParser.processCommand("battle,Snorlax,Slowpoke");
         }
 }
