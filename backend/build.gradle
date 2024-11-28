@@ -29,6 +29,8 @@ dependencies {
     annotationProcessor 'org.projectlombok:lombok:1.18.24' // Lombok annotation processor
     implementation 'org.springframework.boot:spring-boot-starter-data-jpa' // Spring Data JPA
     runtimeOnly 'org.postgresql:postgresql' // PostgreSQL
+	implementation 'net.javacrumbs.shedlock:shedlock-spring:5.0.0' // ShedLock
+	implementation 'net.javacrumbs.shedlock:shedlock-provider-jdbc-template:5.0.0' // ShedLock provider template
     implementation 'org.reflections:reflections:0.9.12' // Reflections library
     testImplementation 'org.springframework.boot:spring-boot-starter-test'
     testImplementation 'org.junit.jupiter:junit-jupiter-api' // JUnit Jupiter API
