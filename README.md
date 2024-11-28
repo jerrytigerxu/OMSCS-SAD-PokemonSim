@@ -26,22 +26,18 @@ This will build and start all the services defined in `docker-compose.yml`.
 
 ### Accessing the Application
 
-* **Frontend:** The frontend will be accessible at `http://localhost:3000` (or the port you've configured).
-* **Backend:** The backend API will be accessible at `http://localhost:8080` (or the port you've configured).
+* **Frontend:** The frontend will be accessible at `http://localhost:3000`.
+* **Backend:** The backend API will be accessible at `http://localhost:8080`.
 
 
 ## Usage
 
-###  Battling
-* **[Step 1]:** Select the Pokemon you want to use in battle.
-* **[Step 2]:** Select the moves for your Pokemon.
-* **[Step 3]:** Initiate a battle with another user or against a computer opponent.
-* **[Step 4]:** During the battle, select moves to attack your opponent and defend against their attacks.
-* **[Step 5]:** The battle continues until one player's Pokemon have all fainted.
+### Battles
+- [maybe include images?]
 
-### Tournament Mode
+### Tournaments
+- [maybe include images?]
 
-To start a tournament, use the `tournament` command followed by a list of at least four Pokémon names (separated by commas). The tournament will proceed in knockout rounds, with pairings based on the order of Pokémon provided. The GUI will display the progress and results of each round.
 
 ### Skill Points
 
