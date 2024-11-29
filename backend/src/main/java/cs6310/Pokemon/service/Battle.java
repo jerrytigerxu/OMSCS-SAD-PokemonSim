@@ -1,10 +1,14 @@
 package cs6310.Pokemon.service;
 
 import java.lang.reflect.InvocationTargetException;
+import java.time.LocalDate;
+
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import cs6310.Pokemon.model.domain.Pokemon;
 import cs6310.Pokemon.model.dto.BattleResult;
-
+import cs6310.Pokemon.model.entity.BattleResultEntity;
+import cs6310.Pokemon.repository.BattleResultRepository;
 import lombok.Data;
 
 @Data
@@ -13,6 +17,9 @@ public class Battle {
     private Pokemon pokemonOne;
     private Pokemon pokemonTwo;
     private int seed;
+
+    @Autowired
+    private BattleResultRepository battleResultRepository;
 
     public BattleResult startBattle(String pokemonOne, String pokemonTwo) {
         Class<?> pokemon1 = null;
@@ -51,6 +58,13 @@ public class Battle {
             result.setWinnerPokemon(pokemonOne);
             result.setLoserPokemon(pokemonTwo);
         }
+
+        var battleResultEntity = new BattleResultEntity();
+        battleResultEntity.setId(LocalDate.now().toEpochDay());
+        battleResultEntity.setWinnerPokemon(result.getWinnerPokemon());
+        battleResultEntity.setLoserPokemon(result.getLoserPokemon());
+
+        battleResultRepository.save(battleResultEntity);
 
         return result;
     }
