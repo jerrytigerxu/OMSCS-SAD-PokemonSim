@@ -25,15 +25,15 @@ public class Jigglypuff extends Pokemon {
         super.setCurrentSkillPoints(100);
 
         var attack1 = new Skill("Sharpie", 0, 0, SkillType.ATTACK);
-        var attack2 = new Skill("Sing", 0, 1, SkillType.ATTACK);
-        var attack3 = new Skill("Pound", 0, 2, SkillType.ATTACK);
-        var attack4 = new Skill("Double Slap", 0, 10, SkillType.ATTACK);
+        var attack2 = new Skill("Sing", 5, 1, SkillType.ATTACK);
+        var attack3 = new Skill("Pound", 10, 2, SkillType.ATTACK);
+        var attack4 = new Skill("Double Slap", 50, 10, SkillType.ATTACK);
 
         super.setAttackSkills(new ArrayList<>(Arrays.asList(attack1, attack2, attack3, attack4)));
 
-        var defense1 = new Skill("Endure", 0, 1, SkillType.DEFENSE);
-        var defense2 = new Skill("Block", 0, 2, SkillType.DEFENSE);
-        var defense3 = new Skill("Protect", 0, 3, SkillType.DEFENSE);
+        var defense1 = new Skill("Endure", 5, 1, SkillType.DEFENSE);
+        var defense2 = new Skill("Block", 10, 2, SkillType.DEFENSE);
+        var defense3 = new Skill("Protect", 15, 3, SkillType.DEFENSE);
 
         super.setDefenseSkills(new ArrayList<>(Arrays.asList(defense1, defense2, defense3)));
     }
