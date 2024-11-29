@@ -29,7 +29,7 @@ public class PurgeService {
     }
 
     @Transactional
-    @Scheduled(cron = "0 0 3 * * ?") // This CRON expression means that it triggers the methods daily at 3am EST
+    @Scheduled(cron = "*/30 * * * * *") // This CRON expression means that it triggers the methods daily at 3am EST
     @SchedulerLock(name = "purgeOldBattleResults", lockAtMostFor = "10m", lockAtLeastFor = "10m")
     public void purgeOldBattleResults() {
         try {
