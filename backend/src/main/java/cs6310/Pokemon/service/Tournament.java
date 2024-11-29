@@ -1,7 +1,6 @@
 package cs6310.Pokemon.service;
 
 import java.util.List;
-import java.util.ArrayList;
 import java.util.Queue;
 import java.util.LinkedList;
 import cs6310.Pokemon.model.dto.BattleResult;
