@@ -8,25 +8,20 @@ import cs6310.Pokemon.model.dto.BattleResult;
 import cs6310.Pokemon.model.dto.TournamentResult;
 
 public class Tournament {
-    @SuppressWarnings("unused")
-    private List<String> pokemonList; // TODO: May not need this field
     private Queue<String> pokemonQueue;
     private Integer seed;
 
     public Tournament(Integer seed, List<String> pokemonList) {
         this.seed = seed;
-        this.pokemonList = pokemonList;
         this.pokemonQueue = new LinkedList<>(pokemonList);
     }
 
     public Tournament(List<String> pokemonList) {
-        this.pokemonList = pokemonList;
         this.pokemonQueue = new LinkedList<>(pokemonList);
     }
 
     public TournamentResult startTournament() {
         TournamentResult tournamentResult = new TournamentResult();
-        tournamentResult.setBattleResultList(new ArrayList<>());
         while (pokemonQueue.size() > 1) {
             System.out.println("Starting tournament simulation...");
             String pokemonOne = pokemonQueue.poll();
@@ -44,5 +39,4 @@ public class Tournament {
         System.out.println("Tournament simulation completed");
         return tournamentResult;
     }
-
 }
