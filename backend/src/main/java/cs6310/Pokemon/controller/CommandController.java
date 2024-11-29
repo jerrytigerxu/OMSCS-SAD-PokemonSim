@@ -104,4 +104,10 @@ public class CommandController {
         List<String> allPokemon = commandService.getAllPokemon();
         return ResponseEntity.ok(allPokemon);
     }
+
+    @GetMapping("/robustnessTest")
+    public ResponseEntity<List<String>> robustnessTest() {
+        List<String> allPokemon = commandService.getAllPokemonRetriable();
+        return ResponseEntity.ok(allPokemon);
+    }
 }
