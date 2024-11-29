@@ -30,7 +30,7 @@ public abstract class Pokemon {
         this.rand = new Random(seed);
     }
 
-    public void battle(Object opponent, int incomingDamage, boolean isFirstAttack, BattleResult result) {
+    public void battle(Object opponent, int incomingDamage, BattleResult result) {
         var originalIncomingDamage = incomingDamage;
         boolean isAttack = incomingDamage > 0;
         if (this.activeDefense > 0 && incomingDamage > 0) {
@@ -42,7 +42,7 @@ public abstract class Pokemon {
         }
         this.currentHitPoints = Math.max(currentHitPoints - incomingDamage, 0);
 
-        if (!isFirstAttack && isAttack) {
+        if (isAttack) {
             var string = this.name + " has received " + incomingDamage + " dmg, remaining hp is "
                     + this.currentHitPoints;
             writeOutput(result, string);
@@ -114,9 +114,8 @@ public abstract class Pokemon {
                 + attackSkill.getStrength() + " damage to " + opponent.getClass().getSimpleName();
         writeOutput(result, string);
 
-        var opponentBattleMethod = opponent.getClass().getMethod("battle", Object.class, int.class,
-                boolean.class,BattleResult.class);
-        opponentBattleMethod.invoke(opponent, (Object) this, attackSkill.getStrength(), false,result);
+        var opponentBattleMethod = opponent.getClass().getMethod("battle", Object.class, int.class, BattleResult.class);
+        opponentBattleMethod.invoke(opponent, (Object) this, attackSkill.getStrength(), result);
     }
 
     private void doDeffenseSkill(Object opponent, BattleResult result, Skill defenseSkill)
@@ -127,9 +126,8 @@ public abstract class Pokemon {
         this.activeDefense = defenseSkill.getStrength();
         this.activeDefenseSkill = defenseSkill;
 
-        var opponentBattleMethod = opponent.getClass().getMethod("battle", Object.class, int.class,
-                boolean.class,BattleResult.class);
-        opponentBattleMethod.invoke(opponent, (Object) this, 0, false,result);
+        var opponentBattleMethod = opponent.getClass().getMethod("battle", Object.class, int.class, BattleResult.class);
+        opponentBattleMethod.invoke(opponent, (Object) this, 0, result);
     }
 
     private Skill getAvailableSkill(List<Skill> skillList) {

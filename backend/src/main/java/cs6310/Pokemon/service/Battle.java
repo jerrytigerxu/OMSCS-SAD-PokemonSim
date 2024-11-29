@@ -45,7 +45,7 @@ public class Battle {
         }
 
         var result = new BattleResult();
-        this.pokemonOne.battle(this.pokemonTwo, 0, true, result);
+        this.pokemonOne.battle(this.pokemonTwo, 0, result);
         var loser = this.pokemonOne.getCurrentHitPoints() <= 0 ? this.pokemonOne.getName() : this.pokemonTwo.getName();
         if (this.pokemonOne.getName().equals(loser)) {
             System.out.println(this.pokemonOne.getName() + " has lost");
