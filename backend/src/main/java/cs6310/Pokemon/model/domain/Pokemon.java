@@ -45,8 +45,7 @@ public abstract class Pokemon {
         if (!isFirstAttack && isAttack) {
             var string = this.name + " has received " + incomingDamage + " dmg, remaining hp is "
                     + this.currentHitPoints;
-            System.out.println(string);
-            result.getOrderOfBattle().add(string);
+            writeOutput(result, string);
         }
 
         if (this.currentHitPoints <= 0) {
@@ -76,6 +75,9 @@ public abstract class Pokemon {
                 }
 
                 if (attackSkill == null) {
+                    var string = this.name + " does not have enough SP points for any attack skill";
+                    writeOutput(result, string);
+    
                     doAttackSkill(opponent, result, getStuggleSkill());
                 } else {
                     doAttackSkill(opponent, result, attackSkill);
@@ -84,6 +86,8 @@ public abstract class Pokemon {
                 var defenseSkill = getAvailableSkill(this.defenseSkills);
                 
                 if (defenseSkill == null) {
+                    var string = this.name + " does not have enough SP points for any defense skill";
+                    writeOutput(result, string);
                     doAttackSkill(opponent, result, getStuggleSkill());
                 } else {
                     doDeffenseSkill(opponent, result, defenseSkill);
@@ -95,6 +99,11 @@ public abstract class Pokemon {
         }
     }
 
+    private void writeOutput(BattleResult result, String string) {
+        System.out.println(string);
+        result.getOrderOfBattle().add(string);
+    }
+
     private Skill getStuggleSkill() {
         return new Skill("Struggle", 0, 1, SkillType.ATTACK);
     }
@@ -103,8 +112,7 @@ public abstract class Pokemon {
             throws NoSuchMethodException, IllegalAccessException, InvocationTargetException {
         var string = this.name + " is attacking with " + attackSkill.getName() + " for "
                 + attackSkill.getStrength() + " damage to " + opponent.getClass().getSimpleName();
-        System.out.println(string);
-        result.getOrderOfBattle().add(string);
+        writeOutput(result, string);
 
         var opponentBattleMethod = opponent.getClass().getMethod("battle", Object.class, int.class,
                 boolean.class,BattleResult.class);
@@ -114,8 +122,7 @@ public abstract class Pokemon {
     private void doDeffenseSkill(Object opponent, BattleResult result, Skill defenseSkill)
             throws NoSuchMethodException, IllegalAccessException, InvocationTargetException {
         var string = this.name + " is attempting to defend with " + defenseSkill.getName();
-        System.out.println(string);
-        result.getOrderOfBattle().add(string);
+        writeOutput(result, string);
 
         this.activeDefense = defenseSkill.getStrength();
         this.activeDefenseSkill = defenseSkill;
