@@ -4,7 +4,10 @@ import java.util.List;
 import java.util.Set;
 
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.CannotCreateTransactionException;
 import org.springframework.retry.annotation.Retryable;
+import org.springframework.retry.annotation.Backoff;
+import org.springframework.retry.annotation.Recover;
 
 import cs6310.Pokemon.model.domain.Pokemon;
 import cs6310.Pokemon.model.dto.BattleResult;
@@ -13,12 +16,15 @@ import cs6310.Pokemon.model.dto.TournamentResult;
 import cs6310.Pokemon.exception.InvalidSeedException;
 import lombok.RequiredArgsConstructor;
 import lombok.Setter;
+import lombok.extern.slf4j.Slf4j;
+
 import java.sql.SQLException;
 import org.reflections.Reflections;
 import java.util.stream.Collectors;
 
 @Service
 @RequiredArgsConstructor
+@Slf4j
 public class CommandService {
     private final Battle battle;
     @Setter
@@ -91,5 +97,19 @@ public class CommandService {
                 // .filter(cls -> cls.getPackage().getName().equals("cs6310.Pokemon"))
                 .map(Class::getSimpleName)
                 .collect(Collectors.toList());
+    }
+
+    @Retryable(value = { Exception.class }, maxAttempts = 3, backoff = @Backoff(delay = 1000))
+    public List<String> getAllPokemonRetriable() {
+        log.info("Trying to get all pokemon");
+        Reflections reflections = new Reflections("cs6310.BackPackageName");
+        Set<Class<? extends Pokemon>> allClasses = reflections.getSubTypesOf(Pokemon.class);
+        return allClasses.stream().map(Class::getSimpleName).toList();
+    }
+
+    @Recover
+    public List<String> recover(Exception e) {
+        log.error("Failed to get all pokemon", e);
+        return List.of("Failed to get all pokemon, please try again later.");
     }
 }

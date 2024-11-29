@@ -7,7 +7,7 @@ const SetRemoveSeed = ({ onSeedChange }) => {
   const [seed, setSeed] = useState('');
   const [message, setMessage] = useState(null);
   const [error, setError] = useState(null);
-  const [result, setResult] = useState('');
+  //const [result, setResult] = useState('');
 
   const handleChange = (event) => {
     const value = event.target.value;
@@ -62,11 +62,11 @@ const SetRemoveSeed = ({ onSeedChange }) => {
         }
         throw new Error('Network response was not ok');
       }
-      const data = await response.JSON();
-      setResult(data);
+      setMessage(`Seed "${seed}" successfully set.`);
+      setSeed("");
     } catch (error) {
       setError(error.message);
-      setResult('');
+      //setResult('');
     }
   };
 
@@ -82,7 +82,8 @@ const SetRemoveSeed = ({ onSeedChange }) => {
       />
       <button onClick={handleSetSeed} className="remove-seed-button">Set Seed</button>
       <button onClick={handleRemoveSeed} className="remove-seed-button">Remove Seed</button>
-      {result && <div className="result-message">{result}</div>}
+      {message && <div className="result-message">{message}</div>}
+      {error && <div className="error-message">{error}</div>}
     </div>
   );
 };

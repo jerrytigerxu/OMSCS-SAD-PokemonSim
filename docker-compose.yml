@@ -3,7 +3,7 @@ version: '3.8'
 services:
   postgres:
     build:
-      context: ./persistance
+      context: ./persistence
     environment:
       POSTGRES_DB: game
       POSTGRES_USER: wizard
@@ -22,3 +22,11 @@ services:
       - "8080:8080"
     depends_on:
       - postgres
+
+  frontend:
+    build:
+      context: ./frontend/pokemon
+    ports:
+      - "3000:3000"
+    depends_on:
+      - backend

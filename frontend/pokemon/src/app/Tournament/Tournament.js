@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import './Tournament.css';
+import InvalidNumberOfPokemonSelectedError from './InvalidNumberOfPokemonSelectedError';
 
 const Tournament = () => {
     const [pokemonList, setPokemonList] = useState([]);
@@ -16,18 +17,26 @@ const Tournament = () => {
     };
 
     const startTournament = async () => {
+        setError(null);
+
         if (selectedPokemon.length < 2) {
             alert('Please select at least two Pokemon for the tournament.');
             return;
         }
 
         try {
+            if (selectedPokemon.length % 2 !== 0) {
+                setError('The number of selected Pokemon must be even.');
+                throw new InvalidNumberOfPokemonSelectedError('The number of selected Pokemon must be even.');
+            }
+
             const response = await fetch(
                 `http://localhost:8080/api/commands/tournament/${selectedPokemon.join(",")}`,
-              );
+            );
             if (!response.ok) {
-                const errorData = await response.text();
-                throw new Error(`HTTP error! status: ${response.status}, message: ${errorData}`);
+                const errorData = JSON.stringify(await response.text());
+                console.log('error data: ' + errorData);
+                throw new Error(errorData || 'Bad Request');
             }
             const data = await response.json();
             console.log("Tournament data:", data);
@@ -37,30 +46,34 @@ const Tournament = () => {
 
             setTournamentData({ ...data, winnerPokemon: tournamentWinner });
         } catch (error) {
-            console.log("Error starting tournament:", error);
-            setError(error.message);
+            if (error instanceof InvalidNumberOfPokemonSelectedError) {
+                console.error("Invalid number of Pokemon selected:", error.message);
+                setError(error.message);
+            } else {
+                console.error("Failed to start tournament:", error.message);
+                setError(error.message);
+            }
         }
-    }
-
+    };
 
     useEffect(() => {
         const fetchPokemonInfo = async () => {
-          try {
-            const response = await fetch(`http://localhost:8080/api/commands/getAllPokemon`);
-            if (!response.ok) {
-              throw new Error('Network response was not ok');
+            try {
+                const response = await fetch(`http://localhost:8080/api/commands/getAllPokemon`);
+                if (!response.ok) {
+                    throw new Error('Network response was not ok');
+                }
+                const data = await response.json();
+                console.log('data: ' + JSON.stringify(data));
+                setPokemonList(data);
+            } catch (error) {
+                setError(error.message);
+            } finally {
+                setLoading(false);
             }
-            const data = await response.json();
-            console.log('data: ' + JSON.stringify(data));
-            setPokemonList(data);
-          } catch (error) {
-            setError(error.message);
-          } finally {
-            setLoading(false);
-          }
         };
         fetchPokemonInfo();
-      }, []);
+    }, []);
 
     return (
         <div>
@@ -79,6 +92,7 @@ const Tournament = () => {
                     ))}
                 </ul>
             </div>
+            {error && <div className="error-message">{error}</div>}
             <button onClick={startTournament}>Start Tournament</button>
 
             {/* Conditionally render the dropdown and battle details */}
@@ -105,7 +119,7 @@ const Tournament = () => {
                         <ul>
                             {tournamentData.battleResultList[selectedBattleIndex].orderOfBattle.map((event, index) => (
                                 <li key={index}>{event}</li>
-                            ))}  
+                            ))}
                         </ul>
                     </div>
                 </>
