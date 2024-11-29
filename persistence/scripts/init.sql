@@ -14,14 +14,14 @@ $$;
 \c game;
 
 -- Create the 'TournamentResult' table
-CREATE TABLE IF NOT EXISTS TournamentResult (
+CREATE TABLE IF NOT EXISTS tournament_result (
     id SERIAL PRIMARY KEY,
     winnerPokemon TEXT,
     createdTimestamp TIMESTAMP DEFAULT CURRENT_TIMESTAMP
 );
 
 -- Create the 'BattleResult' table
-CREATE TABLE IF NOT EXISTS BattleResult (
+CREATE TABLE IF NOT EXISTS battle_result (
     id SERIAL PRIMARY KEY,
     winnerPokemon TEXT,
     loserPokemon TEXT,
@@ -30,7 +30,7 @@ CREATE TABLE IF NOT EXISTS BattleResult (
     tournament_id INT,
     CONSTRAINT fk_tournament
         FOREIGN KEY (tournament_id)
-        REFERENCES TournamentResult(id)
+        REFERENCES tournament_result(id)
         ON DELETE CASCADE
 );
 

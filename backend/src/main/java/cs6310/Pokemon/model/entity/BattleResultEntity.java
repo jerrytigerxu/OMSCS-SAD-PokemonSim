@@ -3,6 +3,7 @@ package cs6310.Pokemon.model.entity;
 import java.time.LocalDateTime;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
+import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.ManyToOne;
 import jakarta.persistence.Table;
@@ -13,10 +14,10 @@ import lombok.Setter;
 @Data
 @Setter
 @Entity
-@Table(name = "BattleResult")
+@Table(name = "battle_result")
 public class BattleResultEntity {
     @Id
-    @GeneratedValue
+    @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
 
     private String winnerPokemon;
