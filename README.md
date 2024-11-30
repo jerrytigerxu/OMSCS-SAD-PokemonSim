@@ -15,12 +15,14 @@ This project is a Pokémon battle simulator that allows users to create teams of
 ## Getting Started
 
 ### Prerequisites
-* Docker and Docker Compose
+* Java 17
+* Docker or Docker Desktop (recommended)
 
 ### Installation
 1. **Clone the repository:** `git clone https://github.gatech.edu/umilojkovic3/PokemonA3.git`
-2. **Navigate to the project directory:** `cd PokemonA3`
-3. **Start the application:** `docker-compose up -d`
+1. **Navigate to the project directory:** `cd PokemonA3`
+1. **Ensure Docker or Docker Desktop is running.**
+1. **Start the application:** `docker-compose up -d`
 
 This will build and start all the services defined in `docker-compose.yml`.
 

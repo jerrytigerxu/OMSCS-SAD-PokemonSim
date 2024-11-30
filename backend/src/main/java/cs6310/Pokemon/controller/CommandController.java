@@ -29,7 +29,7 @@ public class CommandController {
     @GetMapping("/battle/{pokemon1}/{pokemon2}")
     public ResponseEntity<String> handleBattle(@PathVariable String pokemon1, @PathVariable String pokemon2) {
         System.out.println("Starting battle between " + pokemon1 + " and " + pokemon2);
-        
+
         String result;
         try {
             BattleResult battleResult = commandService.doBattle(pokemon1, pokemon2);
@@ -50,11 +50,10 @@ public class CommandController {
         // Split the comma-delimited list into a list of strings
         List<String> pokemonListParsed = Arrays.asList(pokemonList.split(","));
         String result;
-        
+
         try {
             TournamentResult tournamentResult = commandService.doTournament(pokemonListParsed);
             result = objectMapper.writeValueAsString(tournamentResult);
-            //System.out.println("result: " + result);
         } catch (InvalidSeedException e) {
             return ResponseEntity.badRequest().body(e.getMessage());
         } catch (JsonProcessingException e) {
@@ -62,8 +61,7 @@ public class CommandController {
         } catch (Exception e) {
             return ResponseEntity.status(500).body("Error processing tournament");
         }
-    
-        
+
         return ResponseEntity.ok(result);
     }
 
@@ -80,10 +78,11 @@ public class CommandController {
         String result;
         try {
             result = commandService.doSetSeed(setSeedRequest.get("seed"));
-        } catch(Exception e) {
+        } catch (Exception e) {
             return ResponseEntity.badRequest().body(e.getMessage());
         }
 
+        System.out.println("Successfully set seed to: " + setSeedRequest.get("seed"));
         return ResponseEntity.ok(result);
     }
 

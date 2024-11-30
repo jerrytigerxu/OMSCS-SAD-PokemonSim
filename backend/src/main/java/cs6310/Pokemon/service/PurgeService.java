@@ -1,20 +1,20 @@
 package cs6310.Pokemon.service;
 
-import org.springframework.stereotype.Service; 
+import org.springframework.stereotype.Service;
 import org.springframework.scheduling.annotation.Scheduled;
 import net.javacrumbs.shedlock.spring.annotation.SchedulerLock;
 import org.springframework.transaction.annotation.Transactional;
 
 import cs6310.Pokemon.repository.BattleResultRepository;
-import cs6310.Pokemon.repository.TournamentResultRepository; 
+import cs6310.Pokemon.repository.TournamentResultRepository;
 
 import java.time.LocalDateTime;
-import java.time.temporal.ChronoUnit; 
+import java.time.temporal.ChronoUnit;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Value;
 
-@Service 
+@Service
 public class PurgeService {
     private static final Logger logger = LoggerFactory.getLogger(PurgeService.class);
     private final BattleResultRepository battleResultRepository;
@@ -23,7 +23,8 @@ public class PurgeService {
     @Value("${data.retention.period.months:3}") // Data retention period is currently set to 3 months
     private int dataRetentionPeriodMonths;
 
-    public PurgeService(BattleResultRepository battleResultRepository, TournamentResultRepository tournamentResultRepository) {
+    public PurgeService(BattleResultRepository battleResultRepository,
+            TournamentResultRepository tournamentResultRepository) {
         this.battleResultRepository = battleResultRepository;
         this.tournamentResultRepository = tournamentResultRepository;
     }
@@ -35,7 +36,7 @@ public class PurgeService {
         try {
             LocalDateTime retentionCutoff = LocalDateTime.now().minus(dataRetentionPeriodMonths, ChronoUnit.MONTHS);
             int deletedCount = battleResultRepository.deleteByCreatedTimestampBefore(retentionCutoff);
-            logger.info("Purged {} old battle results.", deletedCount);   
+            logger.info("Purged {} old battle results.", deletedCount);
         } catch (Exception e) {
             logger.error("Error purging old battle results", e);
         }
@@ -48,11 +49,10 @@ public class PurgeService {
         try {
             LocalDateTime retentionCutoff = LocalDateTime.now().minus(dataRetentionPeriodMonths, ChronoUnit.MONTHS);
             int deletedCount = tournamentResultRepository.deleteByCreatedTimestampBefore(retentionCutoff);
-            logger.info("Purged {} old tournament results.", deletedCount);   
+            logger.info("Purged {} old tournament results.", deletedCount);
         } catch (Exception e) {
             logger.error("Error purging old tournament results", e);
         }
     }
 
-    
 }

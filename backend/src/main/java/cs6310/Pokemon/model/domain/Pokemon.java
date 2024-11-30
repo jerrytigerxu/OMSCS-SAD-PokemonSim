@@ -7,7 +7,6 @@ import java.util.Random;
 
 import cs6310.Pokemon.Ditto;
 import cs6310.Pokemon.model.domain.Skill.SkillType;
-import cs6310.Pokemon.model.dto.BattleResult;
 import lombok.Data;
 
 @Data
@@ -30,22 +29,21 @@ public abstract class Pokemon {
         this.rand = new Random(seed);
     }
 
-    public void battle(Object opponent, int incomingDamage, boolean isFirstAttack, BattleResult result) {
+    public void battle(Object opponent, int incomingDamage) {
         var originalIncomingDamage = incomingDamage;
         boolean isAttack = incomingDamage > 0;
         if (this.activeDefense > 0 && incomingDamage > 0) {
             var string = this.name + " successfully reduced " + opponent.getClass().getSimpleName()
                     + "'s damage by " + this.activeDefense + " with " + activeDefenseSkill.getName();
-            result.getOrderOfBattle().add(string);
             System.out.println(string);
             incomingDamage = Math.max(0, incomingDamage - this.activeDefense);
         }
         this.currentHitPoints = Math.max(currentHitPoints - incomingDamage, 0);
 
-        if (!isFirstAttack && isAttack) {
+        if (isAttack) {
             var string = this.name + " has received " + incomingDamage + " dmg, remaining hp is "
                     + this.currentHitPoints;
-            writeOutput(result, string);
+            System.out.println(string);
         }
 
         if (this.currentHitPoints <= 0) {
@@ -76,21 +74,20 @@ public abstract class Pokemon {
 
                 if (attackSkill == null) {
                     var string = this.name + " does not have enough SP points for any attack skill";
-                    writeOutput(result, string);
-    
-                    doAttackSkill(opponent, result, getStuggleSkill());
+                    System.out.println(string);
+                    doAttackSkill(opponent, getStuggleSkill());
                 } else {
-                    doAttackSkill(opponent, result, attackSkill);
+                    doAttackSkill(opponent, attackSkill);
                 }
             } else {
                 var defenseSkill = getAvailableSkill(this.defenseSkills);
-                
+
                 if (defenseSkill == null) {
                     var string = this.name + " does not have enough SP points for any defense skill";
-                    writeOutput(result, string);
-                    doAttackSkill(opponent, result, getStuggleSkill());
+                    System.out.println(string);
+                    doAttackSkill(opponent, getStuggleSkill());
                 } else {
-                    doDeffenseSkill(opponent, result, defenseSkill);
+                    doDeffenseSkill(opponent, defenseSkill);
                 }
             }
         } catch (InvocationTargetException | NoSuchMethodException | SecurityException | IllegalAccessException
@@ -99,43 +96,36 @@ public abstract class Pokemon {
         }
     }
 
-    private void writeOutput(BattleResult result, String string) {
-        System.out.println(string);
-        result.getOrderOfBattle().add(string);
-    }
-
     private Skill getStuggleSkill() {
         return new Skill("Struggle", 0, 1, SkillType.ATTACK);
     }
 
-    private void doAttackSkill(Object opponent, BattleResult result, Skill attackSkill)
+    private void doAttackSkill(Object opponent, Skill attackSkill)
             throws NoSuchMethodException, IllegalAccessException, InvocationTargetException {
         var string = this.name + " is attacking with " + attackSkill.getName() + " for "
                 + attackSkill.getStrength() + " damage to " + opponent.getClass().getSimpleName();
-        writeOutput(result, string);
+        System.out.println(string);
 
-        var opponentBattleMethod = opponent.getClass().getMethod("battle", Object.class, int.class,
-                boolean.class,BattleResult.class);
-        opponentBattleMethod.invoke(opponent, (Object) this, attackSkill.getStrength(), false,result);
+        var opponentBattleMethod = opponent.getClass().getMethod("battle", Object.class, int.class);
+        opponentBattleMethod.invoke(opponent, (Object) this, attackSkill.getStrength());
     }
 
-    private void doDeffenseSkill(Object opponent, BattleResult result, Skill defenseSkill)
+    private void doDeffenseSkill(Object opponent, Skill defenseSkill)
             throws NoSuchMethodException, IllegalAccessException, InvocationTargetException {
         var string = this.name + " is attempting to defend with " + defenseSkill.getName();
-        writeOutput(result, string);
+        System.out.println(string);
 
         this.activeDefense = defenseSkill.getStrength();
         this.activeDefenseSkill = defenseSkill;
 
-        var opponentBattleMethod = opponent.getClass().getMethod("battle", Object.class, int.class,
-                boolean.class,BattleResult.class);
-        opponentBattleMethod.invoke(opponent, (Object) this, 0, false,result);
+        var opponentBattleMethod = opponent.getClass().getMethod("battle", Object.class, int.class);
+        opponentBattleMethod.invoke(opponent, (Object) this, 0);
     }
 
     private Skill getAvailableSkill(List<Skill> skillList) {
-         List<Skill> availableSkills = skillList.stream()
-                     .filter(skill -> this.currentSkillPoints >= skill.getSkillPointsCost())
-                     .toList();
+        List<Skill> availableSkills = skillList.stream()
+                .filter(skill -> this.currentSkillPoints >= skill.getSkillPointsCost())
+                .toList();
         if (availableSkills.isEmpty()) {
             return null;
         }
@@ -172,12 +162,14 @@ public abstract class Pokemon {
         for (var skill : this.attackSkills.stream().sorted(Comparator.comparingInt(Skill::getStrength))
                 .toList()) {
             attackSkillsFormatted = attackSkillsFormatted
-                    .concat("\nName: " + skill.getName() + " Damage: " + skill.getStrength());
+                    .concat("\nName: " + skill.getName() + " Damage: " + skill.getStrength() + " SP Cost: "
+                            + skill.getSkillPointsCost());
         }
         for (var skill : this.defenseSkills.stream().sorted(Comparator.comparingInt(Skill::getStrength))
                 .toList()) {
             defenseSkillsFormatted = defenseSkillsFormatted
-                    .concat("\nName: " + skill.getName() + " Defense: " + skill.getStrength());
+                    .concat("\nName: " + skill.getName() + " Defense: " + skill.getStrength() + " SP Cost: "
+                            + skill.getSkillPointsCost());
         }
 
         return "Pokemon: " + this.name + " has " + this.currentHitPoints + " hp"
