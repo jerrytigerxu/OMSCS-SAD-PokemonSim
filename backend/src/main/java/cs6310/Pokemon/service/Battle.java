@@ -26,15 +26,30 @@ public class Battle {
     public BattleResult startBattle(String pokemonOne, String pokemonTwo) {
         Class<?> pokemon1 = null;
         Class<?> pokemon2 = null;
+        var result = new BattleResult();
 
         try {
             pokemon1 = Class.forName("cs6310.Pokemon." + pokemonOne);
+        } catch (ClassNotFoundException e) {
+            System.out.println("Name: " + pokemonOne + " was invalid and has forfeited the battle");
+            System.out.println(pokemonOne + " has lost");
+            System.out.println(pokemonTwo + " has won the battle");
+            result.setWinnerPokemon(pokemonTwo);
+            result.setLoserPokemon(pokemonOne);
+            return result;
+        }
+        try {
             pokemon2 = Class.forName("cs6310.Pokemon." + pokemonTwo);
         } catch (ClassNotFoundException e) {
-            e.printStackTrace();
+            System.out.println("Name: " + pokemonTwo + " was invalid and has forfeited the battle");
+            System.out.println(pokemonTwo + " has lost");
+            System.out.println(pokemonOne + " has won the battle");
+            result.setWinnerPokemon(pokemonOne);
+            result.setLoserPokemon(pokemonTwo);
+            return result;
         }
 
-        if (pokemon1 == null || pokemon2 == null) {
+        if (pokemon1 == null && pokemon2 == null) {
             return new BattleResult();
         }
 
@@ -46,7 +61,6 @@ public class Battle {
             e.printStackTrace();
         }
 
-        var result = new BattleResult();
         CustomPrintStream customPrintStream = new CustomPrintStream(System.out);
         PrintStream originalOut = System.out;
         System.setOut(customPrintStream);
