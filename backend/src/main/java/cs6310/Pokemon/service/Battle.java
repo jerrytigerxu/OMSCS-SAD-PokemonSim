@@ -12,6 +12,7 @@ import cs6310.Pokemon.model.entity.BattleResultEntity;
 import cs6310.Pokemon.repository.BattleResultRepository;
 import lombok.Data;
 import cs6310.Pokemon.utility.CustomPrintStream;
+import cs6310.Pokemon.utility.MapperUtil;
 
 @Data
 @Service
@@ -72,10 +73,7 @@ public class Battle {
             result.setLoserPokemon(pokemonTwo);
         }
 
-        var battleResultEntity = new BattleResultEntity();
-        battleResultEntity.setId(LocalDate.now().toEpochDay());
-        battleResultEntity.setWinnerPokemon(result.getWinnerPokemon());
-        battleResultEntity.setLoserPokemon(result.getLoserPokemon());
+        BattleResultEntity battleResultEntity = MapperUtil.mapBattleResultDtoToEntity(result);
 
         battleResultRepository.save(battleResultEntity);
 

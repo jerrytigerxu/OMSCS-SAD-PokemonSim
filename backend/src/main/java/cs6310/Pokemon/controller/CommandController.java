@@ -54,7 +54,6 @@ public class CommandController {
         try {
             TournamentResult tournamentResult = commandService.doTournament(pokemonListParsed);
             result = objectMapper.writeValueAsString(tournamentResult);
-            // System.out.println("result: " + result);
         } catch (InvalidSeedException e) {
             return ResponseEntity.badRequest().body(e.getMessage());
         } catch (JsonProcessingException e) {
@@ -83,6 +82,7 @@ public class CommandController {
             return ResponseEntity.badRequest().body(e.getMessage());
         }
 
+        System.out.println("Successfully set seed to: " + setSeedRequest.get("seed"));
         return ResponseEntity.ok(result);
     }
 
