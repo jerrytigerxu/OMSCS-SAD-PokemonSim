@@ -13,7 +13,7 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 public class TournamentResult {
     @JsonProperty("id")
     private Long id;
-    
+
     @JsonProperty("winnerPokemon")
     private String winnerPokemon;
 

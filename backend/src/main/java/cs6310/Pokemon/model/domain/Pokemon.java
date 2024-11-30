@@ -81,7 +81,7 @@ public abstract class Pokemon {
                 }
             } else {
                 var defenseSkill = getAvailableSkill(this.defenseSkills);
-                
+
                 if (defenseSkill == null) {
                     var string = this.name + " does not have enough SP points for any defense skill";
                     System.out.println(string);
@@ -123,9 +123,9 @@ public abstract class Pokemon {
     }
 
     private Skill getAvailableSkill(List<Skill> skillList) {
-         List<Skill> availableSkills = skillList.stream()
-                     .filter(skill -> this.currentSkillPoints >= skill.getSkillPointsCost())
-                     .toList();
+        List<Skill> availableSkills = skillList.stream()
+                .filter(skill -> this.currentSkillPoints >= skill.getSkillPointsCost())
+                .toList();
         if (availableSkills.isEmpty()) {
             return null;
         }
@@ -162,12 +162,14 @@ public abstract class Pokemon {
         for (var skill : this.attackSkills.stream().sorted(Comparator.comparingInt(Skill::getStrength))
                 .toList()) {
             attackSkillsFormatted = attackSkillsFormatted
-                    .concat("\nName: " + skill.getName() + " Damage: " + skill.getStrength() + " SP Cost: " + skill.getSkillPointsCost());
+                    .concat("\nName: " + skill.getName() + " Damage: " + skill.getStrength() + " SP Cost: "
+                            + skill.getSkillPointsCost());
         }
         for (var skill : this.defenseSkills.stream().sorted(Comparator.comparingInt(Skill::getStrength))
                 .toList()) {
             defenseSkillsFormatted = defenseSkillsFormatted
-                    .concat("\nName: " + skill.getName() + " Defense: " + skill.getStrength() + " SP Cost: " + skill.getSkillPointsCost());
+                    .concat("\nName: " + skill.getName() + " Defense: " + skill.getStrength() + " SP Cost: "
+                            + skill.getSkillPointsCost());
         }
 
         return "Pokemon: " + this.name + " has " + this.currentHitPoints + " hp"

@@ -36,7 +36,7 @@ public class Bulbasaur extends Pokemon {
         var defense2 = new Skill("Endure", 5, 1, SkillType.DEFENSE);
         var defense3 = new Skill("Protect", 15, 3, SkillType.DEFENSE);
 
-        super.setDefenseSkills(new ArrayList<>(Arrays.asList(defense2, defense1,defense3)));
+        super.setDefenseSkills(new ArrayList<>(Arrays.asList(defense2, defense1, defense3)));
     }
 
 }

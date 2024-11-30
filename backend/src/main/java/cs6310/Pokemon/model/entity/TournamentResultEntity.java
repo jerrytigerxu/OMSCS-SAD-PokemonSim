@@ -21,7 +21,7 @@ public class TournamentResultEntity {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
-    
+
     private String winnerPokemon;
 
     @OneToMany(mappedBy = "tournamentResultEntity")
@@ -30,4 +30,3 @@ public class TournamentResultEntity {
     @CreationTimestamp
     private LocalDateTime createdTimestamp;
 }
-
