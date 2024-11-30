@@ -1,6 +1,7 @@
 package cs6310.Pokemon.model.domain;
 
 import java.lang.reflect.InvocationTargetException;
+import java.util.ArrayList;
 import java.util.Comparator;
 import java.util.List;
 import java.util.Random;
@@ -23,10 +24,14 @@ public abstract class Pokemon {
     private Random rand;
 
     public Pokemon() {
+        this.attackSkills = new ArrayList<>();
+        this.defenseSkills = new ArrayList<>();
     }
 
     public Pokemon(int seed) {
         this.rand = new Random(seed);
+        this.attackSkills = new ArrayList<>();
+        this.defenseSkills = new ArrayList<>();
     }
 
     public void battle(Object opponent, int incomingDamage) {
@@ -63,6 +68,7 @@ public abstract class Pokemon {
             if (isAttacking) {
                 var attackSkill = getAvailableSkill(this.attackSkills);
 
+                // Future improvment could be to move this to the Ditto class.
                 if (this.name.equals("Ditto")) {
                     if (((Ditto) this).isTransformEnabled()) {
                         attackSkill = new Skill("Attack", 0, originalIncomingDamage, SkillType.ATTACK);
@@ -175,5 +181,19 @@ public abstract class Pokemon {
         return "Pokemon: " + this.name + " has " + this.currentHitPoints + " hp"
                 + "\nAttack Skills:" + attackSkillsFormatted + "\nDefense Skills:"
                 + defenseSkillsFormatted;
+    }
+
+    private void sortSkills(List<Skill> skills) {
+        skills.sort(Comparator.comparingInt(Skill::getStrength));
+    }
+
+    protected void addAttackSkill(Skill skill) {
+        this.attackSkills.add(skill);
+        sortSkills(this.attackSkills);
+    }
+
+    protected void addDefenseSkill(Skill skill) {
+        this.defenseSkills.add(skill);
+        sortSkills(this.defenseSkills);
     }
 }

@@ -33,13 +33,15 @@ public class Ditto extends Pokemon {
 
         var attack1 = new Skill("Transform", 0, 0, SkillType.ATTACK);
 
-        super.setAttackSkills(new ArrayList<>(Arrays.asList(attack1)));
+        super.addAttackSkill(attack1);
 
         var defense1 = new Skill("Block", 10, 2, SkillType.DEFENSE);
         var defense2 = new Skill("Endure", 5, 1, SkillType.DEFENSE);
         var defense3 = new Skill("Protect", 15, 3, SkillType.DEFENSE);
 
-        super.setDefenseSkills(new ArrayList<>(Arrays.asList(defense2, defense1,defense3)));
+        super.addDefenseSkill(defense2);
+        super.addDefenseSkill(defense1);
+        super.addDefenseSkill(defense3);
     }
 
 }
