@@ -2,7 +2,6 @@ package cs6310.Pokemon.service;
 
 import java.io.PrintStream;
 import java.lang.reflect.InvocationTargetException;
-import java.time.LocalDate;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;

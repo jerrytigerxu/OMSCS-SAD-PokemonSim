@@ -19,15 +19,10 @@ const Tournament = () => {
     const startTournament = async () => {
         setError(null);
 
-        if (selectedPokemon.length < 2) {
-            alert('Please select at least two Pokemon for the tournament.');
-            return;
-        }
-
         try {
-            if (selectedPokemon.length % 2 !== 0) {
-                setError('The number of selected Pokemon must be even.');
-                throw new InvalidNumberOfPokemonSelectedError('The number of selected Pokemon must be even.');
+            if (selectedPokemon.length < 4) {
+                setError('Please select at least 4 Pokemon for the tournament.');
+                throw new InvalidNumberOfPokemonSelectedError('At least 4 Pokemon must be selected for the tournament.');
             }
 
             const response = await fetch(
