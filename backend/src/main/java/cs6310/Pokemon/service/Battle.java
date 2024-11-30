@@ -1,5 +1,6 @@
 package cs6310.Pokemon.service;
 
+import java.io.PrintStream;
 import java.lang.reflect.InvocationTargetException;
 import java.time.LocalDate;
 
@@ -10,6 +11,7 @@ import cs6310.Pokemon.model.dto.BattleResult;
 import cs6310.Pokemon.model.entity.BattleResultEntity;
 import cs6310.Pokemon.repository.BattleResultRepository;
 import lombok.Data;
+import cs6310.Pokemon.utility.CustomPrintStream;
 
 @Data
 @Service
@@ -45,7 +47,18 @@ public class Battle {
         }
 
         var result = new BattleResult();
-        this.pokemonOne.battle(this.pokemonTwo, 0, result);
+        CustomPrintStream customPrintStream = new CustomPrintStream(System.out);
+        PrintStream originalOut = System.out;
+        System.setOut(customPrintStream);
+
+        try {
+            this.pokemonOne.battle(this.pokemonTwo, 0);
+        } finally {
+            System.setOut(originalOut);
+        }
+
+        result.setOrderOfBattle(customPrintStream.getOutputList());
+
         var loser = this.pokemonOne.getCurrentHitPoints() <= 0 ? this.pokemonOne.getName() : this.pokemonTwo.getName();
         if (this.pokemonOne.getName().equals(loser)) {
             System.out.println(this.pokemonOne.getName() + " has lost");
