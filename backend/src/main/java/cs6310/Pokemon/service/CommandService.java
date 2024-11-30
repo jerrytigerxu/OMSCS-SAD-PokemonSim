@@ -1,17 +1,20 @@
 package cs6310.Pokemon.service;
 
+import java.util.LinkedList;
 import java.util.List;
 import java.util.Set;
 
 import org.springframework.stereotype.Service;
 import org.springframework.retry.annotation.Retryable;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.retry.annotation.Backoff;
 import org.springframework.retry.annotation.Recover;
 
 import cs6310.Pokemon.model.domain.Pokemon;
 import cs6310.Pokemon.model.dto.BattleResult;
 import cs6310.Pokemon.model.dto.TournamentResult;
-
+import cs6310.Pokemon.repository.BattleResultRepository;
+import cs6310.Pokemon.repository.TournamentResultRepository;
 import cs6310.Pokemon.exception.InvalidSeedException;
 import lombok.RequiredArgsConstructor;
 import lombok.Setter;
@@ -26,8 +29,13 @@ import java.util.stream.Collectors;
 @Slf4j
 public class CommandService {
     private final Battle battle;
+    private final Tournament tournament;
+
     @Setter
     private int seed = -1;
+
+    private BattleResultRepository battleResultRepository;
+    private TournamentResultRepository tournamentResultRepository;
 
     public String doSetSeed(Integer seed) {
         this.seed = seed;
@@ -47,14 +55,14 @@ public class CommandService {
         return battle.startBattle(pokemonOne, pokemonTwo);
     }
 
-    @Retryable(value = { SQLException.class }, maxAttempts = 3)
     public TournamentResult doTournament(List<String> pokemonList) throws InvalidSeedException {
         if (this.seed < 0) {
             throw new InvalidSeedException();
         }
         try {
             System.out.println("Starting tournament in CommandService with seed: " + this.seed);
-            Tournament tournament = new Tournament(this.seed, pokemonList);
+            tournament.setSeed(this.seed);
+            tournament.setPokemonQueue(new LinkedList<>(pokemonList));
             TournamentResult result = tournament.startTournament();
             System.out.println("Tournament completed successfully.");
             return result;
