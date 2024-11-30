@@ -16,13 +16,13 @@
   - [x] Gather all of the core information for each diagram
   - [x] Describe all of the core information for each diagram in plain English
 
-- [ ] Development phase (W 11/20 - S 11/23) (focus more on accuracy and less on aesthetics or fine-grained details)
-  - [ ] Create "alpha" versions of the structural diagrams (deployment, component)
-  - [ ] Create "alpha" versions of the behavioral diagrams (sequence, use case, activity)
+- [x] Development phase (W 11/20 - S 11/23) (focus more on accuracy and less on aesthetics or fine-grained details)
+  - [x] Create "alpha" versions of the structural diagrams (deployment, component)
+  - [x] Create "alpha" versions of the behavioral diagrams (sequence, use case, activity)
 
-- [ ] Refinement phase (M 11/25 - F 11/29) (maximize RVF after various cycles of feedback and refinement - readability, validity, and fluidity)
-  - [ ] Create "beta" versions of the structural diagrams (deployment, component)
-  - [ ] Create "beta" versions of the behavioral diagrams (sequence, use case, activity)
+- [x] Refinement phase (M 11/25 - F 11/29) (maximize RVF after various cycles of feedback and refinement - readability, validity, and fluidity)
+  - [x] Create "beta" versions of the structural diagrams (deployment, component)
+  - [x] Create "beta" versions of the behavioral diagrams (sequence, use case, activity)
 
 ## Important points about the design artifacts
 - Clearly designate which version of UML is being (>v2.0 is recommended)
