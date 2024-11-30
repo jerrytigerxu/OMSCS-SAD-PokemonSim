@@ -30,13 +30,18 @@ public class Mew extends Pokemon {
         var attack3 = new Skill("Charm", 0, 0, SkillType.ATTACK);
         var attack4 = new Skill("Psychic", 0, 15, SkillType.ATTACK);
 
-        super.setAttackSkills(new ArrayList<>(Arrays.asList(attack3, attack1, attack2, attack4)));
+        super.addAttackSkill(attack3);
+        super.addAttackSkill(attack1);
+        super.addAttackSkill(attack2);
+        super.addAttackSkill(attack4);
 
         var defense1 = new Skill("Block", 0, 2, SkillType.DEFENSE);
         var defense2 = new Skill("Endure", 0, 1, SkillType.DEFENSE);
         var defense3 = new Skill("Protect", 0, 3, SkillType.DEFENSE);
 
-        super.setDefenseSkills(new ArrayList<>(Arrays.asList(defense2, defense1,defense3)));
+        super.addDefenseSkill(defense2);
+        super.addDefenseSkill(defense1);
+        super.addDefenseSkill(defense3);
     }
 
 }
