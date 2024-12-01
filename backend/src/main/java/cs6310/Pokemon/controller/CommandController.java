@@ -30,6 +30,13 @@ public class CommandController {
     public ResponseEntity<String> handleBattle(@PathVariable String pokemon1, @PathVariable String pokemon2) {
         System.out.println("Starting battle between " + pokemon1 + " and " + pokemon2);
 
+        try {
+            Class.forName("cs6310.Pokemon." + pokemon1);
+            Class.forName("cs6310.Pokemon." + pokemon2);
+        } catch (ClassNotFoundException e) {
+            return ResponseEntity.badRequest().body("Pokémon class not found for: " + (e.getMessage().contains(pokemon1) ? pokemon1 : pokemon2));
+        }
+
         String result;
         try {
             BattleResult battleResult = commandService.doBattle(pokemon1, pokemon2);
@@ -47,10 +54,21 @@ public class CommandController {
 
     @GetMapping("/tournament/{pokemonList}")
     public ResponseEntity<String> handleTournament(@PathVariable String pokemonList) {
-        // Split the comma-delimited list into a list of strings
         List<String> pokemonListParsed = Arrays.asList(pokemonList.split(","));
-        String result;
+        
+        if (pokemonListParsed.size() < 4) {
+            return ResponseEntity.badRequest().body("At least 4 Pokémon must be provided for a tournament.");
+        }
 
+        for (String pokemon : pokemonListParsed) {
+            try {
+                Class.forName("cs6310.Pokemon." + pokemon);
+            } catch (ClassNotFoundException e) {
+                return ResponseEntity.badRequest().body("Pokémon class not found for: " + pokemon);
+            }
+        }
+
+        String result;
         try {
             TournamentResult tournamentResult = commandService.doTournament(pokemonListParsed);
             result = objectMapper.writeValueAsString(tournamentResult);

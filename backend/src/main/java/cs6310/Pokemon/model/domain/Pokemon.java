@@ -109,8 +109,12 @@ public abstract class Pokemon {
     private void doAttackSkill(Object opponent, Skill attackSkill)
             throws NoSuchMethodException, IllegalAccessException, InvocationTargetException {
         var string = this.name + " is attacking with " + attackSkill.getName() + " for "
-                + attackSkill.getStrength() + " damage to " + opponent.getClass().getSimpleName();
+                + attackSkill.getStrength() + " damage to " + opponent.getClass().getSimpleName()
+                + ". SP Cost: " + attackSkill.getSkillPointsCost() + ", Remaining SP: "
+                + (this.currentSkillPoints - attackSkill.getSkillPointsCost());
         System.out.println(string);
+
+        this.currentSkillPoints -= attackSkill.getSkillPointsCost();
 
         var opponentBattleMethod = opponent.getClass().getMethod("battle", Object.class, int.class);
         opponentBattleMethod.invoke(opponent, (Object) this, attackSkill.getStrength());
@@ -118,8 +122,12 @@ public abstract class Pokemon {
 
     private void doDeffenseSkill(Object opponent, Skill defenseSkill)
             throws NoSuchMethodException, IllegalAccessException, InvocationTargetException {
-        var string = this.name + " is attempting to defend with " + defenseSkill.getName();
+        var string = this.name + " is attempting to defend with " + defenseSkill.getName()
+                + ". SP Cost: " + defenseSkill.getSkillPointsCost() + ", Remaining SP: "
+                + (this.currentSkillPoints - defenseSkill.getSkillPointsCost());
         System.out.println(string);
+
+        this.currentSkillPoints -= defenseSkill.getSkillPointsCost();
 
         this.activeDefense = defenseSkill.getStrength();
         this.activeDefenseSkill = defenseSkill;
@@ -178,7 +186,7 @@ public abstract class Pokemon {
                             + skill.getSkillPointsCost());
         }
 
-        return "Pokemon: " + this.name + " has " + this.currentHitPoints + " hp"
+        return "Pokemon: " + this.name + " has " + this.currentHitPoints + " hp" + " and " + this.currentSkillPoints + " sp"
                 + "\nAttack Skills:" + attackSkillsFormatted + "\nDefense Skills:"
                 + defenseSkillsFormatted;
     }
