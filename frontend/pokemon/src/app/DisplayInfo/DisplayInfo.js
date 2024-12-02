@@ -12,6 +12,7 @@ const DisplayInfo = ({ name }) => {
     const pokemon = {
       name: '',
       hp: 0,
+      sp: 0,
       attackSkills: [],
       defenseSkills: []
     };
@@ -21,19 +22,22 @@ const DisplayInfo = ({ name }) => {
         const parts = line.split(' ');
         pokemon.name = parts[1];
         pokemon.hp = parseInt(parts[3]);
+        pokemon.sp = parseInt(parts[6]);
       } else if (line.startsWith('Name:') && line.includes('Damage:')) {
         const parts = line.split(' ');
-        let stringsInName = parts.length - 3;
+        let stringsInName = parts.length - 5;
         pokemon.attackSkills.push({
           name: parts.slice(1, stringsInName + 1).join(' '),
-          damage: parseInt(parts[parts.length - 1])
+          damage: parseInt(parts[parts.length - 4]),
+          spCost: parseInt(parts[parts.length - 1])
         });
       } else if (line.startsWith('Name:') && line.includes('Defense:')) {
         const parts = line.split(' ');
-        let stringsInName = parts.length - 3;
+        let stringsInName = parts.length - 5;
         pokemon.defenseSkills.push({
           name: parts.slice(1, stringsInName + 1).join(' '),
-          defense: parseInt(parts[parts.length - 1])
+          defense: parseInt(parts[parts.length - 4]),
+          spCost: parseInt(parts[parts.length - 1])
         });
       }
     });
@@ -72,13 +76,14 @@ const DisplayInfo = ({ name }) => {
 
   return (
     <div className="pokemon-info">
-      <h3>Pokemon: {pokemonInfo.name} has {pokemonInfo.hp} hp</h3>
+      <h3>Pokemon: {pokemonInfo.name} has {pokemonInfo.hp} hp and {pokemonInfo.sp} sp</h3>
       <h4>Attack Skills:</h4>
       <table className="skills-table">
         <thead>
           <tr>
             <th>Name</th>
             <th>Damage</th>
+            <th>SP Cost</th>
           </tr>
         </thead>
         <tbody>
@@ -86,6 +91,7 @@ const DisplayInfo = ({ name }) => {
             <tr key={index}>
               <td>{skill.name}</td>
               <td>{skill.damage}</td>
+              <td>{skill.spCost}</td>
             </tr>
           ))}
         </tbody>
@@ -96,6 +102,7 @@ const DisplayInfo = ({ name }) => {
           <tr>
             <th>Name</th>
             <th>Defense</th>
+            <th>SP Cost</th>
           </tr>
         </thead>
         <tbody>
@@ -103,6 +110,7 @@ const DisplayInfo = ({ name }) => {
             <tr key={index}>
               <td>{skill.name}</td>
               <td>{skill.defense}</td>
+              <td>{skill.spCost}</td>
             </tr>
           ))}
         </tbody>
