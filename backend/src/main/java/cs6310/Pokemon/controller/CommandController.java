@@ -85,6 +85,12 @@ public class CommandController {
 
     @GetMapping("/displayInfo/{pokemon}")
     public ResponseEntity<String> handleDisplayInfo(@PathVariable String pokemon) {
+        try {
+            Class.forName("cs6310.Pokemon." + pokemon);
+        } catch (ClassNotFoundException e) {
+            return ResponseEntity.badRequest().body("Pokémon class not found for: " + pokemon);
+        }
+
         String result = commandService.doDisplayInfo(pokemon);
         return ResponseEntity.ok(result);
     }

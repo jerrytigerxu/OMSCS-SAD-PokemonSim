@@ -13,9 +13,9 @@ public class CustomPrintStream extends PrintStream {
     }
 
     @Override
-    public void println(String x) {
-        outputList.add(x);
-        super.println(x);
+    public void println(String str) {
+        outputList.add(str);
+        super.println(str);
     }
 
     public List<String> getOutputList() {
